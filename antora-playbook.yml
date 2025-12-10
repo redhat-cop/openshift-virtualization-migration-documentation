@@ -1,0 +1,20 @@
+site:
+  title: Ansible for OpenShift Virtualization Migration Documentation
+  start_page: guides::home.adoc
+content:
+  sources:
+    - url: .
+      start_path: guides
+      branches: HEAD
+
+asciidoc:
+  attributes:
+    experimental: ''
+    idprefix: ''
+    idseparator: '-'
+    page-pagination: ''
+
+ui:
+  bundle:
+    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    snapshot: true

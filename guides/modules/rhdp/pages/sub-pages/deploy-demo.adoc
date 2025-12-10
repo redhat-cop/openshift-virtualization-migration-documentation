@@ -1,0 +1,33 @@
+= Deploy OpenShift Virtualization Roadshow Environment
+
+The https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/openshift-cnv.ocp-virt-roadshow-multi-user.prod&utm_source=webapp&utm_medium=share-link[Experience OpenShift Virtualization Roadshow] within RHDP provides a suitable environment for starting to work with the Ansible for OpenShift Virtualization Migration.
+
+Navigate to the https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/openshift-cnv.ocp-virt-roadshow-multi-user.prod&utm_source=webapp&utm_medium=share-link[Experience OpenShift Virtualization Roadshow Catalog Item] and select *Order*.
+
+On the order page, select the following options:
+
+* Activity: *Practice / Enablement*
+* Purpose: *Conduct internal training/enablement*
+
+Leave the remainder of the options as their default values.
+
+Select the checkbox next to _I confirm that I understand the above warnings_ and click *Order* to begin the provisioning process.
+
+It will take some time for the environment to fully provision. The progress can be tracked within the RHDP portal and once complete, an email will be sent to your inbox.
+
+Once the provisioning of the environment has completed, select the _Service_ associated with the _Experience OpenShift Virtualization Roadshow_ workshop.
+
+image::rhdp-services-list.png[alt text]
+
+Obtain the credentials for the _admin_ user as well as the URL's of the OpenShift API Server and Web Console by selecting the *Details* tab.
+
+image::rhdp-service-details.png[alt text]
+
+Use the https://docs.redhat.com/en/documentation/openshift_container_platform/4.18/html/cli_tools/openshift-cli-oc[OpenShift Command Line Interface (CLI)] to authenticate to the OpenShift environment using the information provided on the _Details_ tab. Be sure to use the credentials for the _admin_ and replace the admin _password_ and location of the _OpenShift API server_ with the values listed on the _details_ tab of the RHDP service in the following command.
+
+[,shell]
+----
+oc login --insecure-skip-tls-verify=true --username=admin --password=<password> --server=https://api.cluster-<cluster_id>.dynamic.redhatworkshops.io:6443
+----
+
+At this point, you should be able to begin working with the Ansible for OpenShift Virtualization Migration

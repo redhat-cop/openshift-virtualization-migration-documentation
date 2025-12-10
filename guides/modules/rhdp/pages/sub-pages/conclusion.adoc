@@ -1,0 +1,5 @@
+= Conclusion
+
+In this walkthrough, you learned how the Ansible for OpenShift Virtualization Migration can be deployed to a RHDP workshop environment and used to migrate Virtual Machines from VMware to OpenShift. In addition, you also explored the Ansible Automation Platform instance that was deployed including the various integrations that were also provisioned.
+
+With the completion of this workshop, you should have the skills necessary to deploy the Ansible for OpenShift Virtualization Migration and use it to Migrate Virtual Machine at scale. While we just covered the basics, you should have the knowledge to use Ansible, Ansible Automation Platform and the Ansible for OpenShift Virtualization Migration to simply the migration journey of Virtual Machines into OpenShift.

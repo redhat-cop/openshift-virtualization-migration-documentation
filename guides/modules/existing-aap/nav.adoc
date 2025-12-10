@@ -1,0 +1,1 @@
+* xref:existing-aap.adoc[Existing Ansible Automation Platform (AAP) Integration]

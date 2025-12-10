@@ -1,0 +1,58 @@
+= Tested Deployments
+
+== Abstact
+
+This guide provides the tested deployments of Ansible for OpenShift Virtualization Migration
+
+== Overview
+
+The Ansible for OpenShift Virtualization Migration team tested a defined set of deployment options.
+These deployments are tested against expected production deployments.
+It is possible to run Ansible for OpenShift Virtualization Migration using different infrastructure topologies.
+
+
+[#multi-cluster]
+== Multi-cluster Deployment
+
+Multi-cluster deployments consist of a central "hub" cluster and one or more "spoke" clusters.
+
+=== Deployment Topology
+
+image:multi-cluster.png[]
+
+=== Example Inventory File
+[,yaml]
+----
+include::example$multi.inventory.yml[]
+----
+
+[#multi-cluster-external]
+== Multi-cluster with External AAP
+
+Multi-cluster with External AAP deployments have the same "hub" and "spoke" clusters as <<multi-cluster>>.
+Instead of deploying AAP on the "hub" cluster, a pre-exsiting APP installation is used. 
+
+=== Deployment Topology
+
+image:external-aap.png[]
+
+=== Example Inventory File
+[,yaml]
+----
+include::example$external-aap.inventory.yml[]
+----
+
+[#singl-cluster]
+== Single Cluster
+
+A single cluster deployment should only be used for testing purposes and is not recommended to be used in production.
+
+=== Deployment Topology
+
+image:single-cluster.png[]
+
+=== Example Inventory File
+[,yaml]
+----
+include::example$single.inventory.yml[]
+----

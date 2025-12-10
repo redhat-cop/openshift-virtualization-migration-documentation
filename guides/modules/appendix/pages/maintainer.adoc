@@ -1,0 +1,7 @@
+This documentation is coauthored and maintained by:
+
+- Masa Abushamleh (mabusham@redhat.com)
+- Andrew Block (ablock@redhat.com)
+- Matthew Taylor (mataylor@redhat.com)
+- Jeff Pullen (jpullen@redhat.com)
+- Martijn ten Heuvel (mtenheuv@redhat.com)

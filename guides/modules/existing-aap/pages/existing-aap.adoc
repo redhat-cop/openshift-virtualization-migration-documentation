@@ -1,0 +1,62 @@
+﻿# Integrating with an Existing Ansible Automation Platform Instance
+
+The Ansible for OpenShift Virtualization Migration can be integrated with an existing instance of Ansible Automation Platform (AAP) instance. This allows for preexisting instances of AAP, whether deployed within OpenShift or on traditional infrastructure, to be utilized by the Ansible for OpenShift Virtualization Migration.
+
+The key difference between utilizing the Ansible for OpenShift Virtualization Migration with an existing AAP instance versus the default deployment is that an instance of Ansible Automation Platform will not be deployed and instead, the specified AAP instance will be populated with the Ansible for OpenShift Virtualization Migration content. Once populated, you will be able to utilize the AAP instance in a similar manner as if it were deployed with the Ansible for OpenShift Virtualization Migration.
+
+== Prerequisites
+
+Refer to the xref:prereqs:prerequirements.adoc[Prerequisites Documentation] for the list of required resources that must be satisfied prior to integrating with an existing Ansible Automation Platform instance.
+
+== Populating an Existing Ansible Automation Platform Instance
+
+Similar to a standard deployment of the Ansible for OpenShift Virtualization Migration, configuration is driven through properties within an _inventory file_. The `migration_aap` Inventory Group specifies the properties that are required in order to connect and populate an existing AAP instance.
+
+The following data structure represents the the available options within the `migration_aap` Inventory Group:
+
+[source,yaml]
+----
+# Inventory Group for an existing Ansible Automation Platform instance
+migration_aap:
+  hosts:
+    # Name representing the host automation will take action against. This can be any desired name as all actions are executing locally
+    aap_host:
+      
+      # Hostname or IP address of the Ansible Automation Platform instance
+      aap_hostname: aap.example.com
+      
+      # Username for authenticating against the Ansible Automation Platform instance 
+      aap_username: <aap_username>
+
+      # Password to authenticate against the Ansible Automation Platform instance 
+      aap_password: <aap_password>
+
+      # Token based authentication for the Ansible Automation Platform instance
+      aap_token: <aap_token>
+
+      # Perform TLS certificate validation when connecting to the Ansible Automation Platform instance
+      aap_validate_certs: true
+----
+
+[IMPORTANT]
+====
+Be sure to define the remainder of the required properties to populate the AAP instance with the Ansible for OpenShift Virtualization Migration content. Otherwise, an error will occur during execution.
+====
+
+The `migration_factory_seed.yml` playbook can be used to populate an existing Ansible Automation Platform instance with the Ansible for OpenShift Virtualization Migration content.
+
+Execute the following command to execute the playbook referencing the previously defined inventory file:
+
+[source,shell]
+----
+ansible-navigator run \
+  --pp=missing \
+  --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
+  -m stdout \
+  --pp=missing \
+  infra.openshift_virtualization_migration.migration_factory_seed \
+  -i <inventory> \
+  --pae false
+----
+
+Once the playbook completes, the Ansible for OpenShift Virtualization Migration content is available for use the specified Ansible Automation Platform instance.

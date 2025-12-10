@@ -1,0 +1,17 @@
+= Tips & Tricks
+
+This page includes all the tips and tricks that can be useful while using the collection.
+
+== Reset the Configuration of AAP
+
+To reset the configuration of AAP, login as ```admin``` to the Ansible Automation Platform instance then delete the following resources:
+
+* All Templates except for "Demo Job Template"
+* All organizations except for "Default" organization
+* All projects except for "Default" project
+
+The following screenshots show example of how the AAP should look like after cleanup:
+
+image::templates.png[templates]
+image::projects.png[projects]
+image::organizations.png[organizations]

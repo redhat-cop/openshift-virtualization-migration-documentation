@@ -1,0 +1,96 @@
+= Migrate Virtual Machines
+
+You can migrate virtual machines by running the link:https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_migration/content/playbook/mtv_migrate.yml/[ `mtv_migrate`] playbook which executes `mtv_migrate` and  `mtv_management` roles.
+
+The playbook runs tasks to:
+
+* Create migration plans.
+* Create StorageMaps and NetworkMaps between source and target environments.
+* Run the migration plans to migrate the VMs from the source environment to the target environment.
+
+== Prerequisites
+
+* Login to the cluster over CLI using `oc login` command.
+* Make sure that the cluster is configured for OpenShift Virtualization Migration.
+* Configure a dedicated project for migration (refer to xref:rhdp:sub-pages/migrate-vm.adoc#configuring-a-dedicated-project-for-migrations[Configure a dedicated project for migration])
+
+== Required Variables
+
+The following is a required variable to be added as input for this playbook:
+
+* *mtv_migrate_migration_request (Required)*: a migration request that contains information related to the virtual machines to be migrated from the source target to the destination target. Add the role to the inventory to perform the migration. 
+
+Below is an example on the variable in `var.yml`:
+
+.var.yml
+[,yaml]
+----
+mtv_migrate_migration_request:
+  mtv_namespace: rhdp-migrations
+  source: vmware-target-rhdp
+  source_namespace: openshift-mtv
+  destination: host
+  destination_namespace: openshift-mtv
+  target_namespace: rhdp-migrations
+  network_map: vmware-target-rhdp-host
+  network_map_namespace: rhdp-migrations
+  storage_map: vmware-target-rhdp-host
+  storage_map_namespace: rhdp-migrations
+  start_migration: true
+  verify_plans_ready: true
+  plan_name: haproxy-user1
+  vms:
+    - name: haproxy-user1
+----
+
+== Sample Usage
+[,shell]
+----
+ansible-navigator run --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest --pp=missing -m stdout --pae=false --senv=K8S_AUTH_HOST=$(oc whoami --show-server) --senv=K8S_AUTH_VERIFY_SSL=false --senv=K8S_AUTH_API_KEY=$(oc whoami -t) infra.openshift_virtualization_migration.mtv_migrate -e openshift_api_key=$(oc whoami -t) -i inventory-rhdp.yml --extra-vars "@var.yml"
+----
+
+== Migrate Virtual Machines with AAP
+To migrate virtual machines with AAP, review the steps in xref:rhdp:sub-pages/migrate-vm.adoc[Migrating Virtual Machines] section of the step-by-step guide.
+
+
+== Parameter Reference
+Refer to the following block for a guide on filling the `mtv_migrate_migration_request` variable.
+
+[,yaml]
+----
+mtv_migrate_migration_request:
+  mtv_namespace: openshift-mtv # Name of the namespace MTV is deployed within (defaults to 'openshift-mtv')
+  source_type: vsphere # Source MTV Provider type (defaults to 'vsphere')
+  source: vmware # name of the target containing source vm's (defaults to 'vmware')
+  source_namespace: openshift-mtv # Namespace the MTV source provider is located within
+  destination: host # name of the target where vm's will be migrated to (defaults to 'host')
+  destination_namespace: openshift-mtv # Namespace the MTV destination provider is located within
+  destination_type: openshift # Destination MTV Provider type (defaults to 'openshift')
+  vms_per_plan: 10 # Number of vm's to split into multiple plans (defaults to 10)
+  split_plans: false # Determines whether to split plans (defaults to false)
+  plan_overrides: {} # Configuration to apply at the Plan level
+  vm_overrides: {} # Configurations to apply to each VM (Lowest priority)
+  target_namespace: openshift-mtv # Namespace VM's should be created in (defaults to the 'openshift-mtv' Namespace)
+  dry_run: false # Build the plans without applying them to the Target OpenShift cluster. Displays at the end \
+  (defaults to false)
+  network_map: vmware-host # name of the NetworkMap to associate (defaults to <source_name>-<destination_name>)
+  network_map_namespace: openshift-mtv # Namespace containing the NetworkMap (defaults to the 'openshift-mtv' Namespace)
+  storage_map: vmware-host # name of the StorageMap to associate (defaults to <source_name>-<destination_name>)
+  storage_map_namespace: openshift-mtv # Namespace containing the StorageMap (defaults to the 'openshift-mtv' Namespace)
+  start_migration: false # Creates Migration resources for the created Plans (defaults to false)
+  verify_plans_ready: false # Verifies Plans in a Ready state (defaults to false)
+  verify_migrations_complete: false # Waits until migrations are complete (defaults to false)
+  plan_name: mymigration # Name of the plan to create (defaults to <source_name>-<target_name>-yyyyMMdd-HHmm)
+  vms: # Explicit list of vm's to migrate (allows for VM specific configurations when migrating large number of vm's)
+    - id: <moid> # MOID of the VM
+      name: <name> # Name of the vm to migrate
+      path: <path> # VMware path for the VM (Eg: <datacenter>/vm/<folder>/<name>)
+      overrides: {} # Configurations to apply to the specific virtual machines (Highest priority)
+      exclude: true # Exclude the VM from the plan (default to false)
+  folders:
+    - id: <moid> # Required when multiple folders with the same name exists
+      name: <name> # Name of the folder to migrate
+      path: <path> # VMware path for the folder
+      overrides: {} # Configurations to apply to all vm's in the folder and subfolder
+      exclude: true # Exclude the folder and all subfolders from plans
+----

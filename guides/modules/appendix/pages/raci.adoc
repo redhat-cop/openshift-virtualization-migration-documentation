@@ -1,0 +1,60 @@
+= RACI model
+ 
+The type of organisations involved in workloads big enough to justify building a migration factory would have involve using different departments, vendors or Teams. In this RACI model the entities of _'Teams'_ are used.
+
+The pressure to move to OpenShift Virtualization is in general not a technical decision, the driver is something else. The Teams enabling the organisation to have this new platform are subsequentially made responsible for any migration.
+
+This does not recognize Teams responsible for workloads, applications and related components for their role the migrations. These Teams have to be identified and given the right responsibility and accountability to support deciding when to move workloads and therefor when to execute migrations.
+
+INFO:: Initial migrations identified the Infrastructure Team, Platform Team, Application Teams, the Management Team, the link:http://www.redhat.com/[Vendor] Team, an Automation Team and many more. See below for Team descriptions.
+
+The responsibility for migrations can not be given to the Infrastructure or Platform Teams, these Teams are not responsible for what is running _inside_ the virtual platform. The Infrastructure Team can be then responsible for the migration execution, ensuring the right virtual machines are migrated and these migrations happen in the correct way with the correct results. 
+
+The Migration Factory code is generally about addressing this - except the RACI model.
+
+A RACI model for migrations must be created. The model has to be endorsed by those that have decided to deploy and move to a new platform - this would be those that have taken the decision, which usually is the management layer of an organisation. 
+
+The model below is an example which could be fed into the decision.
+
+== Example model 
+
+An example model would for instance look like this
+
+[options=header,cols="3,1,1,1,1,1,1"]
+|===
+
+|Task |Infrastructure Team | Platform Team | Application Team |Management Team |Vendor Team |Automation Team
+|Deploy new infrastructure       | R | I   | I  | A | C | I 
+|Create automation for migration | R | I   | I  | A | C | RC
+|Communicate migration timelines | C | C   | I  | RA | CI | CI 
+|Migrate workloads               | R | I   | A  | I | C | I 
+|Determine migration timeslot    | CI | CI | RA | A | I | I 
+|Provide tests                   | I | CI  | RA | I | I | C 
+|Create automated tests          | I | CI  | A  | I | I | RC 
+|Maintain the automation platform| CI | I  | I  | A | I | R
+|Run tests                       | R | CI  | A  | I | I | C 
+|Create automated migration      | R | CI  | C  | I | C | RA 
+|Execute migrations              | RA | CI | R  | A | I | CI 
+|===
+
+* R = Responsible
+* A = Accountable
+* C = Consulted
+* I = Informed
+
+See link:https://en.wikipedia.org/wiki/Responsibility_assignment_matrix[Wikipedia] for more details.
+
+== Team Descriptions
+
+* Infrastructure Team +
+  The infrastructure Team is responsible for the infrastructure - all things Iron. We could see this as the Team previously responsible for the VMware infrastructure.
+* Platform Team +
+  The Platform Team we see at customers is often responsible for namespace as a service, and very well connected to both the Instrastructure Team and the Application Team.
+* Application Team +
+  Of course, the are many Application Teams. The idea in this matrix is to identify them all but with this single line. These Teams are responsible for the applications.
+* Management Team +
+  The Management Team is every person empowered by the organization. Think of C-level, but also the managers accross the different Teams, product owners and so on. They have their own RACI.
+* Automation Team +
+  The Automation Team automates things, run Ansible Automation Platform and write and maintain playbooks and everything that is related with these elements.
+* Vendor Team +
+  The Vendor Team could be consultants and architects from Red Hat, or a Technical Account Manager, or the Support engineer involved, or the Solution Architect - and so on. It could also be other vendors, taking a role in the migrations.

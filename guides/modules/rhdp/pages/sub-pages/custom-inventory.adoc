@@ -1,0 +1,258 @@
+= Customizing the Ansible for OpenShift Virtualization Migration Inventory
+
+In preparation for deploying the Ansible for OpenShift Virtualization Migration to the Red Hat Developer Program (RHDP) workshop environment, create a new working directory called `rhdp` and then change into the directory
+
+[,shell] 
+----
+mkdir rhdp
+cd rhdp
+----
+
+A baseline Ansible inventory is located in the `inventory.yml` file at the root of the Git repository of the Ansible for OpenShift Virtualization Migration Collection that should have been cloned previously which describes the various options that can be configured.
+
+Make a copy of the `inventory.yml` file and name the copied file `inventory-rhdp.yml` to contain the Ansible Inventory for your RHDP environment.
+
+[,shell]
+----
+cp ../openshift_virtualization_migration/inventory.yml inventory-rhdp.yml
+----
+
+Now, let's customize the file so that the Ansible for OpenShift Virtualization Migration can be deployed to the RHDP workshop environment.
+
+The first set of values that need to be configured are a set of variables that apply to all instances within the `vars` section of the `all` group.
+
+[,yaml]
+----
+all:
+  vars:
+  # Common variables applied to all inventory groups
+----
+
+Many of the values that will be updated were initially defined in the xref:prereqs:prerequirements.adoc[Prerequisites], while the remaining are either sourced from the RHDP environment or customized for this particular use case.
+
+A helpful hint that is found within the inventory file is that variables that do need to be updated are currently set with ```changeme```, which is your clue that the value needs to be updated based on instructions within this guide.
+
+== AAP Instance
+First, set the `aap_instance_name` property which will set the name of the Ansible Automation Platform instance to `aap-rhdp` as shown below:
+
+[,yaml]
+----
+    aap_instance_name: aap-rhdp
+----
+
+== Ansible Automation Platform Entitlements
+
+=== Red Hat Subscriptions Manifest File
+
+Next, copy the Red Hat Subscriptions Manifest file that was downloaded from the Red Hat Customer Portal to the current working directory. It is recommended to rename the file to `aap-entitlement-manifest.zip`.
+
+[,shell]
+----
+mv <path_to_manifest_file> aap-entitlement-manifest.zip
+----
+
+The `bootstrap_aap_license_manifest` variable will be used to specify the location of the manifest file which will be set at deployment time of the Ansible for OpenShift Virtualization Migration in a subsequent section.
+
+Since a Red Hat Subscriptions Manifest file will be used instead of user credentials, ensure the `rh_username` and `rh_password` variables are commented out as shown below:
+
+[,yaml]
+----
+  #rh_username: <username>
+  #rh_password: <password>
+----
+
+== Ansible Execution Environment
+To configure the Ansible for OpenShift Virtualization Migration Ansible Execution Environment within Ansible Automation Platform,  get the credentials of ```OpenShift Virtualization Migration EE``` from the Bitwarden Collection.
+
+Set the `container_host` variable to be the location within Quay along with the `container_username` and `container_password`.
+
+[,yaml]
+----
+    container_host: quay.io/redhat-cop
+    container_username: <username>
+    container_password: <password>
+----
+
+== GitLab Authentication
+Next, configure how Ansible Automation Platform will access the Ansible for OpenShift Virtualization Migration Content Collection from the GitLab repository. 
+
+First, specify the URL that should be used to clone the source code within Ansible Automation Platform. This can be found by navigating to the Ansible for OpenShift Virtualization Migration Ansible Content Collection link:https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration[GitLab repository], selecting the *Code* button and then locating the value associated for the retrieval method being used (PAT based authentication should use the *HTTPS* option).
+
+Specify the value within the `aap_project_repo` variable as shown below.
+
+[,yaml]
+----
+    aap_project_repo: <url>
+----
+
+Depending on the authentication method selected (SSH or Personal Access Token), set the following values:
+
+*SSH*
+
+Set the following variables when utilizing SSH based authentication
+
+First include the content of the SSH Private key in the `git_ssh_private_key` variable
+
+[,yaml]
+----
+    git_ssh_private_key: |-
+      -----BEGIN OPENSSH PRIVATE KEY-----
+      ...
+      -----END OPENSSH PRIVATE KEY-----
+----
+
+If the Private Key includes a passphrase, set the `git_ssh_key_passphrase` variable
+
+[,yaml]
+----
+    git_ssh_key_passphrase: <passphrase>
+----
+
+Since a username and password is not applicable when using SSH based authentication, set the `git_password` variable as `null` or remove/comment out this variable
+
+[,yaml]
+----
+    #git_username: changeme
+    #git_password: changeme
+----
+
+*PAT*
+
+Set the following variables when utilizing basic authentication with a Personal Access Token
+
+Set the `git_username` as your GitLab username and `git_password` as Personal Access Key created previously.
+
+[,yaml]
+----
+    git_username: <username>
+    git_password: <password>
+----
+
+Remove or comment out the `git_ssh_private_key` and `git_ssh_key_passphrase` variables.  
+
+== Red Hat Automation Hub
+Now, set the Token retrieved from https://console.redhat.com/ansible/automation-hub/token/[Red Hat Automation Hub] within the `automation_hub_certified_token` and `automation_hub_validated_token` variables. 
+
+The same token value is used to access content from both Certified and Validated Content sources.
+
+[,yaml]
+----
+    automation_hub_certified_url: https://cloud.redhat.com/api/automation-hub/content/published/
+    automation_hub_certified_auth_url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+    automation_hub_certified_token: <automation_hub_token>
+
+    automation_hub_validated_url: https://cloud.redhat.com/api/automation-hub/content/validated/
+    automation_hub_validated_auth_url: https://sso.redhat.com/auth/realms/redhat-external/protocol/openid-connect/token
+    automation_hub_validated_token: <automation_hub_token>
+----
+
+== Optional: Omitting Additional Supporting Operators
+The final variable that needs to be applied the to _all_ hosts group helps dictate the configuration of Operators within OpenShift. 
+
+Since the automation included within the Ansible for OpenShift Virtualization Migration supports fully configuring even the most minimally configured OpenShift environment, steps must be taken to omit installing certain operators as they are already present in the Workshop environment, such as the OpenShift Virtualization and Migration Toolkit for Virtualization (MTV) operators.
+
+The RHDP Workshop environment includes all of the required operators by default, so there is no need to install any additional operators as part of the automation. To omit the management of any additional supporting operators, uncomment the following variables to configure the Ansible for OpenShift Virtualization Migration.
+
+[,yaml]
+----
+    aap_seed_operator_management_hub: []
+    aap_seed_operator_management_spoke: []
+----
+
+The remainder of the variables within the `all` inventory group can be left as their default values provided. Feel free to review these values for a better understanding of the components included with the Ansible for OpenShift Virtualization Migration.
+
+== Hub & Spoke Clusters configuration
+With the baseline variables configured in our inventory, lets turn our attention to the Hub (`migration_hub`) and Spoke (`migration_spoke`) Inventory Groups. Since the hosts within each group represents the same cluster, update the host in both inventory groups (currently set as `hub.cluster.example.com` and `spoke.cluster.example.com`) respectfully to `rhdp.redhat.com` as show below:
+
+[,yaml]
+----
+migration_hub:
+  hosts:
+    rhdp.redhat.com:
+    ...
+migration_spoke:
+  hosts:
+    rhdp.redhat.com:
+    ....
+----
+
+Underneath each Host Group within the inventory contain a number of variables related to OpenShift Authentication. Within these locations, you can specify the following:
+
+* Address of the OpenShift API server using the `openshift_host` variable. 
+* Credentials, can either be:
+** Username/Password combination with the `openshift_username` and `openshift_password` variables 
+** Or using an API Token. Either a long-lived token associated with a Service Account or a temporary API key, such as a token associated with a User.
+
+Since there is only 1 OpenShift cluster, we can provide the location of the OpenShift API server and the token of the currently authenticated user as Extra Variables at runtime, so no changes to the inventory file are needed.
+
+An OpenShift Service Account is created within the target OpenShift environment to enable automation activities as part of the provisioning process as well as within Ansible Automation Platform. Instead of specifying an OAuth token, additional options for authenticating against the OpenShift environment are available, but will not be covered in this guide.
+
+== Migration Targets
+Finally, the last component that needs to be configured within the Ansible Inventory is to specify how the Ansible for OpenShift Virtualization Migration should interact with the VMware environments, and in particular, the VMware environment that provided with the RHDP workshop environment. The source (typically VMware) and destinations (typically OpenShift) of Virtual machine is specified within the `migration_targets` property within the OpenShift spoke cluster host group (`migration_spoke`).
+
+For example, a VMware environment is represented within the `migration_targets` variable similar to the following:
+
+[,yaml]
+----
+migration_targets:
+  - name: vmware-1
+    type: vmware
+    host: vcenter.example.com
+    username: <username>
+    password: <password>
+    vddk:
+      image: "quay.io/redhat-cop/openshift-virtualization-migration-vddk:latest"
+      username: "{{ container_username }}"
+      password: "{{ container_password }}"
+    mapping:
+      create: true
+----
+
+To obtain the VMware details associated with your workshop environment:
+
+. navigate to the RHDP portal and select the _Service_ associated with the _Experience OpenShift Virtualization Roadshow_ workshop.
+. Select the *Users* tab and the vCenter details are listed within the _User Data_ section. 
+
+** If multiple users have been provisioned as part of the workshop, it does not matter which user details you select as each will contain the same assets within vCenter.
+
+Set the following the content within the `migration_targets` property within your Ansible inventory similar to the following, matching the values listed in the RHDP portal.
+
+[,yaml]
+----
+migration_targets:
+  - name: vmware-target-rhdp
+    type: vmware
+    host: <vcenter_console>
+    username: <vcenter_full_user>
+    password: <vcenter_password>
+    vddk:
+      image: "quay.io/redhat-cop/openshift-virtualization-migration-vddk:latest"
+      username: "{{ container_username }}"
+      password: "{{ container_password }}"
+    mapping:
+      create: true
+----
+
+The VMware Virtual Disk Development Kit (VDDK) image is used to transfer virtual disks from VMware vSphere. The credentials to access the image were previously set within the ```all``` inventory group (```OpenShift Virtualization Migration EE``` credentials in BitWarden vault) and are referred in ```container_username``` and ```container_password``` values.
+
+[IMPORTANT]
+====
+The VDDK image and associated credentials are for the exclusive use of internal Red Hat testing of the Ansible for OpenShift Virtualization Migration and cannot be used within customer environment or copied to alternate locations as it contains licensed VMware assets. 
+
+Tooling is available in the link:https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift-virtualization-vmware-vddk[openshift-virtualization-vmware-vddk repository] to help produce a VDDK image using customer/end user provided licensed VMWare components.
+====
+
+=== Specify Migration Target in Spoke Cluster
+With the Migration Target defined, the final step is to associate it to a specific OpenShift spoke cluster. This can be achieved by specifying the name with the `configured_migration_targets` variable within the host group of the _rhdp.redhat.com_. Set the item in the list to be `vmware-target-rhdp`, matching the name property of the Migration Target.
+
+[,yaml]
+----
+migration_spoke:
+  hosts:
+    rhdp.redhat.com:
+      configured_migration_targets:
+        - vmware-target-rhdp
+----
+
+Save the inventory file to apply the changes.
+

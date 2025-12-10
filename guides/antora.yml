@@ -1,0 +1,11 @@
+name: guides 
+title: Development Guides
+version: ~
+nav:
+  - modules/ROOT/nav.adoc
+  - modules/tested-deployments/nav.adoc
+  - modules/prereqs/nav.adoc
+  - modules/rhdp/nav.adoc
+  - modules/ansible-playbooks/nav.adoc
+  - modules/existing-aap/nav.adoc
+  - modules/appendix/nav.adoc

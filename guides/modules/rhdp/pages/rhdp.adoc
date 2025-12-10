@@ -1,0 +1,22 @@
+= Ansible for OpenShift Virtualization Migration on Red Hat Demo Platform (RHDP)
+
+This document describes provides an illustrative walkthrough of how to deploy and utilize the Ansible for OpenShift Virtualization Migration within the https://catalog.demo.redhat.com[Red Hat Demo Platform (RHDP)] environment. Upon completion, you will have the knowledge and experience to:
+
+. Understand the primary components included with the Migration
+. Configure the Ansible for OpenShift Virtualization Migration Inventory for use in a Single OpenShift environment
+. Use https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/using_content_navigator/index[Ansible Navigator] to deploy the Ansible for OpenShift Virtualization Migration from your Local Machine
+. Prepare the RHDP OpenShift environment to migrate Virtual Machines
+. Migrate Virtual Machines using the Ansible for OpenShift Virtualization Migration
+
+== Prerequisites
+
+The following must be satisfied prior to beginning the steps illustrated within this document.
+
+. Completed the Ansible for OpenShift Virtualization Migration xref:prereqs:prerequirements.adoc[prerequisites]. You may choose to complete the steps described either on your local machine or on the Bastion machine that is provisioned with the RHDP workshop environment.
+. Access Red Hat Demo Platform (RHDP).
+
+[NOTE]
+====
+It is recommended that the bastion VM that is deployed alongside the RHDP environment be used to perform CLI based activities. Once the environment is available, you can complete the steps outlined in the xref:prereqs:prerequirements.adoc[Prerequisites].
+====
+

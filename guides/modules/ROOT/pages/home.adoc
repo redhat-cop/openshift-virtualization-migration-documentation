@@ -1,0 +1,20 @@
+﻿# Ansible for OpenShift Virtualization Migration
+
+== Overview
+Ansible for OpenShift Virtualization Migration is a solution that enables the usage of OpenShift Virtualization at scale. It is a set of Ansible automation playbooks, with deep integration with Ansible Automation Platform (AAP), providing capabilities to automate the assessment of existing virtualization environments, streamlining the migration process, and to manage day-2 operations of Virtual Machines running the platform.
+
+image::mf-overview.png[alt text]
+
+== Ansible Collection
+The Ansible collection enables the migration journey of Virtual Machine (VM) workloads from existing hypervisors to Red Hat OpenShift Virtualization using Ansible Automation Platform. Additionally it provides content for management and maintainence of VM workloads within Red Hat OpenShift Virtualization.
+
+The OpenShift Virtualization Migration project now consists of two validated Ansible collections available on Automation Hub:
+
+* https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_migration/[OpenShift Virtualization Migration]
+* https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_ops/[OpenShift Virtualization Operations]
+
+== Find us on the Source
+Stay up-to-date with the solution. You can find the download link for collection, along with key resources such as documentation and relevant information, on the Source page (link:https://red.ht/migration-factory[red.ht/migration-factory]).
+
+== Use Cases Request
+Use the https://docs.google.com/forms/d/e/1FAIpQLSfKQzd1eQomLCkj3yrfTUFNaon4gfP-TwqWtEp0U6mhk0_nVA/viewform[form] to submit real-world examples where the collection is (or could be) applied.

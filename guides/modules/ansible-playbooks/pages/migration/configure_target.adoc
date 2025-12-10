@@ -1,0 +1,67 @@
+= Configure Targets
+
+You can configure the following MTV providers for migration:
+
+* VMware Provider using link:https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_migration/content/playbook/mtv_provider_vmware.yml/[`mtv_provider_vmware`] playbook.
+* Red Hat Virtualization Provider using link:https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_migration/content/playbook/mtv_provider_ovirt.yml/[`mtv_provider_ovirt`] playbook.
+
+The playbooks leverage the `mtv_management` role.
+
+
+== Prerequisites
+
+* Login to the cluster over CLI using `oc login` command.
+* Make sure that the cluster is configured for OpenShift Virtualization Migration.
+
+=== Required Variables
+
+* *mtv_management_migration_targets (Required)*: A variable that includes details about VMware or RHEV environment.
+
+The following code block show an example with details to configure VMware provider in a `var.yml` file:
+
+.var.yml
+[source,yaml]
+----
+mtv_management_migration_targets:
+- name: vmware-2w7dj
+  type: vmware
+  host: vcsrs00-vc.infra.demo.redhat.com
+  username: ocpvirt-2w7dj-user1@infra
+  password: <VCENTER-PASSWORD>
+  vddk:
+  image: quay.io/redhat-cop/openshift-virtualization-migration-vddk:latest #this VDDK image is for demo purposes only. Must NOT be distributed externally.
+  username: "{{ container_username }}"
+  password: "{{ container_password }}"
+  sdkEndpoint: /sdk
+  insecureSkipTlsVerify: true
+  mapping:
+    create: true
+----
+
+The following code block shows an example with details to configure RHEV provider in a `var.yml` file:
+
+.var.yml
+[source,yaml]
+----
+mtv_management_migration_targets:
+- name: rhev-target-1 # Required
+  type: ovirt
+  host: rhev.infra.demo.redhat.com
+  username: admin@internal
+  sdkEndpoint: /ovirt-engine/api #if not provided automatically will be added
+  password: <RHEV-PASSWORD>
+  insecureSkipTlsVerify: true
+  mapping:
+    create: true
+----
+
+== Sample Usage
+
+[,shell]
+----
+ansible-navigator run --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest --pp=missing -m stdout --pae=false --senv=K8S_AUTH_HOST=$(oc whoami --show-server) --senv=K8S_AUTH_VERIFY_SSL=false --senv=K8S_AUTH_API_KEY=$(oc whoami -t) infra.openshift_virtualization_migration.mtv_provider_vmware -e openshift_api_key=$(oc whoami -t) -i inventory-rhdp.yml --extra-vars "@var.yml"
+----
+
+== Configure Providers with AAP 
+
+To configure providers with AAP, review the steps in xref:rhdp:sub-pages/final-install.adoc[Finalizing the Installation] section of the step-by-step guide.

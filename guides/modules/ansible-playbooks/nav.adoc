@@ -1,0 +1,10 @@
+* xref:playbooks-overview.adoc[Ansible Playbooks Use Cases]
+** Migration
+*** xref:migration/mtv_migrate.adoc[Migrate Virtual Machines]
+*** xref:migration/operator_management.adoc[Install & Configure Operators]
+*** xref:migration/configure_target.adoc[Configure Target Providers]
+** Day 2 Operations
+*** xref:ops/backup_restore.adoc[Backup & Restore]
+*** xref:ops/vm_hot_plug.adoc[Virtual Machine Hot Plug]
+*** xref:ops/vm_lifecycle.adoc[Virtual Machine Lifecycle]
+*** xref:ops/vm_patching.adoc[Virtual Machine Patching]

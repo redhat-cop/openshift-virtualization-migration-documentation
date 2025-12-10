@@ -1,0 +1,15 @@
+﻿= Ansible Playbooks Use Cases
+
+This section gives a deeper insight into the Ansible playbooks from the collection. The presented use cases also show how you can run them on your local machine using the playbooks to enable testing and customization of the collection.
+
+The Ansible playbooks use cases are demonstrated in two separate sections:
+
+* Migration section covers playbooks from https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_migration/[OpenShift Virtualization Migration].
+* Day 2 Operations section covers playbooks from https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_ops/[OpenShift Virtualization Operations].
+
+== Prerequisites
+
+Prior to running the playbooks make sure to meet the following prerequisites:
+
+* Completed the Ansible for OpenShift Virtualization Migration xref:prereqs:prerequirements.adoc[prerequisites]. You may choose to complete the steps described either on your local machine or on the Bastion machine that is provisioned with the RHDP workshop environment.
+* Inventory is configured as demonstrated in the xref:rhdp:sub-pages/custom-inventory.adoc[Customizing the Ansible for OpenShift Virtualization Migration Inventory].

@@ -1,0 +1,29 @@
+= Install & Configure Operators
+
+With the link:https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_migration/content/playbook/operator_management.yml/[`operator_management`] playbook, you can install and configure operators to use with the OpenShift Virtualization Migration. This playbook leverages the `operator_management` role.
+
+The default operators that can be installed with this playbook are:
+
+* Migration Toolkit for Virtualization (MTV)
+* OpenShift Virtualization
+* Advanced Cluster Management (ACM)
+* OpenShift Application Data Protection (OADP)
+* Fence Agents Remediation (FAR)
+* NMState
+* Node Health Check (NHO) Operator
+
+== Prerequisites
+
+* Login to the cluster over CLI using `oc login` command.
+* Operators and their resources must not exist on the cluster prior to running this playbook.
+
+== Sample Usage
+
+[,shell]
+----
+ansible-navigator run --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest --pp=missing -m stdout --pae=false --senv=K8S_AUTH_HOST=$(oc whoami --show-server) --senv=K8S_AUTH_VERIFY_SSL=false --senv=K8S_AUTH_API_KEY=$(oc whoami -t) infra.openshift_virtualization_migration.operator_management -e openshift_api_key=$(oc whoami -t) -i inventory-rhdp.yml
+----
+
+== Configure Operators with AAP
+
+To install and configure operators for OpenShift Virtualization Migration with AAP review the steps in xref:rhdp:sub-pages/final-install.adoc[Finalizing the Installation] section of the step-by-step guide.

@@ -1,0 +1,25 @@
+= Backup & Restore Virtual Machine
+
+You can backup virtual machines using the link:https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_ops/content/playbook/vm_backup.yml/[`vm_backup`] playbook and restore them with link:https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_ops/content/playbook/vm_restore.yml/[`vm_restore`] playbook.
+
+
+== Prerequisites
+
+* Login to the cluster over CLI using ```oc login``` command.
+
+== Required Variables
+
+The following are required variables to be added as input for this playbook:
+
+* *openshift_api_key (Required)*
+* *openshift_host (Required)*
+* *openshift_verify_ssl (Required)*
+* *vm_collect_vms_var (Required)*: a list of virtual machines to backup/restore.
+
+== Sample Usage
+
+[,shell]
+----
+ansible-navigator run --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest --pp=missing -m stdout --pae=false --senv=K8S_AUTH_HOST=$(oc whoami --show-server) --senv=K8S_AUTH_VERIFY_SSL=false --senv=K8S_AUTH_API_KEY=$(oc whoami -t) infra.openshift_virtualization_ops.vm_backup -e openshift_api_key=$(oc whoami -t) -i inventory-rhdp.yml
+ansible-navigator run --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest --pp=missing -m stdout --pae=false --senv=K8S_AUTH_HOST=$(oc whoami --show-server) --senv=K8S_AUTH_VERIFY_SSL=false --senv=K8S_AUTH_API_KEY=$(oc whoami -t) infra.openshift_virtualization_ops.vm_restore -e openshift_api_key=$(oc whoami -t) -i inventory-rhdp.yml
+----

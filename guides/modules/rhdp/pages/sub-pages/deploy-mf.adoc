@@ -1,0 +1,44 @@
+= Deploy the Ansible for OpenShift Virtualization Migration
+
+Now that all of the required actions have been completed, including installing and configuring a local machine with the required software and the Ansible Inventory has been configured to suit your workshop environment, it is time to deploy the Ansible for OpenShift Virtualization Migration.
+
+Ensure that you are at in the `rhdp` directory containing the Inventory file (`inventory-rhdp.yml`) configured previously along with the Red Hat Subscriptions Manifest file and use Ansible Navigator to deploy the Ansible for OpenShift Virtualization Migration to your RHDP environment.
+
+[,shell]
+----
+ansible-navigator run \
+  --pp=missing \
+  --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
+  -m stdout \
+  infra.openshift_virtualization_migration.migration_factory_aap \
+  -i inventory-rhdp.yml \
+  --pae false \
+  -e openshift_host=$(oc whoami --show-server) \
+  -e openshift_temporary_api_key=$(oc whoami -t) \
+  -e openshift_verify_ssl=false \
+  -e bootstrap_aap_license_manifest=$(pwd)/aap-entitlement-manifest.zip
+----
+
+The provisioning process will take several minutes to complete. Once complete, a recap of the Ansible execution will be similar to the following:
+
+[,shell]
+----
+PLAY RECAP ************************************************************************************************************************************************************************************************************************
+aap-rhdp-virtualization-migration.apps.cluster-<cluster_id>.dynamic.redhatworkshops.io : ok=83   changed=6    unreachable=0    failed=0    skipped=35   rescued=0    ignored=0
+rhdp.redhat.com            : ok=40   changed=1    unreachable=0    failed=0    skipped=39   rescued=0    ignored=0
+----
+
+It is possible that a failure occurs at some point during the provisioning process. Attempt the provisioning again in the event that the issue was temporary in nature.
+
+*Resetting AAP*
+
+If you come across an error similar to the following:
+
+[,shell]
+----
+TASK [infra.aap_configuration.gateway_organizations : Organizations | Wait for finish the configuration] *****************************************************************************
+FAILED - RETRYING: [aap-virtualization-migration.apps.cluster-htjqr.dynamic.redhatworkshops.io]: Organizations | Wait for finish the configuration (30 retries left).
+failed: [aap-virtualization-migration.apps.cluster-htjqr.dynamic.redhatworkshops.io] (item=Create/Update AAP Platform Organizations OpenShift Virtualization Migration | Wait for finish the Organizations creation) => {"__gateway_organizations_job_async_results_item": {"__gateway_organization_item": {"galaxy_credentials": ["Red Hat Automation Hub Certified", "Red Hat Automation Hub Validated", "Ansible Galaxy"], "name": "OpenShift Virtualization Migration"}, "ansible_job_id": "j196981275529.1037", "ansible_loop_var": "__gateway_organization_item", "changed": false, "failed": 0, "finished": 0, "results_file": "/root/.ansible_async/j196981275529.1037", "started": 1}, "ansible_job_id": "j196981275529.1037", "ansible_loop_var": "__gateway_organizations_job_async_results_item", "attempts": 2, "changed": false, "finished": 1, "msg": "There was an unknown error when trying to connect to ParseResult(scheme='https', netloc='aap-virtualization-migration.apps.cluster-htjqr.dynamic.redhatworkshops.io', path='api/gateway/v1/', params='', query='', fragment=''): URLError <urlopen error [Errno 111] Connection refused>", "results_file": "/root/.ansible_async/j196981275529.1037", "started": 1, "stderr": "", "stderr_lines": [], "stdout": "", "stdout_lines": []}
+----
+
+Then refer to xref:appendix:tips.adoc#reset-the-configuration-of-aap[Reset the Configuration of AAP] section in the Tips & Tricks page . Once the steps are complete, you can rerun the ```ansible-navigator``` command.

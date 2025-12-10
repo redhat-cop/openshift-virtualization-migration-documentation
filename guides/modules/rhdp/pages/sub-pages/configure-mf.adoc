@@ -1,0 +1,77 @@
+= Configure the Ansible for OpenShift Virtualization Migration Inventory
+
+Upon the completion of the Ansible for OpenShift Virtualization Migration Prerequisites, the contents of the Ansible for OpenShift Virtualization Migration Ansible Content Collection from https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration[GitLab] should have been cloned locally. Navigate to the directory containing the repository.
+
+Once in the directory containing the Ansible for OpenShift Virtualization Migration Ansible Collection, this section will describe how to configure the https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html[Ansible Inventory] that governs how the Ansible for OpenShift Virtualization Migration will be deployed.
+
+An Ansible for OpenShift Virtualization Migration inventory is organized similar to the following:
+
+[,yaml]
+----
+# Ansible for OpenShift Virtualization Migration Inventory
+all:
+  vars:
+    # Common variables applied to all inventory groups
+    my_var: 'my_var_value'
+
+# Ansible for OpenShift Virtualization Migration Hub Clusters
+migration_hub:
+  hosts:
+    hub-cluster:
+      # Variables to apply to specific Ansible for OpenShift Virtualization Migration Hub Cluster
+      my_var: 'my_var_value'
+
+  # Variables to apply to all Ansible for OpenShift Virtualization Migration Hub Clusters
+  vars:
+    my_var: 'my_var_value'
+
+# Ansible for OpenShift Virtualization Migration Spoke Clusters
+migration_spoke:
+  hosts:
+    spoke-cluster:
+      # Variables to apply to specific Ansible for OpenShift Virtualization Migration Spoke Cluster
+      my_var: 'my_var_value'
+
+  # Variables to apply to all Ansible for OpenShift Virtualization Migration Spoke Clusters
+  vars:
+    my_var: 'my_var_value'
+
+    # Defines a set of source and destination environments which are turned into MTV providers
+    migration_targets:
+      - name: my-vmware-cluster
+        type: vmware
+        host: vcenter.example.com
+        # ...
+
+# Standalone Ansible Automation Platform Environments
+migration_aap:
+  hosts:
+    aap_host:
+      # Ansible Automation Platform Variables
+      aap_host: aap.example.com
+      aap_token: changeme
+      aap_validate_certs: true
+----
+
+The Ansible for OpenShift Virtualization Migration supports multiple deployment patterns and these can be modeled (as seen above) within the inventory. Three Inventory groups are available and described in the following table:
+
+|===
+| Group Name | Description
+
+| `migration_hub`
+| Hub OpenShift clusters
+
+| `migration_spoke`
+| Hub OpenShift clusters
+
+| `migration_aap`
+| Standalone Ansible Automation Platform environments
+|===
+
+In addition to the Inventory Group described above , _migration targets_ located within the _vars_ section of the `migration_spoke` Inventory group represent source and destination environments containing Virtual Machines. In most cases, a VMware vSphere environment will be a source and an OpenShift cluster will be a destination.
+
+While the Ansible for OpenShift Virtualization Migration supports multiple deployment approaches, including a Hub/Spoke, where multiple OpenShift clusters can be used, since the RHDP workshop deploys only a single OpenShift environment, we will utilize a combined architecture where a single OpenShift cluster is a member of both `migration_hub` and `migration_spoke` inventory groups.
+
+Ansible Automation Platform will also be provisioned within this OpenShift cluster as part of the deployment. As a result, the `migration_aap` Inventory Group will not be used as it is designed to enable the deployment of the Ansible for OpenShift Virtualization Migration to an existing Ansible Automation Environment.
+
+With a better understanding of how the Ansible for OpenShift Virtualization Migration Ansible Inventory is organized, lets configure an Inventory for the RHDP OpenShift environment provisioned previously in the next section.

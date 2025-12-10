@@ -1,0 +1,230 @@
+﻿# Ansible for OpenShift Virtualization Migration Prerequisites
+
+To begin either actively contributing or using the Ansible for OpenShift Virtualization Migration, there are several steps that must be completed beforehand. This document describes the required actions that are needed before getting started. While not required, it is recommended that you complete the link:https://docs.google.com/forms/d/e/1FAIpQLSdH9hUDTXMoDHGlXYvYhwe-Vu6bEs5rdgmZo0nL7N9WR12Smw/viewform[onboarding form].
+
+== Required Access
+
+Ansible for OpenShift Virtualization Migration interacts with various systems in order to support the capabilities provided by the solution. These assets require access to resources in order for the solution to communicate properly. 
+
+The following table provides an overview of the credentials that are needed and their purpose:
+
+|===
+| Component | Description
+
+| Method for Activating Ansible Automation Platform
+| A link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#assembly-aap-activate[Red Hat Service Account] or link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#proc-aap-activate-with-manifest[Red Hat Subscriptions Manifest file] with Ansible Automation Platform entitlements is required in order to activate Ansible Automation Platform.
+
+| link:https://gitlab.consulting.redhat.com[Red Hat Consulting GitLab]
+| Access to link:https://gitlab.consulting.redhat.com[Red Hat Consulting GitLab] to retrieve Ansible for OpenShift Virtualization Migration related Ansible content.
+
+| link:https://quay.io[Quay]
+| Access to Ansible for OpenShift Virtualization Migration link:https://www.redhat.com/en/technologies/management/ansible/automation-execution-environments[Ansible Execution Environment].
+
+| link:https://console.redhat.com/ansible/automation-hub[Red Hat Automation Hub]
+| Access to link:https://www.redhat.com/en/technologies/management/ansible/content-collections[Ansible Certified and Verified Content Collections]. This step is not required. However, access may be required if additional automation tooling is developed to extend the capabilities of the Ansible for OpenShift Virtualization Migration project.
+
+| OpenShift
+| Cluster level permissions to one or more OpenShift environments for which the Ansible for OpenShift Virtualization Migration project can be deployed within and/or integrated with to support Virtual Machine workloads.
+
+| VMware
+| Access to VMware environment(s) containing Virtual Machines to migrate into OpenShift.
+
+| Ansible Automation Platform
+| Credentials to an existing Ansible Automation Platform environment when not managed as part of the deployment of the Ansible for OpenShift Virtualization Migration project.
+|===
+
+The following sections describe in detail how to obtain the necessary credentials
+
+=== Ansible Automation Platform Entitlements
+
+A valid Ansible Automation Platform entitlement is required in order to activate the platform. There are two supported methods for activating Ansible Automation Platform:
+
+1. link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#assembly-aap-activate[Red Hat Service Account]
+2. link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#proc-aap-activate-with-manifest[Red Hat Subscriptions Manifest file]
+
+[NOTE]
+====
+This step is not required when using the OpenShift Virtualization Migration Project and integrating with an existing Ansible Automation Platform environment.
+====
+
+=== GitLab
+
+Ansible automation content (Collections) for the Ansible for OpenShift Virtualization Migration is hosted within the Red Hat Consulting GitLab instance. Access is governed by Red Hat SSO and the assets related to the Ansible for OpenShift Virtualization Migration are available to any authenticated user. Since access to this content is restricted, one of the following methods must be made available so that the resources can be leveraged on a local machine as well as Ansible Automation Platform:
+
+* link:https://docs.gitlab.com/user/ssh[SSH Keys]
+* link:https://docs.gitlab.com/user/profile/personal_access_tokens[Personal Access Token]
+
+Consult the xref:appendix:appendix.adoc#gitlab-credentials[Appendix] for the steps to configure these resources for use.
+
+=== BitWarden
+
+The Ansible for OpenShift Virtualization Migration project maintains a set of shared credentials within a link:https://bitwarden.com[Bitwarden] Collection to simplify access to protected content. Rights to access the collection is governed by membership to the _migration-factory_ link:https://groups.google.com[Red Hat Google Group]. 
+
+The recommended method for joining the Google Group and gaining access to the BitWarden Collection is by submitting the link:https://docs.google.com/forms/d/e/1FAIpQLSdH9hUDTXMoDHGlXYvYhwe-Vu6bEs5rdgmZo0nL7N9WR12Smw/viewform[Ansible for OpenShift Virtualization Migration onboarding form].
+
+To learn more about how to access and use the BitWarden Collection, consult the xref:appendix:appendix.adoc#bitwarden[Appendix].
+
+=== Quay
+
+The Ansible for OpenShift Virtualization Migration project maintains a set of container images hosted on link:https://quay.io[quay.io]. Credentials for these resources are stored within the Migration Factory <<bitwarden,Bitwarden Collection>>.
+
+=== Red Hat Automation Hub
+
+A token from Red Hat Automation Hub is required in order to access Certified and Validated Ansible Content Collections. A token can be obtained from the Red Hat Hybrid Cloud Console using the following steps:
+
+. Launch a web browser and navigate to link:https://console.redhat.com[https://console.redhat.com].
+. Select _Ansible Automation Platform_
+. On the left hand navigation bar, expand the _Automation Hub_ dropdown and select _Connect to Hub_
+. Click the _Load token_ button to reveal the Automation Hub token
+
+=== VMware
+
+Virtual Machines hosted within VMware environments represent the primary source of assets to migrate into OpenShift Virtualization. While it is recommended that a review of the prerequisites for the Migration Toolkit for Virtualization is completed, the following are required by the Ansible for OpenShift Virtualization Migration:
+
+* VMware URL
+* VMware Username
+* VWware Password
+
+=== OpenShift
+
+OpenShift represents the target for the migration of Virtual Machines. The Ansible for OpenShift Virtualization Migration project supports multiple deployment patterns ranging from a single environment to a Hub and Spoke architecture. `cluster-admin` privileges is currently required as elevated access is needed to perform the initial deployment as well as to support ongoing operations. 
+
+The OpenShift environments (API and Ingress/Router) must be accessible by the local machine used to provision the Ansible for OpenShift Virtualization Migration solution as well as Ansible Automation Platform.
+
+== Local Environment Setup
+
+The process for deploying the Ansible for OpenShift Virtualization Migration is performed on a local machine. This environment must have the ability to install or leverage the required software as detailed in the sections below. While the use of the Ansible for OpenShift Virtualization Migration is supported on multiple Operating Systems (Linux, OSX), the steps included here will describe the process on a Red Hat Enterprise Linux (RHEL) 9 machine.
+
+=== System Packages
+
+First, ensure that your machine has the latest required packages:
+
+[,shell]
+----
+sudo dnf install -y git
+----
+
+Additional packages, such as `tmux`, `net-tools` and `bind-utils` is recommended, but not required.
+
+Next, install `ansible-navigator` which is used to execute Ansible automation. It is suggested that the `ansible-navigator` package originate from a Red Hat RPM repository.
+
+Add the Ansible Automation Platform repository which contains that `ansible-navigator` package
+
+[,shell]
+----
+sudo subscription-manager repos --enable ansible-automation-platform-2.5-for-rhel-$(rpm --eval %rhel)-x86_64-rpms
+----
+
+[NOTE]
+====
+The command above adds the Ansible Automation Platform 2.5 repository. To install an alternate version (such as 2.4), change the version in the command to target the desired version.
+====
+
+Install `ansible-navigator`
+
+[,shell]
+----
+sudo dnf install -y ansible-navigator
+----
+ 
+Alternatively, if your machine/account cannot utilize the RPM package, link:https://pypi.org/project/pip[pip] can be used instead.
+
+[,shell]
+----
+pip install ansible-navigator
+----
+
+=== Podman
+
+Ansible Navigator makes use of link:https://www.redhat.com/en/technologies/management/ansible/automation-execution-environments[Execution Environments] as a runtime for executing Ansible Automation. link:https://podman.io[Podman] was included as part of the installation of Ansible Navigator as is used as the Container Engine for running Execution Environments.
+
+The Ansible for OpenShift Virtualization Migration Execution Environments are hosted in protected repositories within quay.io.
+
+Using credentials source from the Migration Factory Bitwarden Collection, authenticate to Quay so that these resources can be obtained when running Ansible Navigator.
+
+[,shell]
+----
+podman login quay.io/redhat-cop
+----
+
+Podman is authenticated when `Login Succeeded!` is presented after providing credentials.
+
+=== Git
+
+[NOTE]
+----
+The set up of Git is not required, but can be beneficial for exploring and contributing to the Ansible for OpenShift Virtualization Migration project and related efforts.
+----
+
+Git requires that the username and email be configured prior to use. Skip this step if your Git client has already been configured.
+
+Execute the following commands replacing your name and your email address as shown below.
+
+[,shell]
+----
+git config --global user.name "John Doe"
+git config --global user.email "jdoe@redhat.com"
+----
+
+Now that your Git client has been set up, you can clone the link:https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration[Ansible for OpenShift Virtualization Migration Ansible Collection] to your local machine. Depending on how you configured access to GitLab determines the command that should be used to retrieve the content. Utilize one of the following commands to clone the repository to your local machine:
+
+*SSH*
+
+[,shell]
+----
+git clone ssh://git@gitlab.consulting.redhat.com:2222/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration.git
+----
+
+*HTTPS*
+
+[,shell]
+----
+git clone https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration.git
+----
+
+Once the repository has been cloned locally, change into the newly created directory:
+
+[,shell]
+----
+cd openshift_virtualization_migration
+----
+
+=== OpenShift Command Line Interface
+
+The OpenShift Command Line Interface (CLI) `oc` enables the management of OpenShift environments from a terminal.
+
+Install the OpenShift CLI by utilizing the following steps.
+
+. Navigate to the link:https://access.redhat.com/downloads/content/290[OpenShift Container Platform downloads page] on the Red Hat Customer Portal
+. Select the architecture from the _Product Variant_ drop-down list
+. Select the appropriate version from the _Version_ drop-down list
+. Right click the *Download Now* next to the _OpenShift v4.+++<version>+++Linux Clients_ entry and copy the URL.+++</version>+++
+. Download the archive by executing the following command replacing the value of the download path from the prior step
++
+[,shell]
+----
+curl -L -o oc.tar.gz <oc_download_url>
+----
++
+. Extract the `kubectl` and `oc` binaries from the downloaded archive
++
+[,shell]
+----
+tar -xzf oc.tar.gz oc kubectl
+----
++
+. Move the `kubectl` and `oc` binaries to a location on your path (such as `/usr/local/bin`)
++
+[,shell]
+----
+sudo mv oc kubectl /usr/local/bin
+----
++
+. Remove the downloaded archive
++
+[,shell]
+----
+rm oc.tar.gz
+----
+
+Your local machine is now ready to make use of the Ansible for OpenShift Virtualization Migration project!

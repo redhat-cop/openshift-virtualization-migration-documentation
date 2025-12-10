@@ -1,0 +1,20 @@
+= Virtual Machine Patching
+
+You can patch Fedora and Red Hat Enterprise Linux virtual machines with the link:https://console.redhat.com/ansible/automation-hub/repo/validated/infra/openshift_virtualization_ops/content/playbook/patch.yml/[`patch`] playbook.
+
+
+== Prerequisites
+* Login to the cluster over CLI using `oc login` command.
+
+== Required Variables
+The following are required variables to be added as input for this playbook:
+
+* *openshift_api_key (Required)*
+* *openshift_host (Required)*
+* *openshift_verify_ssl (Required)*
+
+== Sample Usage
+[,shell]
+----
+ansible-navigator run --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest --pp=missing -m stdout --pae=false --senv=K8S_AUTH_HOST=$(oc whoami --show-server) --senv=K8S_AUTH_VERIFY_SSL=false --senv=K8S_AUTH_API_KEY=$(oc whoami -t) infra.openshift_virtualization_ops.patch -e openshift_api_key=$(oc whoami -t) -i inventory-rhdp.yml
+----
