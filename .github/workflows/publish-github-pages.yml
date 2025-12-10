@@ -28,8 +28,7 @@ jobs:
       - name: Install Antora
         run: npm i antora
       - name: Generate Site
-        run: npx antora site.yml
-        # run: npx antora content/default-site.yml
+        run: npx antora antora-playbook.yml
       - name: Setup Pages
         uses: actions/configure-pages@v4
       - name: find where the files are
