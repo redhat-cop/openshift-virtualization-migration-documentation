@@ -1,0 +1,32 @@
+name: Semantic Release
+
+on:
+  push:
+    branches:
+      - main
+  # Allows manual triggering if needed
+  workflow_dispatch: 
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    concurrency: release
+    
+    # CRITICAL: These permissions are required to push the tag and create the release
+    permissions:
+      id-token: write
+      contents: write 
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          # CRITICAL: fetch-depth must be 0 so semantic-release can read the full git history to calculate versions
+          fetch-depth: 0
+
+      - name: Python Semantic Release
+        uses: python-semantic-release/python-semantic-release@v9.15.0
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}

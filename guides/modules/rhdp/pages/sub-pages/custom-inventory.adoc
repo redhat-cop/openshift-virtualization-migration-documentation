@@ -73,10 +73,10 @@ Set the `container_host` variable to be the location within Quay along with the 
     container_password: <password>
 ----
 
-== GitLab Authentication
-Next, configure how Ansible Automation Platform will access the Ansible for OpenShift Virtualization Migration Content Collection from the GitLab repository. 
+== GitHub Authentication
+Next, configure how Ansible Automation Platform will access the Ansible for OpenShift Virtualization Migration Content Collection from the GitHub repository. 
 
-First, specify the URL that should be used to clone the source code within Ansible Automation Platform. This can be found by navigating to the Ansible for OpenShift Virtualization Migration Ansible Content Collection link:https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration[GitLab repository], selecting the *Code* button and then locating the value associated for the retrieval method being used (PAT based authentication should use the *HTTPS* option).
+First, specify the URL that should be used to clone the source code within Ansible Automation Platform. This can be found by navigating to the Ansible for OpenShift Virtualization Migration Ansible Content Collection link:https://github.com/redhat-cop/openshift_virtualization_migration[GitHub repository], clicking the green *Code* button, and selecting the URL for the retrieval method being used (PAT-based authentication should use the *HTTPS* option).
 
 Specify the value within the `aap_project_repo` variable as shown below.
 
@@ -239,7 +239,7 @@ The VMware Virtual Disk Development Kit (VDDK) image is used to transfer virtual
 ====
 The VDDK image and associated credentials are for the exclusive use of internal Red Hat testing of the Ansible for OpenShift Virtualization Migration and cannot be used within customer environment or copied to alternate locations as it contains licensed VMware assets. 
 
-Tooling is available in the link:https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift-virtualization-vmware-vddk[openshift-virtualization-vmware-vddk repository] to help produce a VDDK image using customer/end user provided licensed VMWare components.
+Tooling is available in the link:https://github.com/redhat-cop/openshift-virtualization-vmware-vddk[openshift-virtualization-vmware-vddk repository] to help produce a VDDK image using customer/end user provided licensed VMware components.
 ====
 
 === Specify Migration Target in Spoke Cluster

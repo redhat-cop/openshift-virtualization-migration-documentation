@@ -66,7 +66,7 @@ image::aap-job-templates-migrate.png[Migrate Ansible Automation Platform Job Tem
 The _OpenShift Virtualization Migration - Migrate - rhdp.redhat.com_ Job Template may not be visible in the list of Templates as only 10 _Templates_ are displayed by default. Increase the number of Templates displayed on the page or use the page navigation button to change the selected page being displayed.
 ====
 
-The underlying automation leverages a variable called `mtv_migrate_migration_request` to govern how the Migration Toolkit for Virtualization and the `Plan` and optionally `Migration` resources are constructed. The full set options and their meaning can be found https://gitlab.consulting.redhat.com/redhat-cop/vmware-openshift-virt-migration/virt_migration_factory/-/blob/main/roles/mtv_migrate/defaults/main.yml[here].
+The underlying automation leverages a variable called `mtv_migrate_migration_request` to govern how the Migration Toolkit for Virtualization and the `Plan` and optionally `Migration` resources are constructed. The full set options and their meaning can be found link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/main/roles/mtv_migrate/defaults/main.yml[here].
 
 Click the *Launch template* button where you will be presented with a form to specify the `mtv_migrate_migration_request` variable to define how the migration should be processed.
 

@@ -14,8 +14,8 @@ The following table provides an overview of the credentials that are needed and 
 | Method for Activating Ansible Automation Platform
 | A link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#assembly-aap-activate[Red Hat Service Account] or link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#proc-aap-activate-with-manifest[Red Hat Subscriptions Manifest file] with Ansible Automation Platform entitlements is required in order to activate Ansible Automation Platform.
 
-| link:https://gitlab.consulting.redhat.com[Red Hat Consulting GitLab]
-| Access to link:https://gitlab.consulting.redhat.com[Red Hat Consulting GitLab] to retrieve Ansible for OpenShift Virtualization Migration related Ansible content.
+| link:https://github.com/redhat-cop/openshift_virtualization_migration.git[Red Hat COP GitHub OpenShift Virtualization Migration Repository]
+| Access to link:https://github.com/redhat-cop/openshift_virtualization_migration.git[Red Hat COP GitHub OpenShift Virtualization Migration Repository] to retrieve Ansible for OpenShift Virtualization Migration related Ansible content.
 
 | link:https://quay.io[Quay]
 | Access to Ansible for OpenShift Virtualization Migration link:https://www.redhat.com/en/technologies/management/ansible/automation-execution-environments[Ansible Execution Environment].
@@ -47,14 +47,14 @@ A valid Ansible Automation Platform entitlement is required in order to activate
 This step is not required when using the OpenShift Virtualization Migration Project and integrating with an existing Ansible Automation Platform environment.
 ====
 
-=== GitLab
+=== GitHub
 
-Ansible automation content (Collections) for the Ansible for OpenShift Virtualization Migration is hosted within the Red Hat Consulting GitLab instance. Access is governed by Red Hat SSO and the assets related to the Ansible for OpenShift Virtualization Migration are available to any authenticated user. Since access to this content is restricted, one of the following methods must be made available so that the resources can be leveraged on a local machine as well as Ansible Automation Platform:
+Ansible automation content (Collections) for the Ansible for OpenShift Virtualization Migration is hosted within the Red Hat COP GitHub organization. Since access to this content may require authentication for certain private assets or contribution workflows, one of the following methods should be configured so that the resources can be leveraged on a local machine as well as Ansible Automation Platform:
 
-* link:https://docs.gitlab.com/user/ssh[SSH Keys]
-* link:https://docs.gitlab.com/user/profile/personal_access_tokens[Personal Access Token]
+* link:https://docs.github.com/en/authentication/connecting-to-github-with-ssh[SSH Keys]
+* link:https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens[Personal Access Token]
 
-Consult the xref:appendix:appendix.adoc#gitlab-credentials[Appendix] for the steps to configure these resources for use.
+Consult the xref:appendix.adoc#github-credentials[Appendix] for the steps to configure these resources for use.
 
 === BitWarden
 
@@ -166,20 +166,20 @@ git config --global user.name "John Doe"
 git config --global user.email "jdoe@redhat.com"
 ----
 
-Now that your Git client has been set up, you can clone the link:https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration[Ansible for OpenShift Virtualization Migration Ansible Collection] to your local machine. Depending on how you configured access to GitLab determines the command that should be used to retrieve the content. Utilize one of the following commands to clone the repository to your local machine:
+Now that your Git client has been set up, you can clone the link:https://github.com/redhat-cop/openshift_virtualization_migration[Ansible for OpenShift Virtualization Migration Ansible Collection] to your local machine. Depending on how you configured access to GitHub determines the command that should be used to retrieve the content. Utilize one of the following commands to clone the repository to your local machine:
 
 *SSH*
 
 [,shell]
 ----
-git clone ssh://git@gitlab.consulting.redhat.com:2222/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration.git
+git clone git@github.com:redhat-cop/openshift_virtualization_migration.git
 ----
 
-*HTTPS*
+**HTTPS*
 
 [,shell]
 ----
-git clone https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration.git
+git clone https://github.com/redhat-cop/openshift_virtualization_migration.git
 ----
 
 Once the repository has been cloned locally, change into the newly created directory:

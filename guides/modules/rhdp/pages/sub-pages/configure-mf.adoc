@@ -1,8 +1,8 @@
 = Configure the Ansible for OpenShift Virtualization Migration Inventory
 
-Upon the completion of the Ansible for OpenShift Virtualization Migration Prerequisites, the contents of the Ansible for OpenShift Virtualization Migration Ansible Content Collection from https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration[GitLab] should have been cloned locally. Navigate to the directory containing the repository.
+Upon the completion of the Ansible for OpenShift Virtualization Migration Prerequisites, the contents of the Ansible for OpenShift Virtualization Migration Ansible Content Collection from link:https://github.com/redhat-cop/openshift_virtualization_migration[GitHub] should have been cloned locally. Navigate to the directory containing the repository.
 
-Once in the directory containing the Ansible for OpenShift Virtualization Migration Ansible Collection, this section will describe how to configure the https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html[Ansible Inventory] that governs how the Ansible for OpenShift Virtualization Migration will be deployed.
+Once in the directory containing the Ansible for OpenShift Virtualization Migration Ansible Collection, this section will describe how to configure the link:https://docs.ansible.com/ansible/latest/inventory_guide/intro_inventory.html[Ansible Inventory] that governs how the Ansible for OpenShift Virtualization Migration will be deployed.
 
 An Ansible for OpenShift Virtualization Migration inventory is organized similar to the following:
 
@@ -74,4 +74,4 @@ While the Ansible for OpenShift Virtualization Migration supports multiple deplo
 
 Ansible Automation Platform will also be provisioned within this OpenShift cluster as part of the deployment. As a result, the `migration_aap` Inventory Group will not be used as it is designed to enable the deployment of the Ansible for OpenShift Virtualization Migration to an existing Ansible Automation Environment.
 
-With a better understanding of how the Ansible for OpenShift Virtualization Migration Ansible Inventory is organized, lets configure an Inventory for the RHDP OpenShift environment provisioned previously in the next section.
+With a better understanding of how the Ansible for OpenShift Virtualization Migration Ansible Inventory is organized, let's configure an Inventory for the RHDP OpenShift environment provisioned previously in the next section.

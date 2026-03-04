@@ -2,19 +2,19 @@
 
 == Topics
 
-To access content stored on GitLab, your GitLab account must have credentials associated to your account. Two options are available:
+To access content stored on GitHub, your GitHub account must have credentials associated to your account. Two options are available:
 
-. xref:gitlab-credentials[GitLab Credentials]
+. xref:github-credentials[GitHub Credentials]
 . xref:bitwarden[Bitwarden]
 . xref:ssh-key-generation[SSH Key Generation]
 
-The following sections will describe how to configure your GitLab account with these credential types.
+The following sections will describe how to configure your GitHub account with these credential types.
 
-== GitLab Credentials
+== GitHub Credentials
 
 === SSH
 
-To enable access to GitLab using link:https://docs.gitlab.com/user/ssh[SSH Keys] ensure that an SSH key pair is available for use. If a keypair is not currently available, follow the steps found xref:#ssh-key-generation[here].
+To enable access to GitHub using link:https://docs.github.com/en/authentication/connecting-to-github-with-ssh[SSH Keys] ensure that an SSH key pair is available for use. If a keypair is not currently available, follow the steps found xref:#ssh-key-generation[here].
 
 [source,shell]
 ----
@@ -23,47 +23,47 @@ cat ~/.ssh/id_rsa.pub
 ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5uBNhGE8fsGFzVdmQ0Rq8DEZWU5VomjapuWYqHqenUCnU+9lPh8Z6dXdYf6/86Ou9eRfPMpKvBdwjGgybb/4Wl9/BlRo7F3IUlALrDOELoT0u7vo2GvG0er9Hr5hPQL9pvTD5fNfnCcUyF4nM/4EH6yoUTA9trpYp02i8jzxmnD855lCk1pqmnbqTMdFsT8hcKeqnjsHLTXrEr5/wyMiKsNcqmq/iThIRWISRA/VGRh7RoK+NA6I1dcEN47bYv8siaPzeQbI72yTVyvYXGYsQIY5+G0HDWdOTjSFmYG3a1/Rkp4wvagj3VEzBndi/dlis6gewuVJUPifiikQp50id0vJJ02YOAePWipIHvSd8qyICBxo7jpt9zXhw/nI3YysfBUzKwxSgIVpQ4RMRTpOnXoPN013XXMluEz2z0yknKW1ai1IW+XvY4GCHHFj/ZkghyyE9O4Qnb9EJD4kezKww9IaP/95PPjps9osDsWmxiUDx3G2aPWysOnuN4T4TMqGZYmJNMQaSSuIn8JDQn9EMVWCFRs6WdO1fusdNSDzZmhe0zMqjIi6g3OGQoRjgMSidJL7fzi/ENNVe0IHkYdQe+/JJ2uD4hiEMBWgYtzaObUW5xfmVpT9LsmWvDqxpGgR4EAYSLIZRwUoILK8ekCxeOBoKKyA9P98dc8fPAcTJLQ== jdoe@redhat.com
 ----
 
-Login to link:https://gitlab.consulting.redhat.com[GitLab] and navigate to the _SSH Keys_ section of your User Setting by clicking link:https://gitlab.consulting.redhat.com/-/user_settings/ssh_keys[here].
+Login to link:https://github.com[GitHub] and navigate to the _SSH and GPG keys_ section of your Settings by clicking link:https://github.com/settings/keys[here].
 
-Click the *Add new key* button to begin the configuration process.
+Click the *New SSH key* button to begin the configuration process.
 
-Paste the contents of the SSH Public Key previously copied in the _Key_ text field. Include an optional _Title_ to distinguish the key from other keys, select the desired _Usage type_ (The default option is satisfactory, however, only _Authentication_ is required) and optionally select the date the key will expire.
+Paste the contents of the SSH Public Key previously copied in the _Key_ text field. Include an optional _Title_ to distinguish the key from other keys, and select the desired _Key type_ (The default option _Authentication Key_ is satisfactory).
 
-Click the *Add key* button to add the SSH Public Key to your account. A confirmation page will be displayed indicating the values that were configured.
+Click the *Add SSH key* button to add the SSH Public Key to your account. You may be prompted to confirm your GitHub password.
 
-To verify that you can successfully communicate with GitLab using the SSH key configured in your account, execute the following command.
+To verify that you can successfully communicate with GitHub using the SSH key configured in your account, execute the following command.
 
 [source,shell]
 ----
-ssh -p 2222 -T git@git.consulting.redhat.com
+ssh -T git@github.com
 ----
 
-If this is the first time you are connecting to GitLab, you will receive a warning indicating that you need to verify the authenticity of the host. Type `yes` and hit *Enter*.
+If this is the first time you are connecting to GitHub, you will receive a warning indicating that you need to verify the authenticity of the host. Type `yes` and hit *Enter*.
 
-The following message will be displayed indicating a successful connection to the GitLab server.
+The following message will be displayed indicating a successful connection to the GitHub server.
 
 [source,text]
 ----
-Welcome to GitLab, @jdoe!
+Hi jdoe! You've successfully authenticated, but GitHub does not provide shell access.
 ----
 
 === Personal Access Token
 
-A GitLab link:https://docs.gitlab.com/user/profile/personal_access_tokens[Personal Access Token (PAT)] can be used instead of SSH keys to authenticate to GitLab.
+A GitHub link:https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens[Personal Access Token (PAT)] can be used instead of SSH keys to authenticate to GitHub.
 
-Login to link:https://gitlab.consulting.redhat.com[GitLab] and navigate to the _Personal Access Token_ section of your User Setting by clicking link:https://gitlab.consulting.redhat.com/-/user_settings/personal_access_tokens[here].
+Login to link:https://github.com[GitHub] and navigate to the _Developer settings_ -> _Personal access tokens_ section of your Settings by clicking link:https://github.com/settings/tokens[here].
 
-Click the *Add new token* button to begin the configuration process.
+Click the *Generate new token* button to begin the configuration process.
 
-Enter the name for the Personal Access Token (such as `openshift-virtualization-migration) and optionally enter a _Token Description_ and _Expiration Date_.
+Enter a _Note_ for the Personal Access Token (such as `openshift-virtualization-migration`) and optionally select an _Expiration_ date.
 
-Under the _Select scopes_ section, select *read_repository*.
+Under the _Select scopes_ section, select *repo* to grant the required repository access.
 
-Click then *Create personal access token* to create the token.
+Click *Generate token* to create the token.
 
 A confirmation page will be displayed and includes the value of the generated token. Be sure to copy the value as it cannot be accessed after the page is closed.
 
-GitLab repositories can now be accessed using the _HTTPS_ protocol.
+GitHub repositories can now be accessed using the _HTTPS_ protocol.
 
 == Bitwarden
 
@@ -83,7 +83,7 @@ When the synchronization has completed, the _Migration Factory_ Collection shoul
 
 An SSH Key can be used to facilitate the communication between a local machine or the Ansible for OpenShift Virtualization Migration to external tools. The `ssh-keygen` command is used to create an SSH keypair for this purpose.
 
-Create a new SSH keypair of type `rsa`. An example of the steps for generating the keypair ia shown below. Be sure to update the email address associated with the `-C` parameter with your actual email address:
+Create a new SSH keypair of type `rsa`. An example of the steps for generating the keypair is shown below. Be sure to update the email address associated with the `-C` parameter with your actual email address:
 
 [source,shell]
 ----
