@@ -14,11 +14,11 @@ Jira project [MFG](https://issues.redhat.com/projects/MFG/)
 \
 [Feature/Use case](https://docs.google.com/forms/d/e/1FAIpQLSfKQzd1eQomLCkj3yrfTUFNaon4gfP-TwqWtEp0U6mhk0_nVA/viewform) request form
 \
-[Documentation](https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/documentation) repository
+[Documentation](https://github.com/redhat-cop/openshift-virtualization-migration/documentation) repository
 \
-[Collections](https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration) repository
+[Collections](https://github.com/redhat-cop/openshift_virtualization_migration) repository
 \
-[Execution Environments](https://gitlab.consulting.redhat.com/redhat-cop/openshift-virtualization-migration/openshift_virtualization_migration_ees) repository
+[Execution Environments](https://github.com/redhat-cop/openshift_virtualization_migration_ees) repository
 
 # Environment setup and tools
 The expectation for development is that it will be done using VScode. If you use a different IDE you will have to ensure that you have a process for validating the code using ansible-lint prior to merging.
@@ -45,7 +45,7 @@ The expectation for development is that it will be done using VScode. If you use
 
 ## Contribute using Red Hat Developer Sandbox
 
-NOTE: As this repository is currently not public you will need to create a personal access token and add that to your Developer Sandbox profile.
+NOTE: You will need to create a GitHub personal access token and add that to your Developer Sandbox profile.
 
 To configure your developer sandbox perform the following steps:
 1. Navigate to [Red Hat Developer Sandbox](https://developers.redhat.com/developer-sandbox) and click the red button labeled, 'Start your sandbox for free'
@@ -53,33 +53,33 @@ To configure your developer sandbox perform the following steps:
 3. In the top right, click your username and select 'User Preferences'
 4. Inside of the User Preferences screen, select the top navigation bar button for, 'Personal Access Tokens'
 5. Click the, 'Add Token' option in the top right
-6. Pick a unique name such as 'consulting-gitlab' in the Token Name field
-7. Select GitLab for the Provider Name
-8. Under GitLab Provider Endpoint enter 'https://gitlab.consulting.redhat.com'
-9. Paste a [personal access token](https://docs.gitlab.com/user/profile/personal_access_tokens/#create-a-personal-access-token) created in gitlab.consulting.redhat.com into the Token field.
-10. Click the link below to launch your IDE hosted in the Developer Sandbox on the [virt_migration_factory](https://gitlab.consulting.redhat.com/redhat-cop/vmware-openshift-virt-migration/virt_migration_factory) project
+6. Pick a unique name such as 'github-token' in the Token Name field
+7. Select **GitHub** for the Provider Name
+8. Under GitHub Provider Endpoint enter 'https://github.com'
+9. Paste a [GitHub Personal Access Token](https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens) into the Token field.
+10. Click the link below to launch your IDE hosted in the Developer Sandbox on the project:
 
-[![Contribute](https://www.eclipse.org/che/contribute.svg)](https://workspaces.openshift.com/f?url=https://gitlab.consulting.redhat.com/redhat-cop/vmware-openshift-virt-migration/virt_migration_factory.git)
+[![Contribute](https://www.eclipse.org/che/contribute.svg)](https://workspaces.openshift.com/f?url=https://github.com/redhat-cop/openshift_virtualization_migration.git)
 
 # Forking / Branching / Merging
 
 ## Creating a fork
-1. Create a fork inside your GitLab account: 
-   1. Go to the repository you want to contribute
-   2. Click Fork
-   3. Type your Red Hat ID in the box next to the Project URL
-   4. Clone it (at this point pipeline jobs will not run, don't worry)
-2. Create a branch inside your forked repository with a proper name
-3. Make your code changes and push to your branch
-4. Make sure you're member of [migration-factory-contributors](https://gitlab.consulting.redhat.com/groups/redhat-cop/vmware-openshift-virt-migration/migration-factory-contributors/-/group_members) group, if not, please message asking to be added in the [#forum-virt-migration-factory](https://redhat.enterprise.slack.com/archives/C06U4TQHJSF) slack channel 
-5. Create a Merge Request to the main repository (it can be a draft).
-6. Merge request titles should follow the commit message standards (outlined below)
-7. The pipeline will run using the main repository pipelines infrastructure
-8. When ready, make the Merge Request as ready!
+1. Create a fork inside your GitHub account: 
+   1. Go to the repository you want to contribute to.
+   2. Click the **Fork** button in the top right corner.
+   3. Select your GitHub account as the destination.
+   4. Clone your new fork locally.
+2. Create a branch inside your forked repository with a proper name.
+3. Make your code changes and push to your branch.
+4. Make sure you have the necessary access to the repository. If you are not part of the required GitHub teams, please message asking to be added in the [#forum-virt-migration-factory](https://redhat.enterprise.slack.com/archives/C06U4TQHJSF) Slack channel.
+5. Create a **Pull Request (PR)** to the main repository (it can be a draft).
+6. Pull Request titles should follow the commit message standards (outlined below).
+7. GitHub Actions will run the pipeline using the main repository's infrastructure.
+8. When ready, mark the Pull Request as "Ready for review"!
 
 ## Releases and tags
 * While we strive to have the main branch fully functional as-is, we are limited in automated testing due to the requirements of the test infrastructure. As such, manual testing is required to validate the state of the collection. This single branch development strategy may change in the future, but to minimize the contribution complexity and changes to workflows already established it will stay this way for now.
-* [Semantic Release](https://python-semantic-release.readthedocs.io/en/latest) is used for releasing and tagging. It is configured in the repository using the `pyproject.toml`
+* [Semantic Release](https://python-semantic-release.readthedocs.io/en/latest) is used for releasing and tagging. It is configured in the repository using the `pyproject.toml`.
 
 ## Code Standards
   * Ansible lint show no issues
@@ -110,7 +110,7 @@ To configure your developer sandbox perform the following steps:
   ```
 
   * Collection fragment added to changelogs/fragments/< Jira Task >.yml [documentation here](https://ansible.readthedocs.io/projects/antsibull-changelog/changelogs/)
-    * Example changelog fragment: [changelogs/fragments/MFG-282.yml](https://gitlab.consulting.redhat.com/redhat-cop/vmware-openshift-virt-migration/virt_migration_factory/-/blob/main/changelogs/fragments/MFG-282.yml)
+    * Example changelog fragment: [changelogs/fragments/MFG-282.yml](https://github.com/redhat-cop/openshift_virtualization_migration/blob/main/changelogs/fragments/MFG-282.yml)
   ```yaml
   ---
   minor_changes:
