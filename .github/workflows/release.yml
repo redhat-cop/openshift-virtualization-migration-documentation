@@ -9,7 +9,6 @@ on:
 
 jobs:
   release:
-    needs: build-and-push
     runs-on: ubuntu-latest
     concurrency:
       group: ${{ github.workflow }}-release-${{ github.ref_name }}
