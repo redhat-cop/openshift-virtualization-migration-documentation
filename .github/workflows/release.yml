@@ -2,31 +2,49 @@ name: Semantic Release
 
 on:
   push:
-    branches:
-      - main
-  # Allows manual triggering if needed
-  workflow_dispatch: 
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+  workflow_dispatch:
 
 jobs:
   release:
+    needs: build-and-push
     runs-on: ubuntu-latest
-    concurrency: release
-    
-    # CRITICAL: These permissions are required to push the tag and create the release
+    concurrency:
+      group: ${{ github.workflow }}-release-${{ github.ref_name }}
+      cancel-in-progress: false
+
     permissions:
-      id-token: write
-      contents: write 
-      issues: write
-      pull-requests: write
+      contents: write
 
     steps:
-      - name: Checkout Code
+      # Note: We checkout the repository at the branch that triggered the workflow.
+      # Python Semantic Release will automatically convert shallow clones to full clones
+      # if needed to ensure proper history evaluation. However, we forcefully reset the
+      # branch to the workflow sha because it is possible that the branch was updated
+      # while the workflow was running, which prevents accidentally releasing un-evaluated
+      # changes.
+      - name: Setup | Checkout Repository on Release Branch
         uses: actions/checkout@v4
         with:
-          # CRITICAL: fetch-depth must be 0 so semantic-release can read the full git history to calculate versions
-          fetch-depth: 0
+          ref: ${{ github.ref_name }}
 
-      - name: Python Semantic Release
-        uses: python-semantic-release/python-semantic-release@v9.15.0
+      - name: Setup | Force release branch to be at workflow sha
+        run: |
+          git reset --hard ${{ github.sha }}
+
+      - name: Action | Semantic Version Release
+        id: release
+        uses: python-semantic-release/python-semantic-release@v10.5.3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+          git_committer_name: "github-actions"
+          git_committer_email: "actions@users.noreply.github.com"
+
+      - name: Publish | Upload to GitHub Release Assets
+        uses: python-semantic-release/publish-action@v10.5.3
+        if: steps.release.outputs.released == 'true'
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          tag: ${{ steps.release.outputs.tag }}
