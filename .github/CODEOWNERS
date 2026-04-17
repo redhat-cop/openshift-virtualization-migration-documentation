@@ -1,0 +1,21 @@
+# =====================================================================
+# OpenShift Virtualization Migration Documentation - CODEOWNERS
+# =====================================================================
+
+# 1. Default fallback: Any PR requires review from the 'mergers' team
+* @redhat-cop/openshift-virtualization-migration-mergers
+
+# 2. CI/CD and Release Config: Only 'admins' should approve changes to 
+# GitHub Actions (Pages deployment, Semantic Release) and config files.
+/.github/workflows/    @redhat-cop/openshift-virtualization-migration-admins
+/pyproject.toml        @redhat-cop/openshift-virtualization-migration-admins
+/package.json          @redhat-cop/openshift-virtualization-migration-admins
+/package-lock.json     @redhat-cop/openshift-virtualization-migration-admins
+
+# 3. Documentation Content: The general team can review changes to the 
+# AsciiDoc files, UI templates, and the Antora playbook.
+/*.adoc                @redhat-cop/openshift-virtualization-migration
+/antora-playbook.yml   @redhat-cop/openshift-virtualization-migration
+/antora.yml            @redhat-cop/openshift-virtualization-migration
+/content/              @redhat-cop/openshift-virtualization-migration
+/modules/              @redhat-cop/openshift-virtualization-migration

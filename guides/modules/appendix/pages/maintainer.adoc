@@ -5,3 +5,4 @@ This documentation is coauthored and maintained by:
 - Matthew Taylor (mataylor@redhat.com)
 - Jeff Pullen (jpullen@redhat.com)
 - Martijn ten Heuvel (mtenheuv@redhat.com)
+- Sebastian Rodriguez Isáziga (shebi@redhat.com)
