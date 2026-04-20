@@ -12,7 +12,7 @@ The following table provides an overview of the credentials that are needed and 
 | Component | Description
 
 | Method for Activating Ansible Automation Platform
-| A link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#assembly-aap-activate[Red Hat Service Account] or link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#proc-aap-activate-with-manifest[Red Hat Subscriptions Manifest file] with Ansible Automation Platform entitlements is required in order to activate Ansible Automation Platform.
+| A link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/installing_on_openshift_container_platform/index#assembly-aap-activate[Red Hat Service Account] or link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/installing_on_openshift_container_platform/index#proc-aap-activate-with-manifest[Red Hat Subscriptions Manifest file] with Ansible Automation Platform entitlements is required in order to activate Ansible Automation Platform.
 
 | link:https://github.com/redhat-cop/openshift_virtualization_migration.git[Red Hat COP GitHub OpenShift Virtualization Migration Repository]
 | Access to link:https://github.com/redhat-cop/openshift_virtualization_migration.git[Red Hat COP GitHub OpenShift Virtualization Migration Repository] to retrieve Ansible for OpenShift Virtualization Migration related Ansible content.
@@ -39,8 +39,8 @@ The following sections describe in detail how to obtain the necessary credential
 
 A valid Ansible Automation Platform entitlement is required in order to activate the platform. There are two supported methods for activating Ansible Automation Platform:
 
-1. link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#assembly-aap-activate[Red Hat Service Account]
-2. link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.5/html-single/installing_on_openshift_container_platform/index#proc-aap-activate-with-manifest[Red Hat Subscriptions Manifest file]
+1. link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/installing_on_openshift_container_platform/index#assembly-aap-activate[Red Hat Service Account]
+2. link:https://docs.redhat.com/en/documentation/red_hat_ansible_automation_platform/2.6/html-single/installing_on_openshift_container_platform/index#proc-aap-activate-with-manifest[Red Hat Subscriptions Manifest file]
 
 [NOTE]
 ====
@@ -112,12 +112,12 @@ Add the Ansible Automation Platform repository which contains that `ansible-navi
 
 [,shell]
 ----
-sudo subscription-manager repos --enable ansible-automation-platform-2.5-for-rhel-$(rpm --eval %rhel)-x86_64-rpms
+sudo subscription-manager repos --enable ansible-automation-platform-2.6-for-rhel-$(rpm --eval %rhel)-x86_64-rpms
 ----
 
 [NOTE]
 ====
-The command above adds the Ansible Automation Platform 2.5 repository. To install an alternate version (such as 2.4), change the version in the command to target the desired version.
+The command above adds the Ansible Automation Platform 2.6 repository. To install an alternate version (such as 2.5), change the version in the command to target the desired version.
 ====
 
 Install `ansible-navigator`
