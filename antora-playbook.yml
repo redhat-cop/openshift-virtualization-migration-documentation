@@ -16,5 +16,9 @@ asciidoc:
 
 ui:
   bundle:
+    # NOTE: This URL points to the default Antora community UI.
+    # Tracked in issue #6: this should be replaced with the Red Hat branded
+    # template (see issue #2) once that work is complete.
+    # Pinned to a stable release to prevent silent breakage from upstream UI changes.
     url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
-    snapshot: true
+    snapshot: false
