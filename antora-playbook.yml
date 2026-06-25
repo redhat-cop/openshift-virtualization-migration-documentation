@@ -16,5 +16,6 @@ asciidoc:
 
 ui:
   bundle:
-    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    #    url: https://gitlab.com/antora/antora-ui-default/-/jobs/artifacts/HEAD/raw/build/ui-bundle.zip?job=bundle-stable
+    url: https://github.com/rhpds/rhdp_showroom_theme/releases/download/v2.0.2/ui-bundle.zip
     snapshot: true
