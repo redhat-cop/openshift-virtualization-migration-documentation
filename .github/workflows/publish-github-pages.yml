@@ -31,10 +31,10 @@ jobs:
         run: npx antora antora-playbook.yml
       - name: Setup Pages
         uses: actions/configure-pages@v4
-      - name: find where the files are
-        run: |
-          pwd
-          ls -alR .
+#      - name: find where the files are
+#        run: |
+#          pwd
+#          ls -alR .
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
