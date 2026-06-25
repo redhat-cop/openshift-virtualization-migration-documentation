@@ -54,7 +54,7 @@ Ansible automation content (Collections) for the Ansible for OpenShift Virtualiz
 * link:https://docs.github.com/en/authentication/connecting-to-github-with-ssh[SSH Keys]
 * link:https://docs.github.com/en/authentication/keeping-your-account-and-data-secure/managing-your-personal-access-tokens[Personal Access Token]
 
-Consult the xref:appendix.adoc#github-credentials[Appendix] for the steps to configure these resources for use.
+Consult the xref:appendix:appendix.adoc#github-credentials[Appendix] for the steps to configure these resources for use.
 
 === BitWarden
 
