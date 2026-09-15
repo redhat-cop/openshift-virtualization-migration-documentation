@@ -1,0 +1,3 @@
+The procedure for this station currently lives in the fused migrate article until that page is split.
+
+xref:guides:ansible-playbooks:migration/mtv_migrate.adoc[Migrate Virtual Machines]

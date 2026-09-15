@@ -1,0 +1,1 @@
+This name is not a role on the collection `v2` branch. The v2 roles are listed under xref:index.adoc[Look up an Ansible role].

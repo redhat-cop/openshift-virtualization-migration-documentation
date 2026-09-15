@@ -1,0 +1,12 @@
+= Confirm OpenShift is ready
+
+Start from a cluster that already exists. These docs do not cover installing or deploying OpenShift. The type of OpenShift environment does not change the path.
+
+Assume OpenShift Container Platform is installed, with baseline components:
+
+* OpenShift Virtualization
+* Migration Toolkit for Virtualization (MTV)
+
+A prerequisites role will verify this baseline. If that check fails, fix the cluster before you get AAP ready or seed Migration Factory.
+
+include::page$_placeholder.adoc[]

@@ -1,0 +1,59 @@
+= Execute the migration
+
+Start the Plan custom resources from xref:prepare-migration-wave.adoc[Prepare a migration wave] so MTV copies the VMs to OpenShift.
+
+When you are done, the plan status is **Running**, then **Succeeded**. Next is xref:verify-migration.adoc[Verify the migration]. Creating a plan does not start it.
+
+Collection `v2` does **not** start migrations from Ansible. The seeded AAP template **OpenShift Virtualization Migration - Migrate** (`playbooks/vmf_migrate.yml`) is a placeholder: it prints `source_name` and `target_name` and exits. There is no `mtv_migrate` role on the `v2` branch. Do not launch that template expecting disks to move.
+
+Start each Ready plan in the OpenShift web console (MTV). That is the path that creates the Migration resources and runs the wave.
+
+== Prerequisites
+
+* Plans for this wave exist and show **Ready** (xref:prepare-migration-wave.adoc[Prepare a migration wave]).
+* You can open the destination cluster in the OpenShift web console with permission to use MTV (*Migration* menu).
+
+If a plan is not Ready, go back to the wave page. Do not start it.
+
+== Start the plan in the console
+
+. In the OpenShift web console: *Migration* → *Plans for virtualization*.
+. Select the project where the plans were created (`openshift-mtv` unless you set `migration_namespace` on the wave).
+. Confirm the plan status is **Ready**.
+. Click **Start** beside the plan, then **Start** in the confirmation window.
+
+The plan status becomes **Running**. Open the plan and use the *Virtual Machines* tab for disk transfer and pipeline status.
+
+image::guides:rhdp:openshift-mtv-plan-virtual-machines.png[MTV plan virtual machines while running]
+
+[NOTE]
+====
+If the project does not appear, select *Show default projects* so names that start with `openshift` are listed.
+====
+
+If you used `split_plans`, start each Plan CR in the wave. They are independent.
+
+=== Warm plans
+
+`type: warm` on the wave means **Start** begins precopy while the source VM stays up. Cutover is a later action: on *Plans for virtualization*, open the plan's options menu and choose **Cutover** when you are ready to switch. Cold plans (`type: cold`, the default) finish in the same run as **Start**.
+
+MTV console details: link:https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/[Migration Toolkit for Virtualization documentation].
+
+== The AAP Migrate template
+
+After seed, AAP still has **OpenShift Virtualization Migration - Migrate**. Launching it succeeds and logs the survey values. It does not create a Migration CR, does not call `mtv_plans`, and does not wait for VMs.
+
+Use that template only to confirm seed created it. Use the console steps above to run the wave.
+
+== If the run does not start
+
+* Plan not **Ready** — maps, providers, or VM names; fix on xref:prepare-migration-wave.adoc[Prepare a migration wave].
+* **Start** missing or disabled — the plan is already running, archived, or not Ready.
+* AAP **Migrate** job is green but nothing moves — expected for `vmf_migrate.yml` on collection `v2`.
+* Warm plan stays in precopy — **Start** did its job; use **Cutover** when you intend to switch.
+
+== When you are done
+
+The plan shows **Succeeded** (or is still **Running** while disks copy). Migrated VMs are typically powered off until you start them. Continue to xref:verify-migration.adoc[Verify the migration].
+
+image::guides:rhdp:openshift-mtv-completed-plan.png[MTV plan succeeded]

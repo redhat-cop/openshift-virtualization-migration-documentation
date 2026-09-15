@@ -1,0 +1,21 @@
+= Deploy AAP on your OpenShift
+
+Deploy Ansible Automation Platform onto the OpenShift cluster you already have, then add Migration Factory. These docs do not cover installing OpenShift.
+
+The collection v2 playbook is `utility_aap_deploy` (`playbooks/utility_aap_deploy.yml`). It runs the `utility_aap_deploy` role against `migration_clusters`. It installs AAP; it does **not** seed Migration Factory content. After AAP is up, put its API URL and credentials in `migration_aap` and continue to xref:configure-inventory.adoc[Configure inventory for your environment] and xref:seed-aap.adoc[Seed Migration Factory into AAP].
+
+[,shell]
+----
+ansible-navigator run \
+  --pp=missing \
+  --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
+  -m stdout \
+  --pae=false \
+  --senv=K8S_AUTH_HOST=$(oc whoami --show-server) \
+  --senv=K8S_AUTH_VERIFY_SSL=false \
+  --senv=K8S_AUTH_API_KEY=$(oc whoami -t) \
+  infra.openshift_virtualization_migration.utility_aap_deploy \
+  -i <inventory>
+----
+
+Pass an entitlement manifest with `utility_aap_deploy_aap_license_manifest` when the operator needs a subscription zip. Internals: xref:roles:utility_aap_deploy.adoc[utility_aap_deploy].

@@ -1,0 +1,67 @@
+= Scale the automation
+
+Repeat the path you just finished for more sources, more OpenShift clusters, and larger waves. Use the same collection `v2` playbooks and AAP templates. This page is not a cluster autoscaler and not a new installer.
+
+When you are done, the inventory lists every hypervisor and destination you care about, AAP has those hosts, and you can run providers, maps, and waves per pair. There is no separate “scale” playbook on collection `v2`.
+
+== What actually repeats
+
+Collection `v2` scales by **more inventory hosts** and **more launches**, not by a workflow that fans out every pair for you.
+
+* Providers and maps: one launch per `source_name` + `target_name` (xref:create-providers.adoc[Create providers], xref:create-maps.adoc[Create maps]).
+* Waves: one `mtv_plans_migration_request` per sitting; `split_plans` if the VM list is large (xref:prepare-migration-wave.adoc[Prepare a migration wave]).
+* Start, verify, archive: each Plan CR (xref:execute-migration.adoc[Execute the migration]). The AAP **Migrate** template still does not move VMs.
+
+== More sources or clusters
+
+Add hosts in the inventory (xref:configure-inventory.adoc[Configure inventory for your environment]). Copy from the link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml[v2 inventory sample] (`ocp-staging` and extra `vm_sources` hosts are commented there).
+
+* One `vm_sources` host per vCenter or RHV.
+* One `migration_clusters` host per OpenShift API.
+* On each cluster, `vm_sources` is the list of source host names that cluster may migrate. A source missing from that list fails provider and maps.
+* `aap_hosts` on a cluster names which `migration_aap` host seeds it.
+
+Then run xref:seed-aap.adoc[Seed Migration Factory into AAP] again (`vmf_seed_aap`) so AAP inventory and credentials match the file. Seed does not install AAP. Do not invent a second seed playbook.
+
+Each new pair still needs MTV **Ready** on that cluster (xref:confirm-openshift-ready.adoc[Confirm OpenShift is ready]) before providers.
+
+== Limit the destination
+
+`vmf_mtv_maps` runs on `migration_clusters` but only when `inventory_hostname` equals `target_name`. `vmf_mtv_plans` runs on **every** host in `migration_clusters` unless you limit it.
+
+When the inventory has several clusters:
+
+* CLI: `--limit <openshift-host>` on `vmf_mtv_plans`.
+* AAP: set the job limit to that `migration_clusters` host.
+* Always pass `source_name` and `target_name` for provider and maps (AAP survey).
+
+== Larger waves
+
+Do not put an entire datacenter in one Plan CR.
+
+* Select VMs with `vms` and/or VMware `folders`.
+* Set `split_plans: true` and `vms_per_plan` (default `10` when splitting) so MTV and the source stay within capacity.
+* Use a dedicated `target_namespace` (and matching map namespaces) per tenant or wave if projects should stay isolated.
+* Start, verify, and archive **each** plan from a split wave.
+
+Warm (`type: warm`) still needs **Cutover** per plan. Collection `v2` does not schedule cutovers for you.
+
+== What this collection does not do yet
+
+* No job template or workflow that loops every source–target pair in one click.
+* No `mtv_migrate` role and no working migrate playbook (`vmf_migrate.yml` is a placeholder).
+* No `validate_migration` or archive automation — those stay in the OpenShift console.
+
+Per-VM Ansible during a plan is xref:roles:mtv_hook_invoke_aap.adoc[mtv_hook_invoke_aap] (MTV hooks). That is not a substitute for splitting waves.
+
+== If a second pair fails
+
+* Source not in the cluster's `vm_sources` list — fix the inventory and seed again.
+* `source_name` / `target_name` do not match host names — same names as in the inventory file.
+* Plans hit every cluster — you omitted `--limit` / AAP limit on `vmf_mtv_plans`.
+* One huge plan saturates VDDK or storage — lower `vms_per_plan` and split.
+* New cluster has no MTV — xref:confirm-openshift-ready.adoc[Confirm OpenShift is ready] first.
+
+== When you are done
+
+You can add the next pair or the next wave with the same templates. Argument lists for the `v2` roles start at xref:roles:index.adoc[Look up an Ansible role].

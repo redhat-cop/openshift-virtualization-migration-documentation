@@ -1,0 +1,34 @@
+= Look up an Ansible role
+
+These are the roles on the collection `v2` branch. Journey pages run them through playbooks. Argument lists live in each role's README on GitHub (linked from the role page).
+
+[cols="1,2"]
+|===
+| Role | What it is for
+
+| xref:aap_seed.adoc[aap_seed]
+| Seed AAP with the Migration Factory project, inventory, credentials, and templates. Does not install AAP.
+
+| xref:mtv_provider.adoc[mtv_provider]
+| Create one MTV source provider (and secret) per source–target pair.
+
+| xref:mtv_maps.adoc[mtv_maps]
+| Create StorageMaps and NetworkMaps for one source–target pair.
+
+| xref:mtv_plans.adoc[mtv_plans]
+| Create Plan CRs for a wave. Does not start the migration.
+
+| xref:mtv_query_inventory.adoc[mtv_query_inventory]
+| Query the MTV inventory service. Used by maps and plans; not a journey playbook.
+
+| xref:mtv_hook_invoke_aap.adoc[mtv_hook_invoke_aap]
+| From an MTV hook, launch an AAP job template.
+
+| xref:utility_aap_deploy.adoc[utility_aap_deploy]
+| Install AAP on OpenShift. Does not seed Migration Factory.
+
+| xref:utility_openshift_target_credential.adoc[utility_openshift_target_credential]
+| Create a long-lived OpenShift service account token for AAP.
+|===
+
+There is no `mtv_migrate` role on `v2`. The seeded **Migrate** template is a placeholder (xref:journey:execute-migration.adoc[Execute the migration]).

@@ -1,0 +1,11 @@
+= mtv_maps
+
+Creates MTV/Forklift StorageMap and NetworkMap custom resources on the destination OpenShift cluster for one source–target pair. Used from xref:journey:create-maps.adoc[Create maps].
+
+Playbook: `infra.openshift_virtualization_migration.vmf_mtv_maps` (`playbooks/vmf_mtv_maps.yml` on the collection `v2` branch). The playbook targets `migration_clusters` and runs only when `inventory_hostname` equals `target_name`.
+
+The role queries MTV inventory through xref:mtv_query_inventory.adoc[mtv_query_inventory] (datastores, storage classes, networks, NetworkAttachmentDefinitions), then applies the map CRs. It does **not** need source hypervisor credentials: MTV already has them from the provider.
+
+Default map names are the RFC 1123 form of `<source_name>-host`. Required extra vars: `source_name` and `target_name` (same rules as xref:mtv_provider.adoc[mtv_provider]).
+
+Full argument list: link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/roles/mtv_maps/README.md[mtv_maps README].

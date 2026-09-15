@@ -1,0 +1,9 @@
+= mtv_hook_invoke_aap
+
+Launches an AAP job template from an MTV hook (PreHook or PostHook on VMs in a Plan). This is not one of the templates `aap_seed` creates. MTV 2.12 and later can call AAP natively; this role is for extra customization and older MTV.
+
+Playbook: `infra.openshift_virtualization_migration.mtv_hook_invoke_aap` (`playbooks/mtv_hook_invoke_aap.yml` on the collection `v2` branch). You base64-encode that playbook (or a customized copy) on the Hook CR. The hook runs inside the cluster, not from your laptop.
+
+Required: `mtv_hook_invoke_aap_job_template`. AAP connection comes from a Secret (default name `mtv-aap-credentials`) with hostname plus username/password or token. The README lists the ServiceAccount, Role, RoleBinding, and Hook CR you create first.
+
+Full argument list and setup YAML: link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/roles/mtv_hook_invoke_aap/README.md[mtv_hook_invoke_aap README].

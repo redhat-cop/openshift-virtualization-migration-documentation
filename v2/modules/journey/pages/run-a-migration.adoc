@@ -1,0 +1,5 @@
+= Run a migration
+
+Move VMs after the factory is seeded: providers, maps, a wave, and the run itself. Skip here if AAP is already seeded.
+
+include::page$_placeholder.adoc[]

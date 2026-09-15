@@ -1,0 +1,169 @@
+= Prepare a migration wave
+
+Choose which VMs (or source folders) move together, attach the maps you already created, and let MTV create **Plan** custom resources. Maps must already exist (xref:create-maps.adoc[Create maps]).
+
+When you are done, each plan shows **Ready** in the project you chose. Next is xref:execute-migration.adoc[Execute the migration]. This page does **not** start a migration.
+
+The collection does this with the `mtv_plans` role, run by the `vmf_mtv_plans` playbook. The role checks the source and destination providers and the named maps, looks up VMs and folders in the MTV inventory, then applies Plan CRs (or prints them when `dry_run` is true). Internals are under xref:roles:mtv_plans.adoc[mtv_plans].
+
+== What a wave is
+
+A wave is one `mtv_plans_migration_request`: the VMs or folders in this sitting, the maps to use, where the Plan CRs live, and where the VMs should land.
+
+* You must set at least `vms` or `folders` (or both).
+* `source` and `destination` are **MTV provider names**, not inventory host names. Defaults are `vmware` and `host`. After xref:create-providers.adoc[Create providers], `source` is usually the RFC 1123 form of the `vm_sources` host (for example `vcenter-prod`). Destination stays `host` unless you changed it.
+* Default map names are `<source>-<destination>` (for example `vcenter-prod-host`). Use the names from Create maps if you overrode them.
+* `split_plans: true` with `vms_per_plan` (default `10`) batches a large set into several Plan CRs so one plan does not overwhelm the source or OpenShift.
+
+== Prerequisites
+
+* Seed succeeded (xref:seed-aap.adoc[Seed Migration Factory into AAP]).
+* Providers are valid (xref:create-providers.adoc[Create providers]).
+* StorageMaps and NetworkMaps for this pair are **Ready** (xref:create-maps.adoc[Create maps]).
+* Inventory matches the collection layout: source hosts in `vm_sources`, OpenShift hosts in `migration_clusters`. See the link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml[v2 inventory sample].
+
+Required extra var:
+
+* `mtv_plans_migration_request` — dict with at least one of `vms` or `folders`.
+
+The playbook targets the `migration_clusters` group. If that group has more than one host, limit the run to the destination cluster (`--limit` on the CLI, or a host limit on the AAP job). OpenShift API access comes from `K8S_AUTH_HOST` / `K8S_AUTH_API_KEY` (AAP OpenShift credential) or from `openshift_host` and `openshift_api_key` on the target host.
+
+After seed, the AAP survey still asks for `source_name` and `target_name` (inventory host names). Those values do not fill the request dict. Put provider names, maps, and the VM list in `mtv_plans_migration_request`.
+
+== Build the request
+
+Namespaces:
+
+* `mtv_namespace` — where MTV is installed (default `openshift-mtv`). Provider CRs usually live here.
+* `migration_namespace` — where Plan CRs are created (defaults to `mtv_namespace`).
+* `target_namespace` — where migrated VMs are created (defaults to `mtv_namespace`).
+* `source_namespace` / `destination_namespace` — where the provider CRs live (default `mtv_namespace`).
+* `network_map_namespace` / `storage_map_namespace` — where the maps live (must match Create maps).
+
+.wave.yml
+[source,yaml]
+----
+mtv_plans_migration_request:
+  source: vcenter-prod
+  source_namespace: openshift-mtv
+  destination: host
+  destination_namespace: openshift-mtv
+  target_namespace: rhdp-migrations
+  network_map: vcenter-prod-host
+  network_map_namespace: rhdp-migrations
+  storage_map: vcenter-prod-host
+  storage_map_namespace: rhdp-migrations
+  verify_plans_ready: true
+  plan_name: wave-app-tier
+  vms:
+    - name: db-server-01
+    - name: app-server-02
+----
+
+If you omit `plan_name`, the role names the plan `<source>-<destination>-yyyyMMdd-HHmm`.
+
+Each VM entry can use `name`, `id` (MOID), or `path` (VMware path such as `/<datacenter>/vm/<folder>/<name>`). Set `exclude: true` to drop a VM from the wave. Per-VM `overrides` win over `vm_overrides` and folder `overrides`.
+
+=== Preview without applying
+
+Set `dry_run: true`. The role builds the Plan manifests, prints them, and does not create CRs on the cluster.
+
+=== Folders and exclusions
+
+`folders` is for VMware folders (and their subfolders). Combine with `vms` that have `exclude: true` to skip a machine in that folder.
+
+.wave.yml
+[source,yaml]
+----
+mtv_plans_migration_request:
+  source: vcenter-prod
+  folders:
+    - name: production-workloads
+  vms:
+    - name: legacy-vm-do-not-migrate
+      exclude: true
+----
+
+If two folders share a name, set `id` (MOID) or `path` so the role picks the right one. `exclude: true` on a folder drops that folder and its subfolders.
+
+=== Split a large wave
+
+.wave.yml
+[source,yaml]
+----
+mtv_plans_migration_request:
+  source: vcenter-prod
+  split_plans: true
+  vms_per_plan: 5
+  folders:
+    - name: datacenter-workloads
+----
+
+`vms_per_plan` must be a positive integer when `split_plans` is `true`.
+
+=== Cold or warm
+
+`type` is `cold` (default) or `warm`. Warm plans copy disks while the source VM stays up; cutover is still xref:execute-migration.adoc[Execute the migration]. Set `verify_plans_ready: true` if you want the role to wait until each Plan is **Ready** before it returns.
+
+`plan_overrides` applies at Plan level. `vm_overrides` applies to every VM unless a VM or folder override replaces it. Field lists: link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/roles/mtv_plans/README.md[mtv_plans README].
+
+== Create plans from the CLI
+
+From the directory that holds your inventory:
+
+[,shell]
+----
+ansible-navigator run \
+  --pp=missing \
+  --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
+  -m stdout \
+  --pae=false \
+  --senv=K8S_AUTH_HOST=$(oc whoami --show-server) \
+  --senv=K8S_AUTH_VERIFY_SSL=false \
+  --senv=K8S_AUTH_API_KEY=$(oc whoami -t) \
+  infra.openshift_virtualization_migration.vmf_mtv_plans \
+  -i <inventory> \
+  --limit <openshift-host> \
+  --extra-vars "@wave.yml"
+----
+
+`--limit` is the `migration_clusters` host (for example `ocp-prod`). Skip it only when that group has a single host.
+
+== Create plans with AAP
+
+After seed, AAP has the template **OpenShift Virtualization Migration - MTV Plans** (`playbooks/vmf_mtv_plans.yml`).
+
+. In AAP, open *Templates* under *Automation Execution*.
+. Launch **OpenShift Virtualization Migration - MTV Plans**.
+. Survey: **Source Name** and **Target Name** (inventory host names, same as `source_name` / `target_name`).
+. Extra vars: the `mtv_plans_migration_request` from `wave.yml`. Set `source` to the MTV provider name, not a different string than Create providers used.
+. If the inventory has several OpenShift hosts, limit the job to the destination host.
+. Attach the OpenShift credential for the target cluster if the template asks for credentials.
+. Launch and wait for success.
+
+== Confirm the plans
+
+In the OpenShift web console: *Migration* → *Plans for virtualization*. Select the project where the plans were created (`openshift-mtv` unless you set `migration_namespace`). Status **Ready**.
+
+image::guides:rhdp:openshift-mtv-plans.png[MTV Plans]
+
+Open a plan and use the *Virtual Machines* tab to confirm the wave membership. Do not start the plan here.
+
+[NOTE]
+====
+If the project does not appear, select *Show default projects* so names that start with `openshift` are listed.
+====
+
+== If plan creation fails
+
+* `mtv_plans_migration_request` empty, or neither `vms` nor `folders` — the role asserts and stops.
+* Source or destination provider missing — `source` / `destination` must match the MTV provider names from xref:create-providers.adoc[Create providers] (defaults `vmware` / `host` only if you never changed them).
+* StorageMap or NetworkMap missing — names and namespaces must match xref:create-maps.adoc[Create maps].
+* `split_plans: true` with a non-positive `vms_per_plan` — set a positive integer.
+* Several clusters in `migration_clusters` and no limit — the playbook runs on every cluster in the group; limit to the destination host.
+* `dry_run: true` — no CRs on the cluster; that is expected. Set it to `false` (or omit it) to apply.
+* Plan never reaches **Ready** — maps, providers, or VM names are wrong; fix those rather than starting a migration.
+
+== When you are done
+
+MTV has Plan CRs for this wave. They are not running. Continue to xref:execute-migration.adoc[Execute the migration].

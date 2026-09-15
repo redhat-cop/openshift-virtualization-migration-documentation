@@ -1,0 +1,11 @@
+= Get AAP ready
+
+Have Ansible Automation Platform available. OpenShift is already there (see xref:confirm-openshift-ready.adoc[Confirm OpenShift is ready]). Choose how AAP will run. The rest of the site does not fork after that choice.
+
+include::page$_placeholder.adoc[]
+
+The alternatives in this group:
+
+* xref:setup-rhdp.adoc[Red Hat Demo Platform]
+* xref:setup-existing-ocp.adoc[Deploy AAP on your OpenShift]
+* xref:setup-aap-yourself.adoc[Use an AAP you already have]

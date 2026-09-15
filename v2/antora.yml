@@ -1,0 +1,7 @@
+name: v2
+title: Migration Factory V2
+version: ~
+nav:
+  - modules/ROOT/nav.adoc
+  - modules/journey/nav.adoc
+  - modules/roles/nav.adoc

@@ -1,0 +1,57 @@
+= Red Hat Demo Platform
+
+Use Red Hat Demo Platform (RHDP) when you need a short-lived lab: an OpenShift cluster with OpenShift Virtualization and MTV, plus a vSphere source. These docs do not walk through installing OpenShift.
+
+When you are done, you can `oc login` as **admin**, and you have the API URL, console URL, and vCenter details from the service. AAP is **not** in this catalog item. Next is xref:setup-existing-ocp.adoc[Deploy AAP on your OpenShift], then xref:configure-inventory.adoc[Configure inventory for your environment].
+
+The catalog item is https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/openshift-cnv.ocp-virt-roadshow-multi-user.prod&utm_source=webapp&utm_medium=share-link[Experience OpenShift Virtualization Roadshow]. You need RHDP access to order it.
+
+== Order the lab
+
+. Open the catalog item and select **Order**.
+. Activity: **Practice / Enablement**. Purpose: **Conduct internal training/enablement**.
+. Leave the other fields at their defaults.
+. Confirm the warnings and click **Order**.
+
+Provisioning takes a while. Track it in the RHDP portal. You get email when the service is ready.
+
+== Collect connection details
+
+. Open the service for **Experience OpenShift Virtualization Roadshow**.
+
+image::guides:rhdp:rhdp-services-list.png[RHDP services list]
+
+. Open the **Details** tab. Copy:
+
+* OpenShift API server URL
+* OpenShift web console URL
+* **admin** password
+* vCenter host, username, and password (the workshop VMware source)
+
+image::guides:rhdp:rhdp-service-details.png[RHDP service details]
+
+== Log in to the cluster
+
+Use the bastion VM that RHDP deploys, or your laptop if `oc` is already installed.
+
+[,shell]
+----
+oc login --insecure-skip-tls-verify=true \
+  --username=admin \
+  --password=<password> \
+  --server=https://api.cluster-<cluster_id>.dynamic.redhatworkshops.io:6443
+----
+
+Replace the password and `--server` value with the Details tab. Confirm OpenShift Virtualization and MTV are present (xref:confirm-openshift-ready.adoc[Confirm OpenShift is ready]).
+
+== What you do not do here
+
+* Do not run the v1 playbook `migration_factory_aap`. Collection `v2` installs AAP with `utility_aap_deploy` only.
+* Do not fill a hub/spoke inventory (`migration_hub` / `migration_spoke`). v2 uses `migration_aap`, `vm_sources`, and `migration_clusters`.
+* Do not seed AAP until AAP is running and the inventory matches those groups.
+
+The longer v1 workshop (including screenshots of an already-seeded AAP) is still at xref:guides:rhdp:rhdp.adoc[Ansible for OpenShift Virtualization Migration on Red Hat Demo Platform]. Follow this page and the v2 inventory/seed path instead of that deploy chapter.
+
+== When you are done
+
+You have an OpenShift lab and a vSphere source. Deploy AAP (xref:setup-existing-ocp.adoc[Deploy AAP on your OpenShift]), put the RHDP API, token, AAP URL, and vCenter values into the v2 inventory (one cluster, one source), then xref:seed-aap.adoc[Seed Migration Factory into AAP].

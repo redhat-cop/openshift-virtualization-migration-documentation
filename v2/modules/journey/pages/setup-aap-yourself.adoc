@@ -1,0 +1,5 @@
+= Use an AAP you already have
+
+You already run Ansible Automation Platform. Add the Migration Factory components to it.
+
+Put that AAP in the `migration_aap` inventory group (URL plus token or username and password). Then xref:configure-inventory.adoc[Configure inventory for your environment] and xref:seed-aap.adoc[Seed Migration Factory into AAP]. Seed uses `vmf_seed_aap` only; it does not install another AAP.

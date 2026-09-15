@@ -1,0 +1,75 @@
+= Create providers
+
+Register the source hypervisor with Migration Toolkit for Virtualization on the destination OpenShift cluster so maps and plans can use it. Seed must already have succeeded (xref:seed-aap.adoc[Seed Migration Factory into AAP]).
+
+When you are done, MTV shows a provider with a green check in the target's `mtv_namespace` (usually `openshift-mtv`). Next is xref:create-maps.adoc[Create maps]. Do not create maps until the provider is Ready.
+
+The collection v2 playbook is `vmf_mtv_provider`. It runs the `mtv_provider` role: one source–target pair per launch. Source type (`vmware` or `ovirt`) and connection details come from the `vm_sources` host. OpenShift connection comes from the AAP OpenShift credential (`K8S_AUTH_*`) or from the `migration_clusters` host. Internals: xref:roles:mtv_provider.adoc[mtv_provider].
+
+If the target has several sources, launch once per pair (`source_name` + `target_name`).
+
+== Prerequisites
+
+* Logged in to the cluster over CLI with `oc login` if you run from the CLI.
+* The cluster is ready (xref:confirm-openshift-ready.adoc[Confirm OpenShift is ready]).
+* Inventory matches collection v2 (xref:configure-inventory.adoc[Configure inventory for your environment]).
+* Seed created the **OpenShift Virtualization Migration - MTV Provider** template.
+
+Required extra vars (AAP survey after seed):
+
+* `source_name` — inventory host in `vm_sources`.
+* `target_name` — inventory host in `migration_clusters`. That host's `vm_sources` list must include `source_name`.
+
+== Create providers from the CLI
+
+[,shell]
+----
+ansible-navigator run \
+  --pp=missing \
+  --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
+  -m stdout \
+  --pae=false \
+  --senv=K8S_AUTH_HOST=$(oc whoami --show-server) \
+  --senv=K8S_AUTH_VERIFY_SSL=false \
+  --senv=K8S_AUTH_API_KEY=$(oc whoami -t) \
+  infra.openshift_virtualization_migration.vmf_mtv_provider \
+  -i <inventory> \
+  -e source_name=<source-host> \
+  -e target_name=<openshift-host>
+----
+
+The role reads `type`, `host`, `sdk_endpoint`, and VDDK from the source host. Username and password come from that host in the inventory (CLI) or from the **Migration Factory - Source Environment** credential (AAP).
+
+Optional: `mtv_provider_provider_namespace` if the provider must not land in `openshift-mtv`. Set `mtv_provider_provider_state: absent` to remove a provider and its secret.
+
+== Create providers with AAP
+
+. In AAP, open *Templates* under *Automation Execution*.
+. Launch **OpenShift Virtualization Migration - MTV Provider**.
+. Survey: **Source Name** and **Target Name** (the inventory host names).
+. Attach the OpenShift credential for the target cluster if the template asks for credentials.
+. Launch and wait until the Provider CR is Ready (the role waits by default).
+
+== Confirm the provider
+
+In the OpenShift web console: *Migration* → *Providers for virtualization*. Select the `mtv_namespace` project. A green check means the connection is valid.
+
+image::guides:rhdp:openshift-mtv-providers.png[MTV Providers]
+
+[NOTE]
+====
+The `openshift-mtv` namespace may not appear in the Project dropdown. Select *Show default projects* so projects that start with `openshift` are listed.
+====
+
+For VMware with a VDDK image, confirm the VDDK secret exists in that namespace (*Workloads* → *Secrets*). Do not create NetworkMaps or StorageMaps here; that is xref:create-maps.adoc[Create maps].
+
+== If provider creation fails
+
+* `source_name` or `target_name` missing, or not in inventory — use the same host names as in `vm_sources` / `migration_clusters`.
+* Source not in the target's `vm_sources` list — fix the inventory.
+* Forklift Provider CRD missing — MTV is not installed; see xref:confirm-openshift-ready.adoc[Confirm OpenShift is ready].
+* Source credentials missing — on CLI they live on the `vm_sources` host; in AAP they come from the source credential type seed created.
+
+== When you are done
+
+MTV has a provider for this source on the destination cluster. Continue to xref:create-maps.adoc[Create maps].
