@@ -1,0 +1,15 @@
+= Ansible Automation Platform
+
+Use an Ansible Automation Platform you already run. That is the default. Migration Factory seeds into it; it does not replace it.
+
+You need:
+
+* AAP URL (`aap_hostname`)
+* Admin username and password, or an OAuth token (`aap_token`)
+* Permission to create organizations, projects, inventories, credentials, and job templates
+
+Put those values on the `migration_aap` host in xref:configure-inventory.adoc[Building your inventory]. Seed uses `vmf_seed_aap` only. It does not install another AAP.
+
+If AAP is not installed yet, use xref:setup-existing-ocp.adoc[Deploying Ansible Automation Platform], then return here with the new URL and admin password.
+
+For a Red Hat Demo Platform lab, see xref:setup-rhdp.adoc[RHDP workshop].

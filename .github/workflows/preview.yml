@@ -1,0 +1,46 @@
+name: Deploy PR preview
+
+on:
+  pull_request:
+    types:
+      - opened
+      - reopened
+      - synchronize
+      - closed
+
+concurrency: preview-${{ github.ref }}
+
+permissions:
+  contents: write
+  pull-requests: write
+
+jobs:
+  deploy-preview:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Install Node.js
+        if: github.event.action != 'closed'
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+
+      - name: Install Antora
+        if: github.event.action != 'closed'
+        run: npm i antora
+
+      - name: Generate Site
+        if: github.event.action != 'closed'
+        run: npx antora antora-playbook.yml
+
+      - name: Disable Jekyll in preview
+        if: github.event.action != 'closed'
+        run: touch build/site/.nojekyll
+
+      - name: Deploy preview
+        uses: rossjrw/pr-preview-action@v1
+        with:
+          source-dir: ./build/site
+          preview-branch: gh-pages

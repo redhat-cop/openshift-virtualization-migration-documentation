@@ -1,0 +1,12 @@
+= Introduction to migration waves
+
+A **wave** is one sitting: which VMs (or folders) move together, which maps they use, and which Plan CRs MTV creates. You prepare the wave in AAP, start it in MTV, then verify and archive.
+
+. xref:create-providers.adoc[Configure providers] — source hypervisor on the destination cluster.
+. xref:create-maps.adoc[Configure storage and network maps].
+. xref:prepare-migration-wave.adoc[Defining a migration wave] — Plan CRs, not the copy itself.
+. xref:prepare-vms.adoc[Preparing VMs for migration] — guest-side checks when the workload needs them.
+. xref:execute-migration.adoc[Migrating VMs] — start the Ready plans.
+. xref:verify-migration.adoc[Verifying a migration] and xref:archive-plan.adoc[Archiving the plan].
+
+Launch each AAP template for one `source_name` + `target_name` pair (inventory host names). There is no workflow that loops every pair.

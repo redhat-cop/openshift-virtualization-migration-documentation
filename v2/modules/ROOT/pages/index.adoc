@@ -1,0 +1,25 @@
+= Ansible for OpenShift Virtualization Migration
+:page-aliases: home.adoc
+
+Ansible for OpenShift Virtualization Migration (**Migration Factory**) is a set of Ansible playbooks with deep integration into Ansible Automation Platform (AAP). It moves virtual machines from existing hypervisors onto Red Hat OpenShift Virtualization. After you seed AAP, you run providers, maps, and waves from AAP job templates.
+
+== Overview
+
+Migration Factory uses Migration Toolkit for Virtualization (MTV) on the destination cluster and AAP to repeat the same sitting: prepare the environment, seed AAP, configure providers and maps, define a wave, migrate, verify, and archive.
+
+image::guides:ROOT:mf-overview.png[Accelerating migrations at scale with Ansible Automation Platform]
+
+== Ansible collection
+
+The OpenShift Virtualization Migration project consists of two validated Ansible collections on Automation Hub:
+
+* https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_migration/details/[OpenShift Virtualization Migration]
+* https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/[OpenShift Virtualization Operations]
+
+== Find us on the Source
+
+Stay up-to-date with the solution. Collection downloads and related links: link:https://red.ht/migration-factory[red.ht/migration-factory]. Channels: xref:support:channels.adoc[Support].
+
+== Use Cases Request
+
+Use the https://docs.google.com/forms/d/e/1FAIpQLSfKQzd1eQomLCkj3yrfTUFNaon4gfP-TwqWtEp0U6mhk0_nVA/viewform[form] to submit real-world examples where the collection is (or could be) applied.

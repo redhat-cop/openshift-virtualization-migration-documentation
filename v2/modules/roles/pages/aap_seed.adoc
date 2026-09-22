@@ -1,0 +1,16 @@
+= aap_seed
+
+Pushes Migration Factory into Ansible Automation Platform: organization, project, inventory, credential types, credentials, execution environment, and job templates. Used from xref:journey:seed-aap.adoc[Seeding Ansible Automation Platform].
+
+Playbook: `infra.openshift_virtualization_migration.vmf_seed_aap` (`playbooks/vmf_seed_aap.yml`). Targets the `migration_aap` group. Does **not** install AAP (`utility_aap_deploy` does that).
+
+After a successful run, AAP has at least these templates (surveys ask for inventory host names `source_name` and `target_name`):
+
+* **OpenShift Virtualization Migration - MTV Provider**
+* **OpenShift Virtualization Migration - MTV Maps**
+* **OpenShift Virtualization Migration - MTV Plans**
+* **OpenShift Virtualization Migration - Migrate** — does not start migrations; see xref:journey:execute-migration.adoc[Migrating VMs].
+
+`migration_aap` is the controller connection and is **not** copied into the AAP inventory. `vm_sources` and `migration_clusters` are.
+
+Full argument list: link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/roles/aap_seed/README.md[aap_seed README].
