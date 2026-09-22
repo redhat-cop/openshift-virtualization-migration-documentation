@@ -69,7 +69,7 @@
     <a class="nav-link" href="journey/configure-inventory.html">Building your inventory</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/setup-existing-ocp.html">Deploying Ansible Automation Platform (optional)</a>
+    <a class="nav-link" href="journey/setup-existing-ocp.html">Deploying Ansible Automation Platform</a>
   </li>
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="journey/validate-environment.html">Validate your environment</a>
@@ -96,7 +96,7 @@
     <a class="nav-link" href="journey/prepare-migration-wave.html">Defining a migration wave</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/prepare-vms.html">Preparing VMs for migration (optional)</a>
+    <a class="nav-link" href="journey/prepare-vms.html">Preparing VMs for migration</a>
   </li>
 </ul>
   </li>
@@ -129,7 +129,7 @@
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <span class="nav-text">Day 2 operations (future)</span>
+    <span class="nav-text">Day 2 operations</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="journey/day2-overview.html">Overview</a>
@@ -221,7 +221,7 @@
 <main class="article" id="content">
 <div class="toolbar" role="navigation">
 <button class="nav-toggle"></button>
-  <a href="../guides/home.html" class="home-link"></a>
+  <a href="index.html" class="home-link is-current"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Migration Factory V2</a></li>
@@ -235,35 +235,10 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ansible for OpenShift Virtualization Migration (<strong>Migration Factory</strong>) is a set of Ansible playbooks with deep integration into Ansible Automation Platform (AAP). It moves virtual machines from existing hypervisors onto Red Hat OpenShift Virtualization. After seed, <strong>AAP is the control plane</strong> for providers, maps, and waves.</p>
+<p>Ansible for OpenShift Virtualization Migration (<strong>Migration Factory</strong>) is a set of Ansible playbooks with deep integration into Ansible Automation Platform (AAP). It moves virtual machines from existing hypervisors onto Red Hat OpenShift Virtualization. After you seed AAP, you run providers, maps, and waves from AAP job templates.</p>
 </div>
 <div class="paragraph">
-<p>These pages describe the collection <code>v2</code> branch. Use the left nav in this order:</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p><a href="journey/setup-environment.html" class="xref page">Preparing your environment</a></p>
-</li>
-<li>
-<p><a href="journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a></p>
-</li>
-<li>
-<p><a href="journey/run-a-migration.html" class="xref page">Performing a migration wave</a></p>
-</li>
-<li>
-<p><a href="journey/execute-migration.html" class="xref page">Migrating VMs</a></p>
-</li>
-<li>
-<p><a href="journey/verify-migration.html" class="xref page">Post migration</a></p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p><strong>Enablement</strong> (RHDP workshop) is a demo lab, not the main path. <strong>Automation reference</strong> lists the <code>v2</code> roles. Role READMEs stay in Git for now; they are not copied into this site.</p>
-</div>
-<div class="paragraph">
-<p>The intended public URL for this documentation is <a href="https://red.ht/migration-factory">red.ht/migration-factory</a> (and a docs-specific shortlink when it is published). The current published v1 workshop still lives at <a href="../guides/home.html" class="xref page">Development Guides (v1)</a> until that content is archived.</p>
+<p>These pages follow the collection <a href="https://github.com/redhat-cop/openshift_virtualization_migration/tree/v2"><code>v2</code> branch</a>.</p>
 </div>
 </div>
 </div>
@@ -271,33 +246,30 @@
 <h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Migration Factory uses MTV on the destination cluster and AAP to repeat the same sitting across sources and clusters: assess, map, plan a wave, migrate, verify, archive.</p>
+<p>Migration Factory uses Migration Toolkit for Virtualization (MTV) on the destination cluster and AAP to repeat the same sitting: prepare the environment, seed AAP, configure providers and maps, define a wave, migrate, verify, and archive.</p>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="../guides/_images/mf-overview.png" alt="Accelerating migrations at scale with Ansible Automation Platform">
 </div>
 </div>
+<div class="paragraph">
+<p>Start in the left nav at <a href="journey/setup-environment.html" class="xref page">Preparing your environment</a>.</p>
+</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="ansible-collection"><a class="anchor" href="#ansible-collection"></a>Ansible collection</h2>
 <div class="sectionbody">
-<div class="paragraph">
-<p>Validated collections on Automation Hub:</p>
-</div>
 <div class="ulist">
 <ul>
 <li>
-<p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_migration/details/">OpenShift Virtualization Migration</a></p>
+<p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_migration/details/">OpenShift Virtualization Migration</a> — this documentation.</p>
 </li>
 <li>
-<p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/">OpenShift Virtualization Operations</a> (day-2; future in this nav)</p>
+<p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/">OpenShift Virtualization Operations</a> — day-2 content; see <a href="journey/day2-overview.html" class="xref page">Day 2 operations</a> when you need that collection.</p>
 </li>
 </ul>
-</div>
-<div class="paragraph">
-<p>This documentation follows the Migration collection on the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/tree/v2"><code>v2</code> branch</a>.</p>
 </div>
 </div>
 </div>
@@ -305,7 +277,7 @@
 <h2 id="find-us-on-the-source"><a class="anchor" href="#find-us-on-the-source"></a>Find us on the Source</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Collection downloads and related links: <a href="https://red.ht/migration-factory">red.ht/migration-factory</a>. Support channels are under <a href="support/channels.html" class="xref page">Support</a>.</p>
+<p>Collection downloads and related links: <a href="https://red.ht/migration-factory">red.ht/migration-factory</a>. Channels: <a href="support/channels.html" class="xref page">Support</a>.</p>
 </div>
 </div>
 </div>
