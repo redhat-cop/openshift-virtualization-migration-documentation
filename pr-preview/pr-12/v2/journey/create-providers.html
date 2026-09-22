@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Create providers :: Ansible for OpenShift Virtualization Migration Documentation</title>
+    <title>Configure providers :: Ansible for OpenShift Virtualization Migration Documentation</title>
     <link rel="prev" href="run-a-migration.html">
     <link rel="next" href="create-maps.html">
     <meta name="generator" content="Antora 3.1.15">
@@ -41,60 +41,111 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../index.html">Introduction</a>
+    <a class="nav-link" href="../index.html">Introduction / Overview</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="confirm-openshift-ready.html">Confirm OpenShift is ready</a>
-  </li>
-  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="setup-environment.html">Get AAP ready</a>
+    <a class="nav-link" href="setup-environment.html">Preparing your environment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-rhdp.html">Red Hat Demo Platform</a>
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-existing-ocp.html">Deploy AAP on your OpenShift</a>
+    <a class="nav-link" href="migration-factory-prerequisites.html">Migration Factory prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-aap-yourself.html">Use an AAP you already have</a>
+    <a class="nav-link" href="source-collection.html">Sourcing the collection and execution environment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="confirm-openshift-ready.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-aap-yourself.html">Ansible Automation Platform</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configure-inventory.html">Building your inventory</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-existing-ocp.html">Deploying Ansible Automation Platform (optional)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="validate-environment.html">Validate your environment</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="configure-inventory.html">Configure inventory for your environment</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="seed-aap.html">Seed Migration Factory into AAP</a>
+    <a class="nav-link" href="seed-aap.html">Seeding Ansible Automation Platform</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="run-a-migration.html">Run a migration</a>
+    <span class="nav-text">Performing a migration wave</span>
 <ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="run-a-migration.html">Introduction to migration waves</a>
+  </li>
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="create-providers.html">Create providers</a>
+    <a class="nav-link" href="create-providers.html">Configure providers</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="create-maps.html">Create maps</a>
+    <a class="nav-link" href="create-maps.html">Configure storage and network maps</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="prepare-migration-wave.html">Prepare a migration wave</a>
+    <a class="nav-link" href="prepare-migration-wave.html">Defining a migration wave</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="execute-migration.html">Execute the migration</a>
+    <a class="nav-link" href="prepare-vms.html">Preparing VMs for migration (optional)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performing a migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="execute-migration.html">Migrating VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Post migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="verify-migration.html">Verifying a migration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="verify-migration.html">Verify the migration</a>
+    <a class="nav-link" href="close-migration-wave.html">Closing the migration wave</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="archive-plan.html">Archive the plan</a>
+    <a class="nav-link" href="archive-plan.html">Archiving the plan</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="scaling-the-automation.html">Updating the topology</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day 2 operations (future)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="day2-overview.html">Overview</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scaling-the-automation.html">Scale the automation</a>
+    <a class="nav-link" href="day2-onboarding.html">Onboarding VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Enablement</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-rhdp.html">RHDP workshop</a>
   </li>
 </ul>
   </li>
@@ -104,7 +155,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../roles/index.html">Look up an Ansible role</a>
+    <a class="nav-link" href="../roles/index.html">Automation reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../roles/aap_seed.html">aap_seed</a>
@@ -131,6 +182,13 @@
     <a class="nav-link" href="../roles/utility_openshift_target_credential.html">utility_openshift_target_credential</a>
   </li>
 </ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../support/channels.html">Support</a>
   </li>
 </ul>
   </li>
@@ -168,27 +226,24 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Migration Factory V2</a></li>
-    <li><a href="run-a-migration.html">Run a migration</a></li>
-    <li><a href="create-providers.html">Create providers</a></li>
+    <li>Performing a migration wave</li>
+    <li><a href="create-providers.html">Configure providers</a></li>
   </ul>
 </nav>
 </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Create providers</h1>
+<h1 class="page">Configure providers</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Register the source hypervisor with Migration Toolkit for Virtualization on the destination OpenShift cluster so maps and plans can use it. Seed must already have succeeded (<a href="seed-aap.html" class="xref page">Seed Migration Factory into AAP</a>).</p>
+<p>Register the source hypervisor with MTV on the destination OpenShift cluster. Seed must already have succeeded (<a href="seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>).</p>
 </div>
 <div class="paragraph">
-<p>When you are done, MTV shows a provider with a green check in the target&#8217;s <code>mtv_namespace</code> (usually <code>openshift-mtv</code>). Next is <a href="create-maps.html" class="xref page">Create maps</a>. Do not create maps until the provider is Ready.</p>
+<p>When you are done, MTV shows a provider with a green check in the target&#8217;s <code>mtv_namespace</code> (usually <code>openshift-mtv</code>). Next is <a href="create-maps.html" class="xref page">Configure storage and network maps</a>.</p>
 </div>
 <div class="paragraph">
-<p>The collection v2 playbook is <code>vmf_mtv_provider</code>. It runs the <code>mtv_provider</code> role: one source–target pair per launch. Source type (<code>vmware</code> or <code>ovirt</code>) and connection details come from the <code>vm_sources</code> host. OpenShift connection comes from the AAP OpenShift credential (<code>K8S_AUTH_*</code>) or from the <code>migration_clusters</code> host. Internals: <a href="../roles/mtv_provider.html" class="xref page">mtv_provider</a>.</p>
-</div>
-<div class="paragraph">
-<p>If the target has several sources, launch once per pair (<code>source_name</code> + <code>target_name</code>).</p>
+<p>Run this from <strong>AAP</strong>. The template is <strong>OpenShift Virtualization Migration - MTV Provider</strong> (<code>vmf_mtv_provider</code> / <code>mtv_provider</code>). One source–target pair per launch. Internals: <a href="../roles/mtv_provider.html" class="xref page">mtv_provider</a>.</p>
 </div>
 </div>
 </div>
@@ -198,63 +253,33 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Logged in to the cluster over CLI with <code>oc login</code> if you run from the CLI.</p>
+<p>Seed created the MTV Provider template.</p>
 </li>
 <li>
-<p>The cluster is ready (<a href="confirm-openshift-ready.html" class="xref page">Confirm OpenShift is ready</a>).</p>
+<p>Inventory matches collection v2 (<a href="configure-inventory.html" class="xref page">Building your inventory</a>).</p>
 </li>
 <li>
-<p>Inventory matches collection v2 (<a href="configure-inventory.html" class="xref page">Configure inventory for your environment</a>).</p>
-</li>
-<li>
-<p>Seed created the <strong>OpenShift Virtualization Migration - MTV Provider</strong> template.</p>
+<p>Cluster is ready (<a href="confirm-openshift-ready.html" class="xref page">OpenShift</a>).</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>Required extra vars (AAP survey after seed):</p>
+<p>Survey extra vars:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><code>source_name</code> — inventory host in <code>vm_sources</code>.</p>
+<p><code>source_name</code> — host in <code>vm_sources</code>.</p>
 </li>
 <li>
-<p><code>target_name</code> — inventory host in <code>migration_clusters</code>. That host&#8217;s <code>vm_sources</code> list must include <code>source_name</code>.</p>
+<p><code>target_name</code> — host in <code>migration_clusters</code>. That host&#8217;s <code>vm_sources</code> list must include <code>source_name</code>.</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="create-providers-from-the-cli"><a class="anchor" href="#create-providers-from-the-cli"></a>Create providers from the CLI</h2>
-<div class="sectionbody">
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">ansible-navigator run \
-  --pp=missing \
-  --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
-  -m stdout \
-  --pae=false \
-  --senv=K8S_AUTH_HOST=$(oc whoami --show-server) \
-  --senv=K8S_AUTH_VERIFY_SSL=false \
-  --senv=K8S_AUTH_API_KEY=$(oc whoami -t) \
-  infra.openshift_virtualization_migration.vmf_mtv_provider \
-  -i &lt;inventory&gt; \
-  -e source_name=&lt;source-host&gt; \
-  -e target_name=&lt;openshift-host&gt;</code></pre>
-</div>
-</div>
-<div class="paragraph">
-<p>The role reads <code>type</code>, <code>host</code>, <code>sdk_endpoint</code>, and VDDK from the source host. Username and password come from that host in the inventory (CLI) or from the <strong>Migration Factory - Source Environment</strong> credential (AAP).</p>
-</div>
-<div class="paragraph">
-<p>Optional: <code>mtv_provider_provider_namespace</code> if the provider must not land in <code>openshift-mtv</code>. Set <code>mtv_provider_provider_state: absent</code> to remove a provider and its secret.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="create-providers-with-aap"><a class="anchor" href="#create-providers-with-aap"></a>Create providers with AAP</h2>
+<h2 id="launch-from-aap"><a class="anchor" href="#launch-from-aap"></a>Launch from AAP</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
@@ -265,7 +290,7 @@
 <p>Launch <strong>OpenShift Virtualization Migration - MTV Provider</strong>.</p>
 </li>
 <li>
-<p>Survey: <strong>Source Name</strong> and <strong>Target Name</strong> (the inventory host names).</p>
+<p>Survey: <strong>Source Name</strong> and <strong>Target Name</strong> (inventory host names).</p>
 </li>
 <li>
 <p>Attach the OpenShift credential for the target cluster if the template asks for credentials.</p>
@@ -274,6 +299,15 @@
 <p>Launch and wait until the Provider CR is Ready (the role waits by default).</p>
 </li>
 </ol>
+</div>
+<div class="paragraph">
+<p>If the target has several sources, launch once per pair.</p>
+</div>
+<div class="paragraph">
+<p>The role reads <code>type</code>, <code>host</code>, <code>sdk_endpoint</code>, and VDDK from the source host. Username and password come from the <strong>Migration Factory - Source Environment</strong> credential.</p>
+</div>
+<div class="paragraph">
+<p>Optional extra vars: <code>mtv_provider_provider_namespace</code> if the provider must not land in <code>openshift-mtv</code>. <code>mtv_provider_provider_state: absent</code> removes a provider and its secret.</p>
 </div>
 </div>
 </div>
@@ -303,7 +337,7 @@
 </table>
 </div>
 <div class="paragraph">
-<p>For VMware with a VDDK image, confirm the VDDK secret exists in that namespace (<strong>Workloads</strong> → <strong>Secrets</strong>). Do not create NetworkMaps or StorageMaps here; that is <a href="create-maps.html" class="xref page">Create maps</a>.</p>
+<p>For VMware with a VDDK image, confirm the VDDK secret exists in that namespace (<strong>Workloads</strong> → <strong>Secrets</strong>). Do not create maps here; that is <a href="create-maps.html" class="xref page">Configure storage and network maps</a>.</p>
 </div>
 </div>
 </div>
@@ -316,13 +350,13 @@
 <p><code>source_name</code> or <code>target_name</code> missing, or not in inventory — use the same host names as in <code>vm_sources</code> / <code>migration_clusters</code>.</p>
 </li>
 <li>
-<p>Source not in the target&#8217;s <code>vm_sources</code> list — fix the inventory.</p>
+<p>Source not in the target&#8217;s <code>vm_sources</code> list — fix the inventory and seed again if the AAP inventory is stale.</p>
 </li>
 <li>
-<p>Forklift Provider CRD missing — MTV is not installed; see <a href="confirm-openshift-ready.html" class="xref page">Confirm OpenShift is ready</a>.</p>
+<p>Forklift Provider CRD missing — <a href="confirm-openshift-ready.html" class="xref page">OpenShift</a>.</p>
 </li>
 <li>
-<p>Source credentials missing — on CLI they live on the <code>vm_sources</code> host; in AAP they come from the source credential type seed created.</p>
+<p>Source credentials missing — they come from the source credential type seed created.</p>
 </li>
 </ul>
 </div>
@@ -332,13 +366,13 @@
 <h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>MTV has a provider for this source on the destination cluster. Continue to <a href="create-maps.html" class="xref page">Create maps</a>.</p>
+<p>MTV has a provider for this source. Continue to <a href="create-maps.html" class="xref page">Configure storage and network maps</a>.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="run-a-migration.html" class="query-params-link">Run a migration</a></span>
-  <span class="next"><a href="create-maps.html" class="query-params-link">Create maps</a></span>
+  <span class="prev"><a href="run-a-migration.html" class="query-params-link">Introduction to migration waves</a></span>
+  <span class="next"><a href="create-maps.html" class="query-params-link">Configure storage and network maps</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

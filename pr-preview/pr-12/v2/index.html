@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Ansible for OpenShift Virtualization Migration :: Ansible for OpenShift Virtualization Migration Documentation</title>
-    <link rel="next" href="journey/confirm-openshift-ready.html">
+    <link rel="next" href="journey/setup-environment.html">
     <meta name="generator" content="Antora 3.1.15">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -40,62 +40,7 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="index.html">Introduction</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="journey/confirm-openshift-ready.html">Confirm OpenShift is ready</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="journey/setup-environment.html">Get AAP ready</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/setup-rhdp.html">Red Hat Demo Platform</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/setup-existing-ocp.html">Deploy AAP on your OpenShift</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/setup-aap-yourself.html">Use an AAP you already have</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="journey/configure-inventory.html">Configure inventory for your environment</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="journey/seed-aap.html">Seed Migration Factory into AAP</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="journey/run-a-migration.html">Run a migration</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/create-providers.html">Create providers</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/create-maps.html">Create maps</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/prepare-migration-wave.html">Prepare a migration wave</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/execute-migration.html">Execute the migration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/verify-migration.html">Verify the migration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/archive-plan.html">Archive the plan</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="journey/scaling-the-automation.html">Scale the automation</a>
-  </li>
-</ul>
+    <a class="nav-link" href="index.html">Introduction / Overview</a>
   </li>
 </ul>
   </li>
@@ -103,7 +48,113 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="roles/index.html">Look up an Ansible role</a>
+    <a class="nav-link" href="journey/setup-environment.html">Preparing your environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/migration-factory-prerequisites.html">Migration Factory prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/source-collection.html">Sourcing the collection and execution environment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/confirm-openshift-ready.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/setup-aap-yourself.html">Ansible Automation Platform</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/configure-inventory.html">Building your inventory</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/setup-existing-ocp.html">Deploying Ansible Automation Platform (optional)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/validate-environment.html">Validate your environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="journey/seed-aap.html">Seeding Ansible Automation Platform</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performing a migration wave</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/run-a-migration.html">Introduction to migration waves</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/create-providers.html">Configure providers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/create-maps.html">Configure storage and network maps</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/prepare-migration-wave.html">Defining a migration wave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/prepare-vms.html">Preparing VMs for migration (optional)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performing a migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/execute-migration.html">Migrating VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Post migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/verify-migration.html">Verifying a migration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/close-migration-wave.html">Closing the migration wave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/archive-plan.html">Archiving the plan</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="journey/scaling-the-automation.html">Updating the topology</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day 2 operations (future)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/day2-overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/day2-onboarding.html">Onboarding VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Enablement</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="journey/setup-rhdp.html">RHDP workshop</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="roles/index.html">Automation reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="roles/aap_seed.html">aap_seed</a>
@@ -130,6 +181,13 @@
     <a class="nav-link" href="roles/utility_openshift_target_credential.html">utility_openshift_target_credential</a>
   </li>
 </ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="support/channels.html">Support</a>
   </li>
 </ul>
   </li>
@@ -167,7 +225,7 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="index.html">Migration Factory V2</a></li>
-    <li><a href="index.html">Introduction</a></li>
+    <li><a href="index.html">Introduction / Overview</a></li>
   </ul>
 </nav>
 </div>
@@ -177,13 +235,35 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Ansible for OpenShift Virtualization Migration (<strong>Migration Factory</strong>) is a set of Ansible playbooks with deep integration into Ansible Automation Platform (AAP). It automates moving virtual machines from existing hypervisors onto Red Hat OpenShift Virtualization, and it supports day-2 operations of those VMs on the platform.</p>
+<p>Ansible for OpenShift Virtualization Migration (<strong>Migration Factory</strong>) is a set of Ansible playbooks with deep integration into Ansible Automation Platform (AAP). It moves virtual machines from existing hypervisors onto Red Hat OpenShift Virtualization. After seed, <strong>AAP is the control plane</strong> for providers, maps, and waves.</p>
 </div>
 <div class="paragraph">
-<p>These pages describe the collection <code>v2</code> branch. Start in the left nav after you read this introduction, or go directly to <a href="journey/confirm-openshift-ready.html" class="xref page">Confirm OpenShift is ready</a>.</p>
+<p>These pages describe the collection <code>v2</code> branch. Use the left nav in this order:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="journey/setup-environment.html" class="xref page">Preparing your environment</a></p>
+</li>
+<li>
+<p><a href="journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a></p>
+</li>
+<li>
+<p><a href="journey/run-a-migration.html" class="xref page">Performing a migration wave</a></p>
+</li>
+<li>
+<p><a href="journey/execute-migration.html" class="xref page">Migrating VMs</a></p>
+</li>
+<li>
+<p><a href="journey/verify-migration.html" class="xref page">Post migration</a></p>
+</li>
+</ol>
 </div>
 <div class="paragraph">
-<p>The current published workshop, playbooks, and prerequisites remain at <a href="../guides/home.html" class="xref page">Development Guides (v1)</a>. Both sites ship from the same GitHub Pages deploy.</p>
+<p><strong>Enablement</strong> (RHDP workshop) is a demo lab, not the main path. <strong>Automation reference</strong> lists the <code>v2</code> roles. Role READMEs stay in Git for now; they are not copied into this site.</p>
+</div>
+<div class="paragraph">
+<p>The intended public URL for this documentation is <a href="https://red.ht/migration-factory">red.ht/migration-factory</a> (and a docs-specific shortlink when it is published). The current published v1 workshop still lives at <a href="../guides/home.html" class="xref page">Development Guides (v1)</a> until that content is archived.</p>
 </div>
 </div>
 </div>
@@ -191,7 +271,7 @@
 <h2 id="overview"><a class="anchor" href="#overview"></a>Overview</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Migration Factory is built so you can use OpenShift Virtualization at scale: assess the source estate, run the migration with Migration Toolkit for Virtualization (MTV), and keep managing VMs after they land.</p>
+<p>Migration Factory uses MTV on the destination cluster and AAP to repeat the same sitting across sources and clusters: assess, map, plan a wave, migrate, verify, archive.</p>
 </div>
 <div class="imageblock">
 <div class="content">
@@ -204,10 +284,7 @@
 <h2 id="ansible-collection"><a class="anchor" href="#ansible-collection"></a>Ansible collection</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The Ansible collection is the content that drives that journey: from existing hypervisors to OpenShift Virtualization, using AAP. It also includes content for managing VM workloads after they run on OpenShift Virtualization.</p>
-</div>
-<div class="paragraph">
-<p>The project publishes two validated collections on Automation Hub:</p>
+<p>Validated collections on Automation Hub:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -215,12 +292,12 @@
 <p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_migration/details/">OpenShift Virtualization Migration</a></p>
 </li>
 <li>
-<p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/">OpenShift Virtualization Operations</a></p>
+<p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/">OpenShift Virtualization Operations</a> (day-2; future in this nav)</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
-<p>This documentation follows the Migration collection on the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/tree/v2"><code>v2</code> branch</a>. Playbooks, inventory groups, and role names in the left nav match that branch, not <code>main</code>.</p>
+<p>This documentation follows the Migration collection on the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/tree/v2"><code>v2</code> branch</a>.</p>
 </div>
 </div>
 </div>
@@ -228,7 +305,7 @@
 <h2 id="find-us-on-the-source"><a class="anchor" href="#find-us-on-the-source"></a>Find us on the Source</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Stay up to date with the solution. The download link for the collection, documentation, and related resources are on the Source page (<a href="https://red.ht/migration-factory">red.ht/migration-factory</a>).</p>
+<p>Collection downloads and related links: <a href="https://red.ht/migration-factory">red.ht/migration-factory</a>. Support channels are under <a href="support/channels.html" class="xref page">Support</a>.</p>
 </div>
 </div>
 </div>
@@ -241,7 +318,7 @@
 </div>
 </div>
 <nav class="pagination">
-  <span class="next"><a href="journey/confirm-openshift-ready.html" class="query-params-link">Confirm OpenShift is ready</a></span>
+  <span class="next"><a href="journey/setup-environment.html" class="query-params-link">Preparing your environment</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

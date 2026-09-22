@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Configure inventory for your environment :: Ansible for OpenShift Virtualization Migration Documentation</title>
+    <title>Building your inventory :: Ansible for OpenShift Virtualization Migration Documentation</title>
     <link rel="prev" href="setup-aap-yourself.html">
-    <link rel="next" href="seed-aap.html">
+    <link rel="next" href="setup-existing-ocp.html">
     <meta name="generator" content="Antora 3.1.15">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,62 +41,7 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../index.html">Introduction</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="0">
-<ul class="nav-list">
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="confirm-openshift-ready.html">Confirm OpenShift is ready</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="setup-environment.html">Get AAP ready</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-rhdp.html">Red Hat Demo Platform</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-existing-ocp.html">Deploy AAP on your OpenShift</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-aap-yourself.html">Use an AAP you already have</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="configure-inventory.html">Configure inventory for your environment</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="seed-aap.html">Seed Migration Factory into AAP</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="run-a-migration.html">Run a migration</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="create-providers.html">Create providers</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="create-maps.html">Create maps</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="prepare-migration-wave.html">Prepare a migration wave</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="execute-migration.html">Execute the migration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="verify-migration.html">Verify the migration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="archive-plan.html">Archive the plan</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scaling-the-automation.html">Scale the automation</a>
-  </li>
-</ul>
+    <a class="nav-link" href="../index.html">Introduction / Overview</a>
   </li>
 </ul>
   </li>
@@ -104,7 +49,113 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../roles/index.html">Look up an Ansible role</a>
+    <a class="nav-link" href="setup-environment.html">Preparing your environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="migration-factory-prerequisites.html">Migration Factory prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="source-collection.html">Sourcing the collection and execution environment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="confirm-openshift-ready.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-aap-yourself.html">Ansible Automation Platform</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="configure-inventory.html">Building your inventory</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-existing-ocp.html">Deploying Ansible Automation Platform (optional)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="validate-environment.html">Validate your environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="seed-aap.html">Seeding Ansible Automation Platform</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performing a migration wave</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="run-a-migration.html">Introduction to migration waves</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="create-providers.html">Configure providers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="create-maps.html">Configure storage and network maps</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="prepare-migration-wave.html">Defining a migration wave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="prepare-vms.html">Preparing VMs for migration (optional)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performing a migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="execute-migration.html">Migrating VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Post migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="verify-migration.html">Verifying a migration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="close-migration-wave.html">Closing the migration wave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="archive-plan.html">Archiving the plan</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="scaling-the-automation.html">Updating the topology</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day 2 operations (future)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="day2-overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="day2-onboarding.html">Onboarding VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Enablement</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-rhdp.html">RHDP workshop</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../roles/index.html">Automation reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../roles/aap_seed.html">aap_seed</a>
@@ -131,6 +182,13 @@
     <a class="nav-link" href="../roles/utility_openshift_target_credential.html">utility_openshift_target_credential</a>
   </li>
 </ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../support/channels.html">Support</a>
   </li>
 </ul>
   </li>
@@ -168,29 +226,24 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Migration Factory V2</a></li>
-    <li><a href="configure-inventory.html">Configure inventory for your environment</a></li>
+    <li><a href="setup-environment.html">Preparing your environment</a></li>
+    <li><a href="configure-inventory.html">Building your inventory</a></li>
   </ul>
 </nav>
 </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Configure inventory for your environment</h1>
+<h1 class="page">Building your inventory</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Tell Migration Factory <strong>where everything lives</strong> so seed, providers, and maps talk to the right places: Ansible Automation Platform, the OpenShift cluster that already has OpenShift Virtualization and MTV, and the VMware or RHV source.</p>
+<p>Tell Migration Factory where AAP, each source hypervisor, and each destination OpenShift cluster live. Seed reads this file and creates matching AAP hosts and credentials.</p>
 </div>
 <div class="paragraph">
-<p>This is not an OpenShift install guide. Confirm the cluster is ready first (<a href="confirm-openshift-ready.html" class="xref page">Confirm OpenShift is ready</a>). The type of OpenShift (single node, multi-node, and so on) does not change these steps.</p>
+<p>Copy <code>inventory/inventory-sample.yml</code> from the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">collection <code>v2</code> branch</a>. Do not edit the sample in place. Replace every <code>changeme</code>.</p>
 </div>
 <div class="paragraph">
-<p>When you are done, you have <strong>one inventory file</strong> in the collection v2 layout. <a href="seed-aap.html" class="xref page">Seed Migration Factory into AAP</a> uses that file. Do not seed until the inventory matches the environment.</p>
-</div>
-<div class="paragraph">
-<p>Copy <code>inventory/inventory-sample.yml</code> from the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">collection <code>v2</code> branch</a>. Do not edit the sample in place. Values still set to <code>changeme</code> are the ones you must replace.</p>
-</div>
-<div class="paragraph">
-<p>Hosts in this file are logical (API targets). Playbooks run with <code>connection: local</code>.</p>
+<p>Hosts are logical API targets. Playbooks use <code>connection: local</code>. After seed, AAP is the control plane; you do not re-run this file for each wave except when the topology changes (<a href="scaling-the-automation.html" class="xref page">Updating the topology</a>).</p>
 </div>
 </div>
 </div>
@@ -211,87 +264,28 @@
 <tbody>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>migration_aap</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">The AAP controller you seed. Used when you run playbooks from your laptop. Inside AAP, the controller connection is already there. This group is <strong>not</strong> pushed into the AAP inventory.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">The AAP controller seed talks to. Not copied into the AAP inventory.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>vm_sources</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Each source hypervisor (VMware vSphere or RHV). Seed turns these into AAP hosts plus <strong>Migration Factory - Source Environment</strong> credentials.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each VMware vSphere or RHV environment. Seed creates AAP hosts plus <strong>Migration Factory - Source Environment</strong> credentials.</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>migration_clusters</code></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Each destination OpenShift cluster. Seed turns these into AAP hosts plus <strong>OpenShift or Kubernetes API Bearer Token</strong> credentials. Each cluster lists which sources it can migrate.</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Each destination OpenShift API. Seed creates AAP hosts plus <strong>OpenShift or Kubernetes API Bearer Token</strong> credentials. Each cluster lists the sources it may migrate.</p></td>
 </tr>
 </tbody>
 </table>
 </div>
 </div>
 <div class="sect1">
-<h2 id="choose-a-layout"><a class="anchor" href="#choose-a-layout"></a>Choose a layout</h2>
+<h2 id="aap-controller"><a class="anchor" href="#aap-controller"></a>AAP controller</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Pick the layout that matches the hosts you already have.</p>
+<p>Username and password:</p>
 </div>
-<div class="sect2">
-<h3 id="one-openshift-cluster-and-one-source"><a class="anchor" href="#one-openshift-cluster-and-one-source"></a>One OpenShift cluster and one source</h3>
-<div class="paragraph">
-<p>Typical for a lab, including Red Hat Demo Platform.</p>
-</div>
-<div class="ulist">
-<ul>
-<li>
-<p>One host under <code>migration_clusters</code> (the OpenShift API).</p>
-</li>
-<li>
-<p>One host under <code>vm_sources</code> (vCenter or RHV).</p>
-</li>
-<li>
-<p>On the cluster host, <code>vm_sources</code> lists that source host name.</p>
-</li>
-<li>
-<p><code>migration_aap</code> names the AAP you will seed (RHDP AAP, or AAP you just deployed).</p>
-</li>
-</ul>
-</div>
-</div>
-<div class="sect2">
-<h3 id="several-clusters-or-several-sources"><a class="anchor" href="#several-clusters-or-several-sources"></a>Several clusters or several sources</h3>
-<div class="ulist">
-<ul>
-<li>
-<p>Add one <code>migration_clusters</code> host per destination OpenShift API.</p>
-</li>
-<li>
-<p>Add one <code>vm_sources</code> host per vCenter or RHV.</p>
-</li>
-<li>
-<p>On each cluster, <code>vm_sources</code> is the list of source host names that cluster may migrate.</p>
-</li>
-<li>
-<p><code>aap_hosts</code> on a cluster lists which <code>migration_aap</code> host seeds that cluster.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="fill-in-connections"><a class="anchor" href="#fill-in-connections"></a>Fill in connections</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p><strong>AAP</strong> (<code>migration_aap</code>): <code>aap_hostname</code> as a URL, and either username and password or <code>aap_token</code>. Set <code>aap_project_scm_branch: v2</code> if you pin the project to the v2 collection branch.</p>
-</div>
-<div class="paragraph">
-<p><strong>Sources</strong> (<code>vm_sources</code>): <code>type</code> (<code>vmware</code> or <code>ovirt</code>), <code>host</code>, <code>username</code>, <code>password</code>, <code>sdk_endpoint</code> (<code>/sdk</code> for vSphere, <code>/ovirt-engine/api</code> for RHV). Optional VDDK image under <code>vddk.image</code> for VMware. VDDK is licensed VMware content; use an image <strong>you</strong> are entitled to build. Do not copy an internal test image into a customer environment.</p>
-</div>
-<div class="paragraph">
-<p><strong>OpenShift</strong> (<code>migration_clusters</code>): <code>openshift_host</code> (API URL). Use <strong>one</strong> of <code>openshift_api_key</code> (service account token) or <code>openshift_temporary_api_key</code> (<code>oc login</code>). To mint a long-lived token, see <a href="../roles/utility_openshift_target_credential.html" class="xref page">utility_openshift_target_credential</a>. Optional: <code>mtv_namespace</code> (default <code>openshift-mtv</code>), <code>default_target_namespace</code>, <code>configure_mtv: true</code>.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="skeleton"><a class="anchor" href="#skeleton"></a>Skeleton</h2>
-<div class="sectionbody">
 <div class="listingblock">
+<div class="title">migration_aap — password</div>
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">migration_aap:
   hosts:
@@ -300,6 +294,155 @@
       aap_username: admin
       aap_password: changeme
       aap_validate_certs: true
+      aap_project_scm_branch: v2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Token instead of a password:</p>
+</div>
+<div class="listingblock">
+<div class="title">migration_aap — token</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    aap-instance:
+      aap_hostname: https://aap.example.com
+      aap_token: changeme
+      aap_validate_certs: true
+      aap_project_scm_branch: v2</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Private Git for the AAP project (HTTPS):</p>
+</div>
+<div class="listingblock">
+<div class="title">migration_aap — private repo</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">      aap_project_scm_url: https://github.com/myorg/openshift_virtualization_migration.git
+      aap_project_scm_branch: v2
+      aap_project_credential: My Git Credential
+      aap_git_username: my-git-user
+      aap_git_password: changeme</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Custom execution environment:</p>
+</div>
+<div class="listingblock">
+<div class="title">migration_aap — EE</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">      aap_execution_environment: Migration Factory Execution Environment
+      aap_execution_environment_image: quay.io/redhat-cop/openshift-virtualization-migration-ee:latest
+      aap_execution_environment_pull: missing
+      aap_execution_environment_credential: Migration Factory Registry Credential
+      aap_execution_environment_host: quay.io
+      aap_execution_environment_username: changeme
+      aap_execution_environment_password: changeme</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="source-hypervisors"><a class="anchor" href="#source-hypervisors"></a>Source hypervisors</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>VMware:</p>
+</div>
+<div class="listingblock">
+<div class="title">vm_sources — vSphere</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">vm_sources:
+  hosts:
+    vcenter-prod:
+      type: vmware
+      host: vcenter.example.com
+      sdk_endpoint: /sdk
+      username: administrator@vsphere.local
+      password: changeme</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>VMware with VDDK (use an image <strong>you</strong> are entitled to build):</p>
+</div>
+<div class="listingblock">
+<div class="title">vm_sources — VDDK</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    vcenter-prod:
+      type: vmware
+      host: vcenter.example.com
+      sdk_endpoint: /sdk
+      username: administrator@vsphere.local
+      password: changeme
+      vddk:
+        image: registry.example.com/vddk:8.0</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>RHV:</p>
+</div>
+<div class="listingblock">
+<div class="title">vm_sources — RHV</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">    rhv-legacy:
+      type: ovirt
+      host: rhvm.example.com
+      sdk_endpoint: /ovirt-engine/api
+      username: admin@internal
+      password: changeme</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="destination-clusters"><a class="anchor" href="#destination-clusters"></a>Destination clusters</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Service account token (preferred):</p>
+</div>
+<div class="listingblock">
+<div class="title">migration_clusters — API token</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">migration_clusters:
+  hosts:
+    ocp-prod:
+      openshift_host: https://api.example.com:6443
+      openshift_api_key: changeme
+      vm_sources:
+        - vcenter-prod
+      aap_hosts:
+        - aap-instance
+      mtv_namespace: openshift-mtv
+      default_target_namespace: vm-workloads
+      configure_mtv: true</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Short-lived <code>oc</code> token (labs only):</p>
+</div>
+<div class="listingblock">
+<div class="title">migration_clusters — temporary token</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">      openshift_temporary_api_key: changeme</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Do not set both <code>openshift_api_key</code> and <code>openshift_temporary_api_key</code>. To mint a long-lived token, see <a href="../roles/utility_openshift_target_credential.html" class="xref page">utility_openshift_target_credential</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="layouts"><a class="anchor" href="#layouts"></a>Layouts</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>One cluster, one source — three host names even if the URLs sit on the same lab:</p>
+</div>
+<div class="listingblock">
+<div class="title">layout — one pair</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">migration_aap:
+  hosts:
+    aap-instance:
+      aap_hostname: https://aap.example.com
+      aap_username: admin
+      aap_password: changeme
       aap_project_scm_branch: v2
 
 vm_sources:
@@ -326,7 +469,42 @@ migration_clusters:
 </div>
 </div>
 <div class="paragraph">
-<p>All-in-one still uses <strong>three groups</strong> and <strong>three host names</strong>. The OpenShift API, vCenter, and AAP can be different URLs even when they sit on the same lab.</p>
+<p>One cluster, two sources — list both names under the cluster:</p>
+</div>
+<div class="listingblock">
+<div class="title">layout — two sources</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">      vm_sources:
+        - vcenter-prod
+        - rhv-legacy</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Two clusters — each cluster has its own <code>vm_sources</code> list and <code>aap_hosts</code>:</p>
+</div>
+<div class="listingblock">
+<div class="title">layout — two clusters</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">migration_clusters:
+  hosts:
+    ocp-prod:
+      openshift_host: https://api.prod.example.com:6443
+      openshift_api_key: changeme
+      vm_sources:
+        - vcenter-prod
+      aap_hosts:
+        - aap-instance
+    ocp-staging:
+      openshift_host: https://api.staging.example.com:6443
+      openshift_api_key: changeme
+      vm_sources:
+        - vcenter-prod
+      aap_hosts:
+        - aap-instance</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>A source missing from a cluster&#8217;s <code>vm_sources</code> list fails provider and maps for that pair.</p>
 </div>
 </div>
 </div>
@@ -334,13 +512,13 @@ migration_clusters:
 <h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Save the inventory. Next, <a href="seed-aap.html" class="xref page">Seed Migration Factory into AAP</a>. If seed or maps fail because a host name is wrong, return here; <code>source_name</code> and <code>target_name</code> later must match these host names.</p>
+<p>Save the file. <a href="validate-environment.html" class="xref page">Validate your environment</a>, then <a href="seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>. Later <code>source_name</code> and <code>target_name</code> on AAP surveys must match these host names.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="setup-aap-yourself.html" class="query-params-link">Use an AAP you already have</a></span>
-  <span class="next"><a href="seed-aap.html" class="query-params-link">Seed Migration Factory into AAP</a></span>
+  <span class="prev"><a href="setup-aap-yourself.html" class="query-params-link">Ansible Automation Platform</a></span>
+  <span class="next"><a href="setup-existing-ocp.html" class="query-params-link">Deploying Ansible Automation Platform (optional)</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

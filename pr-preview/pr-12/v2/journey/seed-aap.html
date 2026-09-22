@@ -3,8 +3,8 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Seed Migration Factory into AAP :: Ansible for OpenShift Virtualization Migration Documentation</title>
-    <link rel="prev" href="configure-inventory.html">
+    <title>Seeding Ansible Automation Platform :: Ansible for OpenShift Virtualization Migration Documentation</title>
+    <link rel="prev" href="validate-environment.html">
     <link rel="next" href="run-a-migration.html">
     <meta name="generator" content="Antora 3.1.15">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -41,60 +41,111 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../index.html">Introduction</a>
+    <a class="nav-link" href="../index.html">Introduction / Overview</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="confirm-openshift-ready.html">Confirm OpenShift is ready</a>
-  </li>
-  <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="setup-environment.html">Get AAP ready</a>
+    <a class="nav-link" href="setup-environment.html">Preparing your environment</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-rhdp.html">Red Hat Demo Platform</a>
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-existing-ocp.html">Deploy AAP on your OpenShift</a>
+    <a class="nav-link" href="migration-factory-prerequisites.html">Migration Factory prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-aap-yourself.html">Use an AAP you already have</a>
+    <a class="nav-link" href="source-collection.html">Sourcing the collection and execution environment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="confirm-openshift-ready.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-aap-yourself.html">Ansible Automation Platform</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configure-inventory.html">Building your inventory</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-existing-ocp.html">Deploying Ansible Automation Platform (optional)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="validate-environment.html">Validate your environment</a>
   </li>
 </ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="configure-inventory.html">Configure inventory for your environment</a>
   </li>
   <li class="nav-item is-current-page" data-depth="1">
-    <a class="nav-link" href="seed-aap.html">Seed Migration Factory into AAP</a>
+    <a class="nav-link" href="seed-aap.html">Seeding Ansible Automation Platform</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="run-a-migration.html">Run a migration</a>
+    <span class="nav-text">Performing a migration wave</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="create-providers.html">Create providers</a>
+    <a class="nav-link" href="run-a-migration.html">Introduction to migration waves</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="create-maps.html">Create maps</a>
+    <a class="nav-link" href="create-providers.html">Configure providers</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="prepare-migration-wave.html">Prepare a migration wave</a>
+    <a class="nav-link" href="create-maps.html">Configure storage and network maps</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="execute-migration.html">Execute the migration</a>
+    <a class="nav-link" href="prepare-migration-wave.html">Defining a migration wave</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="verify-migration.html">Verify the migration</a>
+    <a class="nav-link" href="prepare-vms.html">Preparing VMs for migration (optional)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performing a migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="execute-migration.html">Migrating VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Post migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="verify-migration.html">Verifying a migration</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="archive-plan.html">Archive the plan</a>
+    <a class="nav-link" href="close-migration-wave.html">Closing the migration wave</a>
   </li>
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scaling-the-automation.html">Scale the automation</a>
+    <a class="nav-link" href="archive-plan.html">Archiving the plan</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="scaling-the-automation.html">Updating the topology</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day 2 operations (future)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="day2-overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="day2-onboarding.html">Onboarding VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Enablement</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-rhdp.html">RHDP workshop</a>
   </li>
 </ul>
   </li>
@@ -104,7 +155,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../roles/index.html">Look up an Ansible role</a>
+    <a class="nav-link" href="../roles/index.html">Automation reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../roles/aap_seed.html">aap_seed</a>
@@ -131,6 +182,13 @@
     <a class="nav-link" href="../roles/utility_openshift_target_credential.html">utility_openshift_target_credential</a>
   </li>
 </ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../support/channels.html">Support</a>
   </li>
 </ul>
   </li>
@@ -168,44 +226,29 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Migration Factory V2</a></li>
-    <li><a href="seed-aap.html">Seed Migration Factory into AAP</a></li>
+    <li><a href="seed-aap.html">Seeding Ansible Automation Platform</a></li>
   </ul>
 </nav>
 </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Seed Migration Factory into AAP</h1>
+<h1 class="page">Seeding Ansible Automation Platform</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Bring Migration Factory to life inside Ansible Automation Platform: organization, project, inventory, credentials, and job templates land on AAP so you can run providers, maps, and migrations without installing the collection by hand on every laptop.</p>
+<p>Bring Migration Factory into AAP: organization, project, inventory, credentials, execution environment, and job templates. After this, you run providers, maps, and waves from AAP. You do not install the collection on every laptop.</p>
 </div>
 <div class="paragraph">
-<p>Use the inventory you just built (<a href="configure-inventory.html" class="xref page">Configure inventory for your environment</a>). OpenShift is already there with Virtualization and MTV (<a href="confirm-openshift-ready.html" class="xref page">Confirm OpenShift is ready</a>). AAP is already running (<a href="setup-environment.html" class="xref page">Get AAP ready</a>). Do not seed until those are true.</p>
+<p>Use the inventory from <a href="configure-inventory.html" class="xref page">Building your inventory</a>. OpenShift already has Virtualization and MTV (<a href="confirm-openshift-ready.html" class="xref page">OpenShift</a>). AAP is already running (<a href="setup-aap-yourself.html" class="xref page">Ansible Automation Platform</a>). Do not seed until <a href="validate-environment.html" class="xref page">Validate your environment</a> is true.</p>
 </div>
 <div class="paragraph">
-<p>When you are done, you can log in to AAP and see Migration Factory templates. Next is <a href="run-a-migration.html" class="xref page">Run a migration</a>. If AAP already has that content from a previous sitting, skip this page.</p>
+<p>When you are done, AAP shows the Migration Factory templates. Next is <a href="run-a-migration.html" class="xref page">Introduction to migration waves</a>. Skip this page if AAP already has that content.</p>
 </div>
 <div class="paragraph">
-<p>The collection v2 playbook is <code>vmf_seed_aap</code>. It runs the <code>aap_seed</code> role only. It does <strong>not</strong> install AAP. Installing AAP on OpenShift is <a href="setup-existing-ocp.html" class="xref page">Deploy AAP on your OpenShift</a> (<code>utility_aap_deploy</code>). Internals: <a href="../roles/aap_seed.html" class="xref page">aap_seed</a>.</p>
+<p>The playbook is <code>vmf_seed_aap</code> (<code>aap_seed</code> role only). It does <strong>not</strong> install AAP. Internals: <a href="../roles/aap_seed.html" class="xref page">aap_seed</a>.</p>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="before-you-run-anything"><a class="anchor" href="#before-you-run-anything"></a>Before you run anything</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Inventory uses the v2 groups <code>migration_aap</code>, <code>vm_sources</code>, and <code>migration_clusters</code>. Values still set to <code>changeme</code> will fail seed.</p>
-</li>
-<li>
-<p><code>migration_aap</code> has <code>aap_hostname</code> and either a token or username and password.</p>
-</li>
-<li>
-<p><code>ansible-navigator</code> can pull the Migration Factory execution environment.</p>
-</li>
-</ul>
+<div class="paragraph">
+<p>This is the last required laptop run. After it succeeds, use AAP.</p>
 </div>
 </div>
 </div>
@@ -227,26 +270,29 @@
 </div>
 </div>
 <div class="paragraph">
-<p>The playbook targets the <code>migration_aap</code> group.</p>
+<p>The playbook targets <code>migration_aap</code>.</p>
 </div>
 <div class="paragraph">
-<p>After a successful run, AAP has at least these job templates (surveys ask for <code>source_name</code> and <code>target_name</code>):</p>
+<p>After a successful run, AAP has at least:</p>
 </div>
 <div class="ulist">
 <ul>
 <li>
-<p><strong>OpenShift Virtualization Migration - MTV Provider</strong> (<code>playbooks/vmf_mtv_provider.yml</code>)</p>
+<p><strong>OpenShift Virtualization Migration - MTV Provider</strong></p>
 </li>
 <li>
-<p><strong>OpenShift Virtualization Migration - MTV Maps</strong> (<code>playbooks/vmf_mtv_maps.yml</code>)</p>
+<p><strong>OpenShift Virtualization Migration - MTV Maps</strong></p>
 </li>
 <li>
-<p><strong>OpenShift Virtualization Migration - MTV Plans</strong> (<code>playbooks/vmf_mtv_plans.yml</code>)</p>
+<p><strong>OpenShift Virtualization Migration - MTV Plans</strong></p>
 </li>
 <li>
-<p><strong>OpenShift Virtualization Migration - Migrate</strong> (<code>playbooks/vmf_migrate.yml</code>) — placeholder on collection <code>v2</code>; it does not start VMs. See <a href="execute-migration.html" class="xref page">Execute the migration</a>.</p>
+<p><strong>OpenShift Virtualization Migration - Migrate</strong> — placeholder on collection <code>v2</code>; it does not start VMs. See <a href="execute-migration.html" class="xref page">Migrating VMs</a>.</p>
 </li>
 </ul>
+</div>
+<div class="paragraph">
+<p>Surveys ask for <code>source_name</code> and <code>target_name</code> (inventory host names).</p>
 </div>
 </div>
 </div>
@@ -256,13 +302,13 @@
 <div class="ulist">
 <ul>
 <li>
-<p>Wrong host or <code>changeme</code> still in the file — fix <a href="configure-inventory.html" class="xref page">Configure inventory for your environment</a> and run the <strong>same</strong> playbook again.</p>
+<p><code>changeme</code> still in the inventory — fix <a href="configure-inventory.html" class="xref page">Building your inventory</a> and run the <strong>same</strong> playbook.</p>
 </li>
 <li>
-<p>OpenShift Virtualization or MTV missing — that check belongs on <a href="confirm-openshift-ready.html" class="xref page">Confirm OpenShift is ready</a>, not a different seed command.</p>
+<p>MTV missing — <a href="confirm-openshift-ready.html" class="xref page">OpenShift</a>, not a different seed command.</p>
 </li>
 <li>
-<p>AAP not reachable — get AAP running first; seed does not deploy the operator.</p>
+<p>AAP not reachable — <a href="setup-aap-yourself.html" class="xref page">Ansible Automation Platform</a>; seed does not deploy the operator.</p>
 </li>
 </ul>
 </div>
@@ -272,13 +318,13 @@
 <h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>AAP holds the Migration Factory project, inventory, credentials, and templates. Continue to <a href="run-a-migration.html" class="xref page">Run a migration</a>.</p>
+<p>AAP holds the project, inventory, credentials, and templates. Continue to <a href="run-a-migration.html" class="xref page">Introduction to migration waves</a>.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="configure-inventory.html" class="query-params-link">Configure inventory for your environment</a></span>
-  <span class="next"><a href="run-a-migration.html" class="query-params-link">Run a migration</a></span>
+  <span class="prev"><a href="validate-environment.html" class="query-params-link">Validate your environment</a></span>
+  <span class="next"><a href="run-a-migration.html" class="query-params-link">Introduction to migration waves</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

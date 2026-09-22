@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Red Hat Demo Platform :: Ansible for OpenShift Virtualization Migration Documentation</title>
-    <link rel="prev" href="setup-environment.html">
-    <link rel="next" href="setup-existing-ocp.html">
+    <title>RHDP workshop :: Ansible for OpenShift Virtualization Migration Documentation</title>
+    <link rel="prev" href="day2-onboarding.html">
+    <link rel="next" href="../roles/index.html">
     <meta name="generator" content="Antora 3.1.15">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -41,60 +41,111 @@
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="../index.html">Introduction</a>
+    <a class="nav-link" href="../index.html">Introduction / Overview</a>
   </li>
 </ul>
   </li>
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="confirm-openshift-ready.html">Confirm OpenShift is ready</a>
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="setup-environment.html">Preparing your environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="migration-factory-prerequisites.html">Migration Factory prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="source-collection.html">Sourcing the collection and execution environment</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="confirm-openshift-ready.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-aap-yourself.html">Ansible Automation Platform</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="configure-inventory.html">Building your inventory</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="setup-existing-ocp.html">Deploying Ansible Automation Platform (optional)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="validate-environment.html">Validate your environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="seed-aap.html">Seeding Ansible Automation Platform</a>
   </li>
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="setup-environment.html">Get AAP ready</a>
+    <span class="nav-text">Performing a migration wave</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="run-a-migration.html">Introduction to migration waves</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="create-providers.html">Configure providers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="create-maps.html">Configure storage and network maps</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="prepare-migration-wave.html">Defining a migration wave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="prepare-vms.html">Preparing VMs for migration (optional)</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performing a migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="execute-migration.html">Migrating VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Post migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="verify-migration.html">Verifying a migration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="close-migration-wave.html">Closing the migration wave</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="archive-plan.html">Archiving the plan</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="scaling-the-automation.html">Updating the topology</a>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day 2 operations (future)</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="day2-overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="day2-onboarding.html">Onboarding VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Enablement</span>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="setup-rhdp.html">Red Hat Demo Platform</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-existing-ocp.html">Deploy AAP on your OpenShift</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="setup-aap-yourself.html">Use an AAP you already have</a>
-  </li>
-</ul>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="configure-inventory.html">Configure inventory for your environment</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <a class="nav-link" href="seed-aap.html">Seed Migration Factory into AAP</a>
-  </li>
-  <li class="nav-item" data-depth="1">
-    <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="run-a-migration.html">Run a migration</a>
-<ul class="nav-list">
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="create-providers.html">Create providers</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="create-maps.html">Create maps</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="prepare-migration-wave.html">Prepare a migration wave</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="execute-migration.html">Execute the migration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="verify-migration.html">Verify the migration</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="archive-plan.html">Archive the plan</a>
-  </li>
-  <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="scaling-the-automation.html">Scale the automation</a>
+    <a class="nav-link" href="setup-rhdp.html">RHDP workshop</a>
   </li>
 </ul>
   </li>
@@ -104,7 +155,7 @@
 <ul class="nav-list">
   <li class="nav-item" data-depth="1">
     <button class="nav-item-toggle"></button>
-    <a class="nav-link" href="../roles/index.html">Look up an Ansible role</a>
+    <a class="nav-link" href="../roles/index.html">Automation reference</a>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../roles/aap_seed.html">aap_seed</a>
@@ -131,6 +182,13 @@
     <a class="nav-link" href="../roles/utility_openshift_target_credential.html">utility_openshift_target_credential</a>
   </li>
 </ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../support/channels.html">Support</a>
   </li>
 </ul>
   </li>
@@ -168,86 +226,37 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Migration Factory V2</a></li>
-    <li><a href="setup-environment.html">Get AAP ready</a></li>
-    <li><a href="setup-rhdp.html">Red Hat Demo Platform</a></li>
+    <li>Enablement</li>
+    <li><a href="setup-rhdp.html">RHDP workshop</a></li>
   </ul>
 </nav>
 </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Red Hat Demo Platform</h1>
+<h1 class="page">RHDP workshop</h1>
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Use Red Hat Demo Platform (RHDP) when you need a short-lived lab: an OpenShift cluster with OpenShift Virtualization and MTV, plus a vSphere source. These docs do not walk through installing OpenShift.</p>
+<p>Red Hat Demo Platform is a <strong>demonstration lab</strong>, not the default path. Production and customer work starts at <a href="setup-environment.html" class="xref page">Preparing your environment</a> with your OpenShift and AAP.</p>
 </div>
 <div class="paragraph">
-<p>When you are done, you can <code>oc login</code> as <strong>admin</strong>, and you have the API URL, console URL, and vCenter details from the service. AAP is <strong>not</strong> in this catalog item. Next is <a href="setup-existing-ocp.html" class="xref page">Deploy AAP on your OpenShift</a>, then <a href="configure-inventory.html" class="xref page">Configure inventory for your environment</a>.</p>
+<p>Use this catalog item only for enablement: a short-lived OpenShift cluster with Virtualization and MTV, plus a vSphere source. It does not install AAP.</p>
 </div>
 <div class="paragraph">
-<p>The catalog item is <a href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/openshift-cnv.ocp-virt-roadshow-multi-user.prod&amp;utm_source=webapp&amp;utm_medium=share-link">Experience OpenShift Virtualization Roadshow</a>. You need RHDP access to order it.</p>
+<p>Catalog item: <a href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/openshift-cnv.ocp-virt-roadshow-multi-user.prod&amp;utm_source=webapp&amp;utm_medium=share-link">Experience OpenShift Virtualization Roadshow</a>.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="order-the-lab"><a class="anchor" href="#order-the-lab"></a>Order the lab</h2>
+<h2 id="order-and-collect-details"><a class="anchor" href="#order-and-collect-details"></a>Order and collect details</h2>
 <div class="sectionbody">
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Open the catalog item and select <strong>Order</strong>.</p>
+<p>Order the item. Activity: <strong>Practice / Enablement</strong>. Purpose: <strong>Conduct internal training/enablement</strong>.</p>
 </li>
 <li>
-<p>Activity: <strong>Practice / Enablement</strong>. Purpose: <strong>Conduct internal training/enablement</strong>.</p>
-</li>
-<li>
-<p>Leave the other fields at their defaults.</p>
-</li>
-<li>
-<p>Confirm the warnings and click <strong>Order</strong>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>Provisioning takes a while. Track it in the RHDP portal. You get email when the service is ready.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="collect-connection-details"><a class="anchor" href="#collect-connection-details"></a>Collect connection details</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Open the service for <strong>Experience OpenShift Virtualization Roadshow</strong>.</p>
-</li>
-</ol>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../../guides/rhdp/_images/rhdp-services-list.png" alt="RHDP services list">
-</div>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Open the <strong>Details</strong> tab. Copy:</p>
-<div class="ulist">
-<ul>
-<li>
-<p>OpenShift API server URL</p>
-</li>
-<li>
-<p>OpenShift web console URL</p>
-</li>
-<li>
-<p><strong>admin</strong> password</p>
-</li>
-<li>
-<p>vCenter host, username, and password (the workshop VMware source)</p>
-</li>
-</ul>
-</div>
+<p>When the service is ready, open <strong>Details</strong> and copy the OpenShift API and console URLs, <strong>admin</strong> password, and vCenter host, username, and password.</p>
 </li>
 </ol>
 </div>
@@ -256,59 +265,17 @@
 <img src="../../guides/rhdp/_images/rhdp-service-details.png" alt="RHDP service details">
 </div>
 </div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="log-in-to-the-cluster"><a class="anchor" href="#log-in-to-the-cluster"></a>Log in to the cluster</h2>
-<div class="sectionbody">
 <div class="paragraph">
-<p>Use the bastion VM that RHDP deploys, or your laptop if <code>oc</code> is already installed.</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc login --insecure-skip-tls-verify=true \
-  --username=admin \
-  --password=&lt;password&gt; \
-  --server=https://api.cluster-&lt;cluster_id&gt;.dynamic.redhatworkshops.io:6443</code></pre>
-</div>
+<p>Then follow the same mainstream path: optional <a href="setup-existing-ocp.html" class="xref page">Deploying Ansible Automation Platform (optional)</a>, <a href="configure-inventory.html" class="xref page">Building your inventory</a> (one cluster, one source), <a href="seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>.</p>
 </div>
 <div class="paragraph">
-<p>Replace the password and <code>--server</code> value with the Details tab. Confirm OpenShift Virtualization and MTV are present (<a href="confirm-openshift-ready.html" class="xref page">Confirm OpenShift is ready</a>).</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="what-you-do-not-do-here"><a class="anchor" href="#what-you-do-not-do-here"></a>What you do not do here</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Do not run the v1 playbook <code>migration_factory_aap</code>. Collection <code>v2</code> installs AAP with <code>utility_aap_deploy</code> only.</p>
-</li>
-<li>
-<p>Do not fill a hub/spoke inventory (<code>migration_hub</code> / <code>migration_spoke</code>). v2 uses <code>migration_aap</code>, <code>vm_sources</code>, and <code>migration_clusters</code>.</p>
-</li>
-<li>
-<p>Do not seed AAP until AAP is running and the inventory matches those groups.</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>The longer v1 workshop (including screenshots of an already-seeded AAP) is still at <a href="../../guides/rhdp/rhdp.html" class="xref page">Ansible for OpenShift Virtualization Migration on Red Hat Demo Platform</a>. Follow this page and the v2 inventory/seed path instead of that deploy chapter.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>You have an OpenShift lab and a vSphere source. Deploy AAP (<a href="setup-existing-ocp.html" class="xref page">Deploy AAP on your OpenShift</a>), put the RHDP API, token, AAP URL, and vCenter values into the v2 inventory (one cluster, one source), then <a href="seed-aap.html" class="xref page">Seed Migration Factory into AAP</a>.</p>
+<p>The older workshop write-up remains at <a href="../../guides/rhdp/rhdp.html" class="xref page">v1 RHDP workshop</a>. Do not use its <code>migration_factory_aap</code> playbook or hub/spoke inventory; collection <code>v2</code> does not use those.</p>
 </div>
 </div>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="setup-environment.html" class="query-params-link">Get AAP ready</a></span>
-  <span class="next"><a href="setup-existing-ocp.html" class="query-params-link">Deploy AAP on your OpenShift</a></span>
+  <span class="prev"><a href="day2-onboarding.html" class="query-params-link">Onboarding VMs</a></span>
+  <span class="next"><a href="../roles/index.html" class="query-params-link">Automation reference</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

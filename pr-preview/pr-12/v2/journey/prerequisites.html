@@ -3,9 +3,9 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Verifying a migration :: Ansible for OpenShift Virtualization Migration Documentation</title>
-    <link rel="prev" href="execute-migration.html">
-    <link rel="next" href="close-migration-wave.html">
+    <title>Prerequisites :: Ansible for OpenShift Virtualization Migration Documentation</title>
+    <link rel="prev" href="setup-environment.html">
+    <link rel="next" href="migration-factory-prerequisites.html">
     <meta name="generator" content="Antora 3.1.15">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -51,7 +51,7 @@
     <button class="nav-item-toggle"></button>
     <a class="nav-link" href="setup-environment.html">Preparing your environment</a>
 <ul class="nav-list">
-  <li class="nav-item" data-depth="2">
+  <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="prerequisites.html">Prerequisites</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -114,7 +114,7 @@
     <button class="nav-item-toggle"></button>
     <span class="nav-text">Post migration</span>
 <ul class="nav-list">
-  <li class="nav-item is-current-page" data-depth="2">
+  <li class="nav-item" data-depth="2">
     <a class="nav-link" href="verify-migration.html">Verifying a migration</a>
   </li>
   <li class="nav-item" data-depth="2">
@@ -226,159 +226,60 @@
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
     <li><a href="../index.html">Migration Factory V2</a></li>
-    <li>Post migration</li>
-    <li><a href="verify-migration.html">Verifying a migration</a></li>
+    <li><a href="setup-environment.html">Preparing your environment</a></li>
+    <li><a href="prerequisites.html">Prerequisites</a></li>
   </ul>
 </nav>
 </div>
   <div class="content">
 <article class="doc">
-<h1 class="page">Verifying a migration</h1>
-<div id="preamble">
-<div class="sectionbody">
+<h1 class="page">Prerequisites</h1>
 <div class="paragraph">
-<p>Confirm the wave actually landed: the plan finished, the VirtualMachine objects exist in the target project, and you can start them. Start from a <strong>Succeeded</strong> plan (<a href="execute-migration.html" class="xref page">Migrating VMs</a>).</p>
+<p>Confirm you can reach every system Migration Factory talks to. You do not install OpenShift here.</p>
 </div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">What</th>
+<th class="tableblock halign-left valign-top">Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift cluster</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Destination for VMs. <code>cluster-admin</code> (or equivalent) on the API. OpenShift Virtualization and MTV must already be installed. See <a href="confirm-openshift-ready.html" class="xref page">OpenShift</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Source hypervisor</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VMware vSphere or RHV URL, username, and password. VDDK image only if you are entitled to build and use one.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Ansible Automation Platform</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">URL plus an admin token or username and password. If AAP is not installed, that is the optional <a href="setup-existing-ocp.html" class="xref page">Deploying Ansible Automation Platform (optional)</a> step, which needs an AAP entitlement (service account or subscription manifest).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Execution environment</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Pull access to the Migration Factory EE on Quay (<code>quay.io/redhat-cop/openshift-virtualization-migration-ee</code>). AAP uses this image for job templates after seed.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Collection source</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Git access to <a href="https://github.com/redhat-cop/openshift_virtualization_migration/tree/v2">openshift_virtualization_migration</a> branch <code>v2</code>, or Automation Hub once the validated collection matches that branch. See <a href="source-collection.html" class="xref page">Sourcing the collection and execution environment</a>.</p></td>
+</tr>
+</tbody>
+</table>
 <div class="paragraph">
-<p>When you are done, each VM in the wave is on OpenShift Virtualization in the namespace you set as <code>target_namespace</code>. Next is <a href="close-migration-wave.html" class="xref page">Closing the migration wave</a>.</p>
-</div>
-<div class="paragraph">
-<p>Collection <code>v2</code> has no verify playbook or <code>validate_migration</code> role. <code>mtv_plans</code> <code>verify_plans_ready</code> only waits until a plan is <strong>Ready</strong> before you start it. It does not wait for disks to copy. Check the result in the OpenShift web console (and with <code>oc</code> if you prefer).</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="prerequisites"><a class="anchor" href="#prerequisites"></a>Prerequisites</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>You started the plan (<a href="execute-migration.html" class="xref page">Migrating VMs</a>).</p>
-</li>
-<li>
-<p>You know the project for Plan CRs (<code>migration_namespace</code>, default <code>openshift-mtv</code>) and the project for VMs (<code>target_namespace</code> from the wave).</p>
-</li>
-</ul>
-</div>
-<div class="paragraph">
-<p>If the plan is still <strong>Running</strong>, wait. If it never left <strong>Ready</strong>, it was not started.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="confirm-the-plan-succeeded"><a class="anchor" href="#confirm-the-plan-succeeded"></a>Confirm the plan succeeded</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>In the OpenShift web console: <strong>Migration</strong> → <strong>Plans for virtualization</strong>.</p>
-</li>
-<li>
-<p>Select the project where the plans live.</p>
-</li>
-<li>
-<p>Open the plan. Status <strong>Succeeded</strong>, with the VM count migrated.</p>
-</li>
-</ol>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../../guides/rhdp/_images/openshift-mtv-completed-plan.png" alt="MTV plan succeeded">
-</div>
+<p>Automation Hub is optional unless you pull extra certified collections.</p>
 </div>
 <div class="paragraph">
-<p>On the <strong>Virtual Machines</strong> tab, every VM in the wave should show a completed pipeline (no error on Initialize / Disk transfer / Convert). If you used <code>split_plans</code>, check every Plan CR.</p>
-</div>
-<div class="paragraph">
-<p>Warm plans are not done until <strong>Cutover</strong> has run (<a href="execute-migration.html" class="xref page">Migrating VMs</a>). Precopy <strong>Running</strong> is not a finished wave.</p>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="confirm-the-virtualmachines"><a class="anchor" href="#confirm-the-virtualmachines"></a>Confirm the VirtualMachines</h2>
-<div class="sectionbody">
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>On the same plan, <strong>Virtual Machines</strong> tab, expand a VM and open the VirtualMachine link.</p>
-</li>
-<li>
-<p>Or go to <strong>Virtualization</strong> → <strong>VirtualMachines</strong> and select <code>target_namespace</code>.</p>
-</li>
-</ol>
-</div>
-<div class="paragraph">
-<p>The VM exists in that project. MTV leaves it <strong>Stopped</strong> until you start it.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Open the VM.</p>
-</li>
-<li>
-<p><strong>Actions</strong> → <strong>Start</strong>.</p>
-</li>
-<li>
-<p>Wait until status is <strong>Running</strong>.</p>
-</li>
-</ol>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../../guides/rhdp/_images/openshift-migrated-vm.png" alt="Migrated virtual machine running">
-</div>
-</div>
-<div class="paragraph">
-<p>Use the console or guest login to confirm the workload. Guest agent data (hostname, IP) appears only after the agent is running in the guest; missing agent text is not a failed migration.</p>
-</div>
-<div class="paragraph">
-<p>From the CLI, in the target project:</p>
-</div>
-<div class="listingblock">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get vm -n &lt;target-namespace&gt;</code></pre>
-</div>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="if-verification-fails"><a class="anchor" href="#if-verification-fails"></a>If verification fails</h2>
-<div class="sectionbody">
-<div class="ulist">
-<ul>
-<li>
-<p>Plan <strong>Failed</strong> or a VM pipeline error — read the plan <strong>Virtual Machines</strong> tab and pod logs; do not archive yet. Maps and names are <a href="prepare-migration-wave.html" class="xref page">Defining a migration wave</a>; starting is <a href="execute-migration.html" class="xref page">Migrating VMs</a>.</p>
-</li>
-<li>
-<p>Plan <strong>Succeeded</strong> but no VM in the project you opened — you are in <code>mtv_namespace</code> or <code>migration_namespace</code> instead of <code>target_namespace</code>.</p>
-</li>
-<li>
-<p>VM missing entirely — the plan did not finish or named a different target project.</p>
-</li>
-<li>
-<p>VM <strong>Stopped</strong> after success — expected; use <strong>Start</strong>.</p>
-</li>
-<li>
-<p>Warm plan still copying — cutover has not run.</p>
-</li>
-<li>
-<p>Several plans from <code>split_plans</code> — verify each one.</p>
-</li>
-</ul>
-</div>
-</div>
-</div>
-<div class="sect1">
-<h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
-<div class="sectionbody">
-<div class="paragraph">
-<p>The plan is <strong>Succeeded</strong> and the VMs are in <code>target_namespace</code> (running if you started them). Continue to <a href="close-migration-wave.html" class="xref page">Closing the migration wave</a>.</p>
-</div>
-</div>
+<p>When this table is true, continue to <a href="migration-factory-prerequisites.html" class="xref page">Migration Factory prerequisites</a> only if you still need laptop tools. If AAP will run every later template, you can skip the laptop packages after you can seed once.</p>
 </div>
 <nav class="pagination">
-  <span class="prev"><a href="execute-migration.html" class="query-params-link">Migrating VMs</a></span>
-  <span class="next"><a href="close-migration-wave.html" class="query-params-link">Closing the migration wave</a></span>
+  <span class="prev"><a href="setup-environment.html" class="query-params-link">Preparing your environment</a></span>
+  <span class="next"><a href="migration-factory-prerequisites.html" class="query-params-link">Migration Factory prerequisites</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
