@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li><a href="scaling-the-automation.html">Updating the topology</a></li>
   </ul>
 </nav>
@@ -236,10 +236,10 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Repeat the path you just finished for more sources, more OpenShift clusters, and larger waves. Launch the same AAP templates. This page is not a cluster autoscaler.</p>
+<p>Repeat the path you just finished for more sources, more OpenShift clusters, and larger waves. Launch the same AAP templates. This is not a cluster autoscaler.</p>
 </div>
 <div class="paragraph">
-<p>When you are done, the inventory lists every hypervisor and destination you care about, AAP has those hosts, and you can run providers, maps, and waves per pair. There is no separate “scale” playbook on collection <code>v2</code>.</p>
+<p>When you are done, the inventory lists every hypervisor and destination you care about, AAP has those hosts, and you can run providers, maps, and waves per pair. There is no separate scale playbook.</p>
 </div>
 </div>
 </div>
@@ -247,7 +247,7 @@
 <h2 id="what-actually-repeats"><a class="anchor" href="#what-actually-repeats"></a>What actually repeats</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Collection <code>v2</code> scales by <strong>more inventory hosts</strong> and <strong>more launches</strong>, not by a workflow that fans out every pair for you.</p>
+<p>The collection scales by <strong>more inventory hosts</strong> and <strong>more launches</strong>, not by a workflow that fans out every pair for you.</p>
 </div>
 <div class="ulist">
 <ul>
@@ -268,7 +268,7 @@
 <h2 id="more-sources-or-clusters"><a class="anchor" href="#more-sources-or-clusters"></a>More sources or clusters</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Add hosts in the inventory (<a href="configure-inventory.html" class="xref page">Building your inventory</a>). Copy from the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">v2 inventory sample</a> (<code>ocp-staging</code> and extra <code>vm_sources</code> hosts are commented there).</p>
+<p>Add hosts in the inventory (<a href="configure-inventory.html" class="xref page">Building your inventory</a>). Copy from the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">inventory sample</a> (<code>ocp-staging</code> and extra <code>vm_sources</code> hosts are commented there).</p>
 </div>
 <div class="ulist">
 <ul>
@@ -338,12 +338,12 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>Warm (<code>type: warm</code>) still needs <strong>Cutover</strong> per plan. Collection <code>v2</code> does not schedule cutovers for you.</p>
+<p>Warm (<code>type: warm</code>) still needs <strong>Cutover</strong> per plan. Cutover is not scheduled for you.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="what-this-collection-does-not-do-yet"><a class="anchor" href="#what-this-collection-does-not-do-yet"></a>What this collection does not do yet</h2>
+<h2 id="what-this-collection-does-not-do"><a class="anchor" href="#what-this-collection-does-not-do"></a>What this collection does not do</h2>
 <div class="sectionbody">
 <div class="ulist">
 <ul>
@@ -351,7 +351,7 @@
 <p>No job template or workflow that loops every source–target pair in one click.</p>
 </li>
 <li>
-<p>No <code>mtv_migrate</code> role and no working migrate playbook (<code>vmf_migrate.yml</code> is a placeholder).</p>
+<p>No migrate playbook that starts MTV (<code>vmf_migrate.yml</code> logs the survey values and exits).</p>
 </li>
 <li>
 <p>No <code>validate_migration</code> or archive automation — those stay in the OpenShift console.</p>
@@ -391,7 +391,7 @@
 <h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>You can add the next pair or the next wave with the same templates. Argument lists for the <code>v2</code> roles start at <a href="../roles/index.html" class="xref page">Automation reference</a>.</p>
+<p>You can add the next pair or the next wave with the same templates. Role details are in <a href="../roles/index.html" class="xref page">Automation reference</a>.</p>
 </div>
 </div>
 </div>

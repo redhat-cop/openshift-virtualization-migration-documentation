@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li>Post migration</li>
     <li><a href="verify-migration.html">Verifying a migration</a></li>
   </ul>
@@ -240,10 +240,10 @@
 <p>Confirm the wave actually landed: the plan finished, the VirtualMachine objects exist in the target project, and you can start them. Start from a <strong>Succeeded</strong> plan (<a href="execute-migration.html" class="xref page">Migrating VMs</a>).</p>
 </div>
 <div class="paragraph">
-<p>When you are done, each VM in the wave is on OpenShift Virtualization in the namespace you set as <code>target_namespace</code>. Next is <a href="close-migration-wave.html" class="xref page">Closing the migration wave</a>.</p>
+<p>When you are done, each VM in the wave is on OpenShift Virtualization in the namespace you set as <code>target_namespace</code>.</p>
 </div>
 <div class="paragraph">
-<p>Collection <code>v2</code> has no verify playbook or <code>validate_migration</code> role. <code>mtv_plans</code> <code>verify_plans_ready</code> only waits until a plan is <strong>Ready</strong> before you start it. It does not wait for disks to copy. Check the result in the OpenShift web console (and with <code>oc</code> if you prefer).</p>
+<p>There is no verify playbook. <code>mtv_plans</code> <code>verify_plans_ready</code> only waits until a plan is <strong>Ready</strong> before you start it. It does not wait for disks to copy. Check the result in the OpenShift web console (and with <code>oc</code> if you prefer).</p>
 </div>
 </div>
 </div>
@@ -372,7 +372,7 @@
 <h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The plan is <strong>Succeeded</strong> and the VMs are in <code>target_namespace</code> (running if you started them). Continue to <a href="close-migration-wave.html" class="xref page">Closing the migration wave</a>.</p>
+<p>The plan is <strong>Succeeded</strong> and the VMs are in <code>target_namespace</code> (running if you started them).</p>
 </div>
 </div>
 </div>

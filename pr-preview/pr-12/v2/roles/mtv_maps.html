@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li><a href="index.html">Automation reference</a></li>
     <li><a href="mtv_maps.html">mtv_maps</a></li>
   </ul>
@@ -238,7 +238,7 @@
 <p>Creates MTV/Forklift StorageMap and NetworkMap custom resources on the destination OpenShift cluster for one source–target pair. Used from <a href="../journey/create-maps.html" class="xref page">Configure storage and network maps</a>.</p>
 </div>
 <div class="paragraph">
-<p>Playbook: <code>infra.openshift_virtualization_migration.vmf_mtv_maps</code> (<code>playbooks/vmf_mtv_maps.yml</code> on the collection <code>v2</code> branch). The playbook targets <code>migration_clusters</code> and runs only when <code>inventory_hostname</code> equals <code>target_name</code>.</p>
+<p>Playbook: <code>infra.openshift_virtualization_migration.vmf_mtv_maps</code> (<code>playbooks/vmf_mtv_maps.yml</code>). The playbook targets <code>migration_clusters</code> and runs only when <code>inventory_hostname</code> equals <code>target_name</code>.</p>
 </div>
 <div class="paragraph">
 <p>The role queries MTV inventory through <a href="mtv_query_inventory.html" class="xref page">mtv_query_inventory</a> (datastores, storage classes, networks, NetworkAttachmentDefinitions), then applies the map CRs. It does <strong>not</strong> need source hypervisor credentials: MTV already has them from the provider.</p>

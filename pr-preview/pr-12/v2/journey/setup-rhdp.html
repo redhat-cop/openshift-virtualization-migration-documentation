@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li>Enablement</li>
     <li><a href="setup-rhdp.html">RHDP workshop</a></li>
   </ul>
@@ -237,10 +237,10 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>Red Hat Demo Platform is a <strong>demonstration lab</strong>, not the default path. Production and customer work starts at <a href="setup-environment.html" class="xref page">Preparing your environment</a> with your OpenShift and AAP.</p>
+<p>Red Hat Demo Platform provides a short-lived OpenShift cluster with Virtualization and MTV, plus a vSphere source. Use it for enablement. It does not install AAP.</p>
 </div>
 <div class="paragraph">
-<p>Use this catalog item only for enablement: a short-lived OpenShift cluster with Virtualization and MTV, plus a vSphere source. It does not install AAP.</p>
+<p>For a cluster and AAP you already run, start at <a href="setup-environment.html" class="xref page">Preparing your environment</a>.</p>
 </div>
 <div class="paragraph">
 <p>Catalog item: <a href="https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/openshift-cnv.ocp-virt-roadshow-multi-user.prod&amp;utm_source=webapp&amp;utm_medium=share-link">Experience OpenShift Virtualization Roadshow</a>.</p>
@@ -266,10 +266,7 @@
 </div>
 </div>
 <div class="paragraph">
-<p>Then follow the same path: <a href="setup-existing-ocp.html" class="xref page">Deploying Ansible Automation Platform</a> if the lab has no AAP yet, <a href="configure-inventory.html" class="xref page">Building your inventory</a> (one cluster, one source), <a href="seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>.</p>
-</div>
-<div class="paragraph">
-<p>The older workshop write-up remains at <a href="../../guides/rhdp/rhdp.html" class="xref page">v1 RHDP workshop</a>. Do not use its <code>migration_factory_aap</code> playbook or hub/spoke inventory; collection <code>v2</code> does not use those.</p>
+<p>Then <a href="setup-existing-ocp.html" class="xref page">Deploying Ansible Automation Platform</a> if the lab has no AAP yet, <a href="configure-inventory.html" class="xref page">Building your inventory</a> (one cluster, one source), and <a href="seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>. Do not use a <code>migration_factory_aap</code> playbook or a hub/spoke inventory.</p>
 </div>
 </div>
 </div>

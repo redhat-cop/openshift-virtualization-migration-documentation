@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li>Post migration</li>
     <li><a href="archive-plan.html">Archiving the plan</a></li>
   </ul>
@@ -240,10 +240,10 @@
 <p>Mark a finished migration plan archived in MTV so its logs and history go away and it cannot be started again. Close the wave first (<a href="close-migration-wave.html" class="xref page">Closing the migration wave</a>). Do not archive a plan you still need to restart or debug.</p>
 </div>
 <div class="paragraph">
-<p>When you are done, the plan is archived. The migrated VMs stay in <code>target_namespace</code>. Next is <a href="scaling-the-automation.html" class="xref page">Updating the topology</a> if you are adding sources or clusters.</p>
+<p>When you are done, the plan is archived. The migrated VMs stay in <code>target_namespace</code>.</p>
 </div>
 <div class="paragraph">
-<p>Collection <code>v2</code> has no archive playbook. Archive is an MTV action on the Plan CR that <code>mtv_plans</code> created. Use the OpenShift web console.</p>
+<p>There is no archive playbook. Archive is an MTV action on the Plan CR that <code>mtv_plans</code> created. Use the OpenShift web console.</p>
 </div>
 </div>
 </div>
@@ -372,7 +372,7 @@
 <h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The plan is archived (and optionally deleted). Workloads remain on OpenShift Virtualization. Continue to <a href="scaling-the-automation.html" class="xref page">Updating the topology</a> if you are repeating this path across more sources or clusters.</p>
+<p>The plan is archived (and optionally deleted). Workloads remain on OpenShift Virtualization.</p>
 </div>
 </div>
 </div>

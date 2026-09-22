@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li><a href="index.html">Automation reference</a></li>
     <li><a href="aap_seed.html">aap_seed</a></li>
   </ul>
@@ -238,7 +238,7 @@
 <p>Pushes Migration Factory into Ansible Automation Platform: organization, project, inventory, credential types, credentials, execution environment, and job templates. Used from <a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>.</p>
 </div>
 <div class="paragraph">
-<p>Playbook: <code>infra.openshift_virtualization_migration.vmf_seed_aap</code> (<code>playbooks/vmf_seed_aap.yml</code> on the collection <code>v2</code> branch). Targets the <code>migration_aap</code> group. Does <strong>not</strong> install AAP (<code>utility_aap_deploy</code> does that).</p>
+<p>Playbook: <code>infra.openshift_virtualization_migration.vmf_seed_aap</code> (<code>playbooks/vmf_seed_aap.yml</code>). Targets the <code>migration_aap</code> group. Does <strong>not</strong> install AAP (<code>utility_aap_deploy</code> does that).</p>
 </div>
 <div class="paragraph">
 <p>After a successful run, AAP has at least these templates (surveys ask for inventory host names <code>source_name</code> and <code>target_name</code>):</p>
@@ -255,7 +255,7 @@
 <p><strong>OpenShift Virtualization Migration - MTV Plans</strong></p>
 </li>
 <li>
-<p><strong>OpenShift Virtualization Migration - Migrate</strong> — placeholder playbook; see <a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a>.</p>
+<p><strong>OpenShift Virtualization Migration - Migrate</strong> — does not start migrations; see <a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a>.</p>
 </li>
 </ul>
 </div>

@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li><a href="setup-environment.html">Preparing your environment</a></li>
     <li><a href="setup-existing-ocp.html">Deploying Ansible Automation Platform</a></li>
   </ul>
@@ -235,13 +235,10 @@
 <article class="doc">
 <h1 class="page">Deploying Ansible Automation Platform</h1>
 <div class="paragraph">
-<p>Use this page when AAP is not installed yet. If you already have AAP, go to <a href="setup-aap-yourself.html" class="xref page">Ansible Automation Platform</a> and skip the install.</p>
+<p>If AAP is not installed yet, install it on the OpenShift cluster you already have, then seed. If you already have AAP, go to <a href="setup-aap-yourself.html" class="xref page">Ansible Automation Platform</a>.</p>
 </div>
 <div class="paragraph">
-<p>Install AAP on the OpenShift cluster you already have, then seed. These docs do not install OpenShift.</p>
-</div>
-<div class="paragraph">
-<p>The collection <code>v2</code> playbook is <code>utility_aap_deploy</code> (<code>playbooks/utility_aap_deploy.yml</code>). It runs the <code>utility_aap_deploy</code> role against <code>migration_clusters</code>. It installs AAP; it does <strong>not</strong> seed Migration Factory. Internals: <a href="../roles/utility_aap_deploy.html" class="xref page">utility_aap_deploy</a>.</p>
+<p>The playbook is <code>utility_aap_deploy</code> (<code>playbooks/utility_aap_deploy.yml</code>). It runs the <code>utility_aap_deploy</code> role against <code>migration_clusters</code>. It installs AAP; it does <strong>not</strong> seed Migration Factory. See <a href="../roles/utility_aap_deploy.html" class="xref page">utility_aap_deploy</a>.</p>
 </div>
 <div class="paragraph">
 <p>You need an AAP entitlement (service account or subscription manifest). Pass the zip with <code>utility_aap_deploy_aap_license_manifest</code> when the operator requires it.</p>

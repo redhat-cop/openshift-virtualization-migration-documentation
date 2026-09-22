@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li>Performing a migration</li>
     <li><a href="execute-migration.html">Migrating VMs</a></li>
   </ul>
@@ -240,10 +240,10 @@
 <p>Start the Plan custom resources from <a href="prepare-migration-wave.html" class="xref page">Defining a migration wave</a> so MTV copies the VMs to OpenShift.</p>
 </div>
 <div class="paragraph">
-<p>When you are done, the plan status is <strong>Running</strong>, then <strong>Succeeded</strong>. Next is <a href="verify-migration.html" class="xref page">Verifying a migration</a>. Creating a plan does not start it.</p>
+<p>When you are done, the plan status is <strong>Running</strong>, then <strong>Succeeded</strong>. Creating a plan does not start it.</p>
 </div>
 <div class="paragraph">
-<p>Collection <code>v2</code> does <strong>not</strong> start migrations from Ansible. The seeded AAP template <strong>OpenShift Virtualization Migration - Migrate</strong> (<code>playbooks/vmf_migrate.yml</code>) is a placeholder: it prints <code>source_name</code> and <code>target_name</code> and exits. There is no <code>mtv_migrate</code> role on the <code>v2</code> branch. Do not launch that template expecting disks to move.</p>
+<p>Ansible does <strong>not</strong> start migrations. The seeded AAP template <strong>OpenShift Virtualization Migration - Migrate</strong> (<code>playbooks/vmf_migrate.yml</code>) prints <code>source_name</code> and <code>target_name</code> and exits. Do not launch that template expecting disks to move.</p>
 </div>
 <div class="paragraph">
 <p>Start each Ready plan in the OpenShift web console (MTV). That is the path that creates the Migration resources and runs the wave.</p>
@@ -346,7 +346,7 @@
 <p><strong>Start</strong> missing or disabled — the plan is already running, archived, or not Ready.</p>
 </li>
 <li>
-<p>AAP <strong>Migrate</strong> job is green but nothing moves — expected for <code>vmf_migrate.yml</code> on collection <code>v2</code>.</p>
+<p>AAP <strong>Migrate</strong> job is green but nothing moves — expected; start the plan in the console.</p>
 </li>
 <li>
 <p>Warm plan stays in precopy — <strong>Start</strong> did its job; use <strong>Cutover</strong> when you intend to switch.</p>
@@ -359,7 +359,7 @@
 <h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The plan shows <strong>Succeeded</strong> (or is still <strong>Running</strong> while disks copy). Migrated VMs are typically powered off until you start them. Continue to <a href="verify-migration.html" class="xref page">Verifying a migration</a>.</p>
+<p>The plan shows <strong>Succeeded</strong> (or is still <strong>Running</strong> while disks copy). Migrated VMs are typically powered off until you start them.</p>
 </div>
 <div class="imageblock">
 <div class="content">

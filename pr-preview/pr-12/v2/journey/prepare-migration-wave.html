@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li>Performing a migration wave</li>
     <li><a href="prepare-migration-wave.html">Defining a migration wave</a></li>
   </ul>
@@ -240,10 +240,10 @@
 <p>Choose which VMs (or source folders) move together, attach the maps you already created, and let MTV create <strong>Plan</strong> custom resources. Maps must already exist (<a href="create-maps.html" class="xref page">Configure storage and network maps</a>).</p>
 </div>
 <div class="paragraph">
-<p>When you are done, each plan shows <strong>Ready</strong>. Next is <a href="execute-migration.html" class="xref page">Migrating VMs</a>. This page does <strong>not</strong> start a migration.</p>
+<p>When you are done, each plan shows <strong>Ready</strong>. This does <strong>not</strong> start a migration.</p>
 </div>
 <div class="paragraph">
-<p>Run this from <strong>AAP</strong>. The template is <strong>OpenShift Virtualization Migration - MTV Plans</strong> (<code>mtv_plans</code>). Internals: <a href="../roles/mtv_plans.html" class="xref page">mtv_plans</a>.</p>
+<p>Run this from <strong>AAP</strong>. The template is <strong>OpenShift Virtualization Migration - MTV Plans</strong> (<code>mtv_plans</code>). See <a href="../roles/mtv_plans.html" class="xref page">mtv_plans</a>.</p>
 </div>
 </div>
 </div>
@@ -286,7 +286,7 @@
 <p>StorageMaps and NetworkMaps for this pair are <strong>Ready</strong> (<a href="create-maps.html" class="xref page">Configure storage and network maps</a>).</p>
 </li>
 <li>
-<p>Inventory matches the collection layout: source hosts in <code>vm_sources</code>, OpenShift hosts in <code>migration_clusters</code>. See the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">v2 inventory sample</a>.</p>
+<p>Inventory matches the collection layout: source hosts in <code>vm_sources</code>, OpenShift hosts in <code>migration_clusters</code>. See the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">inventory sample</a>.</p>
 </li>
 </ul>
 </div>
@@ -511,7 +511,7 @@
 <h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>MTV has Plan CRs for this wave. They are not running. Continue to <a href="execute-migration.html" class="xref page">Migrating VMs</a>.</p>
+<p>MTV has Plan CRs for this wave. They are not running.</p>
 </div>
 </div>
 </div>

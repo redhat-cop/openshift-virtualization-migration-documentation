@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li>Performing a migration wave</li>
     <li><a href="create-maps.html">Configure storage and network maps</a></li>
   </ul>
@@ -240,10 +240,10 @@
 <p>Create MTV <strong>StorageMaps</strong> and <strong>NetworkMaps</strong> so a migration plan knows how source datastores and networks land on OpenShift. Providers must already exist (<a href="create-providers.html" class="xref page">Configure providers</a>).</p>
 </div>
 <div class="paragraph">
-<p>When you are done, both map kinds show <strong>Ready</strong> (green check) in the namespace you chose. Next is <a href="prepare-migration-wave.html" class="xref page">Defining a migration wave</a>. Do not start a plan until the maps exist.</p>
+<p>When you are done, both map kinds show <strong>Ready</strong> (green check) in the namespace you chose. Do not start a plan until the maps exist.</p>
 </div>
 <div class="paragraph">
-<p>Run this from <strong>AAP</strong>. The template is <strong>OpenShift Virtualization Migration - MTV Maps</strong> (<code>mtv_maps</code>). The role queries the MTV inventory, then applies the CRs. It does <strong>not</strong> need source hypervisor credentials. Internals: <a href="../roles/mtv_maps.html" class="xref page">mtv_maps</a>.</p>
+<p>Run this from <strong>AAP</strong>. The template is <strong>OpenShift Virtualization Migration - MTV Maps</strong> (<code>mtv_maps</code>). The role queries the MTV inventory, then applies the CRs. It does <strong>not</strong> need source hypervisor credentials. See <a href="../roles/mtv_maps.html" class="xref page">mtv_maps</a>.</p>
 </div>
 </div>
 </div>
@@ -283,7 +283,7 @@
 <p>MTV is on the destination cluster (StorageMap and NetworkMap CRDs present).</p>
 </li>
 <li>
-<p>Inventory matches the collection layout: source hosts in <code>vm_sources</code>, OpenShift hosts in <code>migration_clusters</code>, and each cluster lists the sources it can migrate under <code>vm_sources</code>. See the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">v2 inventory sample</a>.</p>
+<p>Inventory matches the collection layout: source hosts in <code>vm_sources</code>, OpenShift hosts in <code>migration_clusters</code>, and each cluster lists the sources it can migrate under <code>vm_sources</code>. See the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">inventory sample</a>.</p>
 </li>
 </ul>
 </div>
@@ -457,7 +457,7 @@ mtv_maps_network_map_namespace: vm-migrations</code></pre>
 </table>
 </div>
 <div class="paragraph">
-<p>Plans consume these names later (<code>network_map</code> / <code>storage_map</code> and their namespaces). That is <a href="prepare-migration-wave.html" class="xref page">Defining a migration wave</a>, not this page.</p>
+<p>Plans consume these names later (<code>network_map</code> / <code>storage_map</code> and their namespaces) in <a href="prepare-migration-wave.html" class="xref page">Defining a migration wave</a>.</p>
 </div>
 </div>
 </div>
@@ -489,7 +489,7 @@ mtv_maps_network_map_namespace: vm-migrations</code></pre>
 <h2 id="when-you-are-done"><a class="anchor" href="#when-you-are-done"></a>When you are done</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>MTV has StorageMaps and NetworkMaps for this source and destination. Continue to <a href="prepare-migration-wave.html" class="xref page">Defining a migration wave</a>.</p>
+<p>MTV has StorageMaps and NetworkMaps for this source and destination.</p>
 </div>
 </div>
 </div>

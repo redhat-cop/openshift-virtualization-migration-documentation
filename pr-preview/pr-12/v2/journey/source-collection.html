@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li><a href="setup-environment.html">Preparing your environment</a></li>
     <li><a href="source-collection.html">Sourcing the collection and execution environment</a></li>
   </ul>
@@ -245,13 +245,10 @@
 <h2 id="collection"><a class="anchor" href="#collection"></a>Collection</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>These docs follow branch <code>v2</code> of <a href="https://github.com/redhat-cop/openshift_virtualization_migration/tree/v2">redhat-cop/openshift_virtualization_migration</a>.</p>
+<p>The AAP project syncs playbooks from <a href="https://github.com/redhat-cop/openshift_virtualization_migration">redhat-cop/openshift_virtualization_migration</a>. After <a href="seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>, set <code>aap_project_scm_branch: v2</code> on the <code>migration_aap</code> host so the project tracks that branch.</p>
 </div>
 <div class="paragraph">
-<p>After <a href="seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>, AAP has a project that syncs that Git repository. Set <code>aap_project_scm_branch: v2</code> on the <code>migration_aap</code> host in the inventory so the project does not track <code>main</code>.</p>
-</div>
-<div class="paragraph">
-<p>Validated content on Automation Hub is listed here (the published revision may lag the <code>v2</code> branch):</p>
+<p>Validated content is also on Automation Hub:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -259,7 +256,7 @@
 <p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_migration/details/">OpenShift Virtualization Migration</a></p>
 </li>
 <li>
-<p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/">OpenShift Virtualization Operations</a> (day-2; not this journey)</p>
+<p><a href="https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/">OpenShift Virtualization Operations</a></p>
 </li>
 </ul>
 </div>
@@ -275,13 +272,10 @@
 <p><code>quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code></p>
 </div>
 <div class="paragraph">
-<p>Seed attaches this image to the job templates when you set <code>aap_execution_environment_image</code> (and registry credentials if the repo is private) on the <code>migration_aap</code> host. See the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">v2 inventory sample</a> comments for the EE credential fields.</p>
+<p>Seed attaches this image to the job templates when you set <code>aap_execution_environment_image</code> (and registry credentials if the repo is private) on the <code>migration_aap</code> host. See the <a href="https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml">inventory sample</a> comments for the EE credential fields.</p>
 </div>
 <div class="paragraph">
 <p>You do not install the collection on every laptop. AAP pulls the project and runs the EE.</p>
-</div>
-<div class="paragraph">
-<p>Next: <a href="confirm-openshift-ready.html" class="xref page">OpenShift</a>.</p>
 </div>
 </div>
 </div>

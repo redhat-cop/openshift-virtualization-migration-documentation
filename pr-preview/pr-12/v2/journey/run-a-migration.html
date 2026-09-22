@@ -36,7 +36,7 @@
     <div class="panels">
 <div class="nav-panel-menu is-active" data-panel="menu">
   <nav class="nav-menu">
-    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory V2</a></h3>
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
 <ul class="nav-list">
   <li class="nav-item" data-depth="0">
 <ul class="nav-list">
@@ -208,7 +208,7 @@
       </ul>
     </li>
     <li class="component is-current">
-      <span class="title">Migration Factory V2</span>
+      <span class="title">Migration Factory</span>
       <ul class="versions">
         <li class="version is-current">
           <a href="../index.html">default</a>
@@ -225,7 +225,7 @@
   <a href="../index.html" class="home-link"></a>
 <nav class="breadcrumbs" aria-label="breadcrumbs">
   <ul>
-    <li><a href="../index.html">Migration Factory V2</a></li>
+    <li><a href="../index.html">Migration Factory</a></li>
     <li>Performing a migration wave</li>
     <li><a href="run-a-migration.html">Introduction to migration waves</a></li>
   </ul>
@@ -236,9 +236,6 @@
 <h1 class="page">Introduction to migration waves</h1>
 <div class="paragraph">
 <p>A <strong>wave</strong> is one sitting: which VMs (or folders) move together, which maps they use, and which Plan CRs MTV creates. You prepare the wave in AAP, start it in MTV, then verify and archive.</p>
-</div>
-<div class="paragraph">
-<p>Skip this page if AAP is already seeded and you know that sequence.</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
@@ -252,7 +249,7 @@
 <p><a href="prepare-migration-wave.html" class="xref page">Defining a migration wave</a> — Plan CRs, not the copy itself.</p>
 </li>
 <li>
-<p><a href="prepare-vms.html" class="xref page">Preparing VMs for migration</a> — guest-side checks when the workload needs them; skip if guests are already ready.</p>
+<p><a href="prepare-vms.html" class="xref page">Preparing VMs for migration</a> — guest-side checks when the workload needs them.</p>
 </li>
 <li>
 <p><a href="execute-migration.html" class="xref page">Migrating VMs</a> — start the Ready plans.</p>
@@ -263,10 +260,7 @@
 </ol>
 </div>
 <div class="paragraph">
-<p>Launch each AAP template for one <code>source_name</code> + <code>target_name</code> pair (inventory host names). Collection <code>v2</code> has no workflow that loops every pair.</p>
-</div>
-<div class="paragraph">
-<p>Continue to <a href="create-providers.html" class="xref page">Configure providers</a>.</p>
+<p>Launch each AAP template for one <code>source_name</code> + <code>target_name</code> pair (inventory host names). There is no workflow that loops every pair.</p>
 </div>
 <nav class="pagination">
   <span class="prev"><a href="seed-aap.html" class="query-params-link">Seeding Ansible Automation Platform</a></span>
