@@ -1,0 +1,28 @@
+* xref:setup-environment.adoc[Preparing your environment]
+** xref:prerequisites.adoc[Prerequisites]
+** xref:migration-factory-prerequisites.adoc[Migration Factory prerequisites]
+** xref:source-collection.adoc[Sourcing the collection and execution environment]
+** xref:confirm-openshift-ready.adoc[OpenShift]
+** xref:setup-aap-yourself.adoc[Ansible Automation Platform]
+** xref:configure-inventory.adoc[Building your inventory]
+** xref:setup-existing-ocp.adoc[Deploying Ansible Automation Platform]
+** xref:validate-environment.adoc[Validate your environment]
+* xref:seed-aap.adoc[Seeding Ansible Automation Platform]
+* Performing a migration wave
+** xref:run-a-migration.adoc[Introduction to migration waves]
+** xref:create-providers.adoc[Configure providers]
+** xref:create-maps.adoc[Configure storage and network maps]
+** xref:prepare-migration-wave.adoc[Defining a migration wave]
+** xref:prepare-vms.adoc[Preparing VMs for migration]
+* Performing a migration
+** xref:execute-migration.adoc[Migrating VMs]
+* Post migration
+** xref:verify-migration.adoc[Verifying a migration]
+** xref:close-migration-wave.adoc[Closing the migration wave]
+** xref:archive-plan.adoc[Archiving the plan]
+* xref:scaling-the-automation.adoc[Updating the topology]
+* Day 2 operations
+** xref:day2-overview.adoc[Overview]
+** xref:day2-onboarding.adoc[Onboarding VMs]
+* Enablement
+** xref:setup-rhdp.adoc[RHDP workshop]

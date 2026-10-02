@@ -1,0 +1,7 @@
+.claude/
+_bmad-output/
+_bmad/
+build/
+utilities/*
+!utilities/lab-build
+node_modules

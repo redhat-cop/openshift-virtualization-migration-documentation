@@ -1,0 +1,16 @@
+= Preparing your environment
+
+Get OpenShift, Ansible Automation Platform, the collection, and the inventory in place before you seed. After that, you run Migration Factory from AAP. Laptop CLI is only for these setup steps, and for deploying AAP if you do not already have it.
+
+. xref:prerequisites.adoc[Prerequisites] — access and credentials.
+. xref:migration-factory-prerequisites.adoc[Migration Factory prerequisites] — local tools if you still need them to seed or to install AAP.
+. xref:source-collection.adoc[Sourcing the collection and execution environment].
+. xref:confirm-openshift-ready.adoc[OpenShift] — Virtualization and MTV already installed.
+. xref:setup-aap-yourself.adoc[Ansible Automation Platform] — use the AAP you already run.
+. xref:configure-inventory.adoc[Building your inventory].
+. xref:setup-existing-ocp.adoc[Deploying Ansible Automation Platform] — only if AAP is not installed yet.
+. xref:validate-environment.adoc[Validate your environment].
+
+Then xref:seed-aap.adoc[Seeding Ansible Automation Platform].
+
+To try Migration Factory on a Red Hat Demo Platform lab, see xref:setup-rhdp.adoc[RHDP workshop].

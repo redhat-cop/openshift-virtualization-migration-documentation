@@ -1,0 +1,47 @@
+= Seeding Ansible Automation Platform
+
+Bring Migration Factory into AAP: organization, project, inventory, credentials, execution environment, and job templates. After this, you run providers, maps, and waves from AAP. You do not install the collection on every laptop.
+
+Use the inventory from xref:configure-inventory.adoc[Building your inventory]. OpenShift already has Virtualization and MTV (xref:confirm-openshift-ready.adoc[OpenShift]). AAP is already running (xref:setup-aap-yourself.adoc[Ansible Automation Platform]). Do not seed until xref:validate-environment.adoc[Validate your environment] is true.
+
+When you are done, AAP shows the Migration Factory templates.
+
+The playbook is `vmf_seed_aap` (`aap_seed` role only). It does **not** install AAP. See xref:roles:aap_seed.adoc[aap_seed].
+
+This is the last required laptop run. After it succeeds, use AAP.
+
+== Populate AAP
+
+From the directory that holds your inventory:
+
+[,shell]
+----
+ansible-navigator run \
+  --pp=missing \
+  --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
+  -m stdout \
+  --pae=false \
+  infra.openshift_virtualization_migration.vmf_seed_aap \
+  -i <inventory>
+----
+
+The playbook targets `migration_aap`.
+
+After a successful run, AAP has at least:
+
+* **OpenShift Virtualization Migration - MTV Provider**
+* **OpenShift Virtualization Migration - MTV Maps**
+* **OpenShift Virtualization Migration - MTV Plans**
+* **OpenShift Virtualization Migration - Migrate** — does not start VMs. See xref:execute-migration.adoc[Migrating VMs].
+
+Surveys ask for `source_name` and `target_name` (inventory host names).
+
+== If seed fails
+
+* `changeme` still in the inventory — fix xref:configure-inventory.adoc[Building your inventory] and run the **same** playbook.
+* MTV missing — xref:confirm-openshift-ready.adoc[OpenShift], not a different seed command.
+* AAP not reachable — xref:setup-aap-yourself.adoc[Ansible Automation Platform]; seed does not deploy the operator.
+
+== When you are done
+
+AAP holds the project, inventory, credentials, and templates.

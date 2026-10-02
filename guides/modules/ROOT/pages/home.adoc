@@ -1,4 +1,5 @@
 ﻿# Ansible for OpenShift Virtualization Migration
+:page-aliases: index.adoc
 
 == Overview
 Ansible for OpenShift Virtualization Migration is a solution that enables the usage of OpenShift Virtualization at scale. It is a set of Ansible automation playbooks, with deep integration with Ansible Automation Platform (AAP), providing capabilities to automate the assessment of existing virtualization environments, streamlining the migration process, and to manage day-2 operations of Virtual Machines running the platform.

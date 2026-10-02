@@ -1,0 +1,27 @@
+= Validate your environment
+
+Confirm the pieces from *Preparing your environment* before you seed. Do this in the OpenShift and AAP consoles.
+
+[cols="1,2"]
+|===
+| Check | Expected
+
+| OpenShift Virtualization operator
+| Succeeded. VMs namespace APIs exist.
+
+| MTV operator
+| Succeeded. *Migration* appears in the OpenShift console.
+
+| AAP
+| You can log in at `aap_hostname` with the account you will put in the inventory.
+
+| Inventory file
+| Three groups, no leftover `changeme`, cluster `vm_sources` list matches host names. See xref:configure-inventory.adoc[Building your inventory].
+
+| Execution environment
+| Quay pull works for the EE image (AAP registry credential, or `podman login` if you still seed from a laptop).
+|===
+
+If any row fails, fix that check before you seed. Do not seed to paper over a missing operator.
+
+When every row is true, xref:seed-aap.adoc[Seeding Ansible Automation Platform].

@@ -1,0 +1,40 @@
+= Migration Factory prerequisites
+
+Laptop tools for the steps that still run outside AAP: first seed, and AAP install when you do not already have AAP. After seed, use AAP job templates.
+
+Supported on Linux and macOS. Examples below are RHEL 9.
+
+== Packages
+
+[,shell]
+----
+sudo dnf install -y git
+sudo subscription-manager repos --enable ansible-automation-platform-2.7-for-rhel-$(rpm --eval %rhel)-x86_64-rpms
+sudo dnf install -y ansible-navigator
+----
+
+If you cannot use the RPM: `pip install ansible-navigator`. Podman comes with that install and runs the execution environment.
+
+== Quay login
+
+The EE is on a protected Quay repository.
+
+[,shell]
+----
+podman login quay.io/redhat-cop
+----
+
+== OpenShift CLI
+
+Install `oc` from the link:https://access.redhat.com/downloads/content/290[OpenShift Container Platform downloads] page if you need it for xref:confirm-openshift-ready.adoc[OpenShift] checks or for `utility_aap_deploy`. You do not use `oc` to launch provider, maps, or plan jobs after seed.
+
+== Git clone
+
+Clone only if you will run seed from a local inventory file:
+
+[,shell]
+----
+git clone https://github.com/redhat-cop/openshift_virtualization_migration.git
+cd openshift_virtualization_migration
+git checkout v2
+----
