@@ -9,6 +9,32 @@ Migration Factory uses Migration Toolkit for Virtualization (MTV) on the destina
 
 image::guides:ROOT:mf-overview.png[Accelerating migrations at scale with Ansible Automation Platform]
 
+== Who this journey is for
+
+[NOTE]
+.Consultant
+====
+You deliver customer implementations of Migration Factory. Start at xref:journey:setup-environment.adoc[Preparing your environment].
+====
+
+[NOTE]
+.AAP administrator
+====
+You operate the platform and manage VMs during and after migration. Follow the same migration journey from xref:journey:setup-environment.adoc[Preparing your environment], then xref:journey:day2-overview.adoc[Day 2 operations].
+====
+
+[NOTE]
+.Developer
+====
+You extend Migration Factory and contribute to this documentation repository (`redhat-cop/openshift-virtualization-migration-documentation`). Use the xref:roles:index.adoc[Automation reference].
+====
+
+[NOTE]
+.Partner
+====
+You deliver Migration Factory to customers under your engagement model. Follow the same journey as the consultant, starting at xref:journey:setup-environment.adoc[Preparing your environment].
+====
+
 == Ansible collection
 
 The OpenShift Virtualization Migration project consists of two validated Ansible collections on Automation Hub:

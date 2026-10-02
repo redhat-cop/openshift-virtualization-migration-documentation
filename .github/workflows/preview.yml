@@ -37,7 +37,7 @@ jobs:
 
       - name: Test search and navigation
         if: github.event.action != 'closed'
-        run: node --test tests/search-and-navigation.test.js
+        run: node --test tests/
 
       - name: Disable Jekyll in preview
         if: github.event.action != 'closed'

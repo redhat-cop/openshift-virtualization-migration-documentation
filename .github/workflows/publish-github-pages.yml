@@ -28,7 +28,7 @@ jobs:
       - name: Generate Site
         run: npx antora antora-playbook.yml
       - name: Test search and navigation
-        run: node --test tests/search-and-navigation.test.js
+        run: node --test tests/
       - name: Disable Jekyll
         run: touch build/site/.nojekyll
       - name: Deploy to GitHub Pages
