@@ -24,9 +24,11 @@ jobs:
         with:
           node-version: '18'
       - name: Install Antora
-        run: npm i antora
+        run: npm i antora @antora/lunr-extension
       - name: Generate Site
         run: npx antora antora-playbook.yml
+      - name: Test search and navigation
+        run: node --test tests/search-and-navigation.test.js
       - name: Disable Jekyll
         run: touch build/site/.nojekyll
       - name: Deploy to GitHub Pages

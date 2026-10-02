@@ -2,4 +2,6 @@
 _bmad-output/
 _bmad/
 build/
-utilities/
+utilities/*
+!utilities/lab-build
+node_modules

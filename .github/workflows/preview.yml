@@ -29,11 +29,15 @@ jobs:
 
       - name: Install Antora
         if: github.event.action != 'closed'
-        run: npm i antora
+        run: npm i antora @antora/lunr-extension
 
       - name: Generate Site
         if: github.event.action != 'closed'
         run: npx antora antora-playbook.yml
+
+      - name: Test search and navigation
+        if: github.event.action != 'closed'
+        run: node --test tests/search-and-navigation.test.js
 
       - name: Disable Jekyll in preview
         if: github.event.action != 'closed'
