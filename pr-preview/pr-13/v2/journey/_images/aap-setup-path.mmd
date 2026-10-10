@@ -1,0 +1,14 @@
+%% regen: npx -p @mermaid-js/mermaid-cli mmdc -i aap-setup-path.mmd -o aap-setup-path.svg (mermaid-cli 12.0.0) %%
+%%{init: {"look": "classic", "fontFamily": "arial, sans-serif"}}%%
+flowchart TD
+    start([Set up Ansible Automation Platform]) --> lab{Red Hat Demo Platform lab?}
+    lab -- yes --> rhdp[Use the RHDP workshop]
+    lab -- no --> have{AAP already running?}
+    have -- yes --> existing[Use the AAP you already run<br/>default]
+    have -- no --> deploy[Deploy AAP on OpenShift<br/>laptop CLI]
+    existing --> inv[Add the AAP URL and admin<br/>credentials to the inventory]
+    deploy --> inv
+    rhdp --> seed([Continue to Seeding<br/>Ansible Automation Platform])
+    inv --> seed
+    classDef laptop fill:#ffffff,stroke:#ee0000,stroke-width:1.5px;
+    class deploy laptop
