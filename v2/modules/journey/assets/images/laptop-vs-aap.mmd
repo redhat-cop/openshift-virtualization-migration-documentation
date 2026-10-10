@@ -1,0 +1,11 @@
+%% regen: npx -p @mermaid-js/mermaid-cli mmdc -i laptop-vs-aap.mmd -o laptop-vs-aap.svg (mermaid-cli 12.0.0) %%
+%%{init: {"look": "classic", "fontFamily": "arial, sans-serif"}}%%
+flowchart TD
+    setup([Prepare the environment]) --> aap{AAP already running?}
+    aap -- yes --> inv[Build inventory, validate the environment]
+    aap -- no --> deploy[Deploy AAP on OpenShift<br/>one of the last laptop CLI steps]
+    deploy --> inv
+    inv --> seed[Seed AAP from the laptop<br/>the last required laptop run]
+    seed --> done([After seed: providers, maps, and waves<br/>run from AAP job templates])
+    classDef laptop fill:#ffffff,stroke:#ee0000,stroke-width:1.5px;
+    class deploy,seed laptop

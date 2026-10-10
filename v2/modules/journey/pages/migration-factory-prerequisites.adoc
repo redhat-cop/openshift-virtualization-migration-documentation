@@ -2,6 +2,8 @@
 
 Laptop tools for the steps that still run outside AAP: first seed, and AAP install when you do not already have AAP. After seed, use AAP job templates.
 
+image::laptop-vs-aap.svg[Laptop tools versus AAP job templates]
+
 Supported on Linux and macOS. Examples below are RHEL 9.
 
 == Packages

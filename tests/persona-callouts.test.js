@@ -132,23 +132,31 @@ describe('persona callouts on the v2 introduction', () => {
 })
 
 describe('persona callouts stay off the journey nav and pages', () => {
-  it('keeps grouped subway + Roles + Support and adds no persona nav trees', () => {
+  it('keeps five collapsible sections + Appendix and adds no persona nav trees', () => {
     const navAdoc = fs.readFileSync(path.join(repoRoot, 'v2/modules/journey/nav.adoc'), 'utf8')
-    assert.match(navAdoc, /^\* xref:setup-environment\.adoc\[Preparing your environment\]/m)
-    assert.match(navAdoc, /^\* xref:seed-aap\.adoc\[Seeding Ansible Automation Platform\]/m)
-    assert.match(navAdoc, /^\* Performing a migration wave/m)
-    assert.match(navAdoc, /^\* Performing a migration/m)
-    assert.match(navAdoc, /^\* Post migration/m)
-    assert.match(navAdoc, /^\* xref:scaling-the-automation\.adoc\[Updating the topology\]/m)
-    assert.match(navAdoc, /^\* Day 2 operations/m)
-    assert.match(navAdoc, /^\* Enablement/m)
+    assert.match(navAdoc, /^\* Prepare/m)
+    assert.match(navAdoc, /^\*\* xref:setup-environment\.adoc\[Preparing your environment\]/m)
+    assert.match(navAdoc, /^\*\* xref:seed-aap\.adoc\[Seeding Ansible Automation Platform\]/m)
+    assert.match(navAdoc, /^\* Migrate/m)
+    assert.match(navAdoc, /^\*\* Performing a migration wave/m)
+    assert.match(navAdoc, /^\*\* Performing a migration/m)
+    assert.match(navAdoc, /^\*\* Post migration/m)
+    assert.match(navAdoc, /^\*\* xref:scaling-the-automation\.adoc\[Updating the topology\]/m)
+    assert.match(navAdoc, /^\* Operate/m)
+    assert.match(navAdoc, /^\*\* Day 2 operations/m)
+    assert.match(navAdoc, /^\*\* Enablement/m)
     assert.match(navAdoc, /xref:setup-rhdp\.adoc\[RHDP workshop\]/)
     for (const title of personaTitles) {
       assert.doesNotMatch(navAdoc, new RegExp(title.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')))
     }
 
+    const appendixNav = fs.readFileSync(path.join(repoRoot, 'v2/modules/appendix/nav.adoc'), 'utf8')
+    assert.match(appendixNav, /^\* Appendix/m)
+    assert.match(appendixNav, /xref:roles:index\.adoc\[Automation reference\]/)
+    assert.match(appendixNav, /xref:support:channels\.adoc\[Support\]/)
+
     const antora = fs.readFileSync(path.join(repoRoot, 'v2/antora.yml'), 'utf8')
-    assert.match(antora, /nav:\n(?: {2}- modules\/(?:ROOT|journey|roles|support)\/nav\.adoc\n){4}/)
+    assert.match(antora, /nav:\n(?: {2}- modules\/(?:ROOT|journey|appendix)\/nav\.adoc\n){3}$/)
 
     const labels = navLabels(navMenuHtml(readHtml(path.join('v2', 'index.html'))))
     assert.ok(labels.includes('Preparing your environment'))
