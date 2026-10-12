@@ -14,4 +14,4 @@ If AAP is not installed yet, use xref:setup-existing-ocp.adoc[Deploying Ansible 
 
 For a Red Hat Demo Platform lab, see xref:setup-rhdp.adoc[RHDP workshop].
 
-image::aap-setup-path.svg[Ansible Automation Platform setup paths]
+image::aap-setup-path.svg[Ansible Automation Platform setup paths, 730]
