@@ -1,0 +1,16 @@
+= RHDP workshop
+
+Red Hat Demo Platform provides a short-lived OpenShift cluster with Virtualization and MTV, plus a vSphere source. Use it for enablement. It does not install AAP.
+
+For a cluster and AAP you already run, start at xref:setup-environment.adoc[Preparing your environment].
+
+Catalog item: https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/openshift-cnv.ocp-virt-roadshow-multi-user.prod&utm_source=webapp&utm_medium=share-link[Experience OpenShift Virtualization Roadshow].
+
+== Order and collect details
+
+. Order the item. Activity: **Practice / Enablement**. Purpose: **Conduct internal training/enablement**.
+. When the service is ready, open **Details** and copy the OpenShift API and console URLs, **admin** password, and vCenter host, username, and password.
+
+image::guides:rhdp:rhdp-service-details.png[RHDP service details]
+
+Then xref:setup-existing-ocp.adoc[Deploying Ansible Automation Platform] if the lab has no AAP yet, xref:configure-inventory.adoc[Building your inventory] (one cluster, one source), and xref:seed-aap.adoc[Seeding Ansible Automation Platform]. Do not use a `migration_factory_aap` playbook or a hub/spoke inventory.

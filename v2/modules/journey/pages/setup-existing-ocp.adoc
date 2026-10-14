@@ -1,0 +1,25 @@
+= Deploying Ansible Automation Platform
+
+If AAP is not installed yet, install it on the OpenShift cluster you already have, then seed. If you already have AAP, go to xref:setup-aap-yourself.adoc[Ansible Automation Platform].
+
+The playbook is `utility_aap_deploy` (`playbooks/utility_aap_deploy.yml`). It runs the `utility_aap_deploy` role against `migration_clusters`. It installs AAP; it does **not** seed Migration Factory. See xref:roles:utility_aap_deploy.adoc[utility_aap_deploy].
+
+You need an AAP entitlement (service account or subscription manifest). Pass the zip with `utility_aap_deploy_aap_license_manifest` when the operator requires it.
+
+This is one of the few remaining laptop CLI steps. From the directory that holds a minimal inventory (OpenShift API on `migration_clusters`):
+
+[,shell]
+----
+ansible-navigator run \
+  --pp=missing \
+  --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
+  -m stdout \
+  --pae=false \
+  --senv=K8S_AUTH_HOST=$(oc whoami --show-server) \
+  --senv=K8S_AUTH_VERIFY_SSL=false \
+  --senv=K8S_AUTH_API_KEY=$(oc whoami -t) \
+  infra.openshift_virtualization_migration.utility_aap_deploy \
+  -i <inventory>
+----
+
+Defaults include instance name `aap`, operator channel `stable-2.6`, and namespace `virtualization-migration`. After the instance is ready, copy its URL and admin password into `migration_aap` and continue xref:configure-inventory.adoc[Building your inventory] if you have not finished that file, then xref:validate-environment.adoc[Validate your environment].

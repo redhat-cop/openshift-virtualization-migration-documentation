@@ -1,0 +1,1 @@
+This role is not in the collection. The roles you can use are listed under xref:index.adoc[Automation reference].

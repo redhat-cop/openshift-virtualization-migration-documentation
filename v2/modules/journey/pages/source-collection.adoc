@@ -1,0 +1,22 @@
+= Sourcing the collection and execution environment
+
+AAP needs two artifacts: the collection (playbooks and roles) and the execution environment image that runs them.
+
+== Collection
+
+The AAP project syncs playbooks from link:https://github.com/redhat-cop/openshift_virtualization_migration[redhat-cop/openshift_virtualization_migration]. After xref:seed-aap.adoc[Seeding Ansible Automation Platform], set `aap_project_scm_branch: v2` on the `migration_aap` host so the project tracks that branch.
+
+Validated content is also on Automation Hub:
+
+* https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_migration/details/[OpenShift Virtualization Migration]
+* https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/[OpenShift Virtualization Operations]
+
+== Execution environment
+
+Default image:
+
+`quay.io/redhat-cop/openshift-virtualization-migration-ee:latest`
+
+Seed attaches this image to the job templates when you set `aap_execution_environment_image` (and registry credentials if the repo is private) on the `migration_aap` host. See the link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/inventory/inventory-sample.yml[inventory sample] comments for the EE credential fields.
+
+You do not install the collection on every laptop. AAP pulls the project and runs the EE.

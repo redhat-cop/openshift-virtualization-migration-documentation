@@ -1,0 +1,56 @@
+= Configure providers
+
+Register the source hypervisor with MTV on the destination OpenShift cluster. Seed must already have succeeded (xref:seed-aap.adoc[Seeding Ansible Automation Platform]).
+
+When you are done, MTV shows a provider with a green check in the target's `mtv_namespace` (usually `openshift-mtv`).
+
+Run this from **AAP**. The template is **OpenShift Virtualization Migration - MTV Provider** (`vmf_mtv_provider` / `mtv_provider`). One source–target pair per launch. See xref:roles:mtv_provider.adoc[mtv_provider].
+
+== Prerequisites
+
+* Seed created the MTV Provider template.
+* Inventory is complete (xref:configure-inventory.adoc[Building your inventory]).
+* Cluster is ready (xref:confirm-openshift-ready.adoc[OpenShift]).
+
+Survey extra vars:
+
+* `source_name` — host in `vm_sources`.
+* `target_name` — host in `migration_clusters`. That host's `vm_sources` list must include `source_name`.
+
+== Launch from AAP
+
+. In AAP, open *Templates* under *Automation Execution*.
+. Launch **OpenShift Virtualization Migration - MTV Provider**.
+. Survey: **Source Name** and **Target Name** (inventory host names).
+. Attach the OpenShift credential for the target cluster if the template asks for credentials.
+. Launch and wait until the Provider CR is Ready (the role waits by default).
+
+If the target has several sources, launch once per pair.
+
+The role reads `type`, `host`, `sdk_endpoint`, and VDDK from the source host. Username and password come from the **Migration Factory - Source Environment** credential.
+
+Optional extra vars: `mtv_provider_provider_namespace` if the provider must not land in `openshift-mtv`. `mtv_provider_provider_state: absent` removes a provider and its secret.
+
+== Confirm the provider
+
+In the OpenShift web console: *Migration* → *Providers for virtualization*. Select the `mtv_namespace` project. A green check means the connection is valid.
+
+image::guides:rhdp:openshift-mtv-providers.png[MTV Providers]
+
+[NOTE]
+====
+The `openshift-mtv` namespace may not appear in the Project dropdown. Select *Show default projects* so projects that start with `openshift` are listed.
+====
+
+For VMware with a VDDK image, confirm the VDDK secret exists in that namespace (*Workloads* → *Secrets*). Do not create maps here; that is xref:create-maps.adoc[Configure storage and network maps].
+
+== If provider creation fails
+
+* `source_name` or `target_name` missing, or not in inventory — use the same host names as in `vm_sources` / `migration_clusters`.
+* Source not in the target's `vm_sources` list — fix the inventory and seed again if the AAP inventory is stale.
+* Forklift Provider CRD missing — xref:confirm-openshift-ready.adoc[OpenShift].
+* Source credentials missing — they come from the source credential type seed created.
+
+== When you are done
+
+MTV has a provider for this source.
