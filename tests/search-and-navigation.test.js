@@ -233,16 +233,19 @@ describe('build wiring', () => {
     assert.match(preview, /npm i antora @antora\/lunr-extension/)
   })
 
-  it('keeps the existing v2 journey grouping', () => {
+  it('keeps the five-section v2 journey grouping', () => {
     const nav = fs.readFileSync(path.join(repoRoot, 'v2/modules/journey/nav.adoc'), 'utf8')
-    assert.match(nav, /^\* xref:setup-environment\.adoc\[Preparing your environment\]/m)
-    assert.match(nav, /^\* xref:seed-aap\.adoc\[Seeding Ansible Automation Platform\]/m)
-    assert.match(nav, /^\* Performing a migration wave/m)
-    assert.match(nav, /^\* Performing a migration/m)
-    assert.match(nav, /^\* Post migration/m)
-    assert.match(nav, /^\* xref:scaling-the-automation\.adoc\[Updating the topology\]/m)
-    assert.match(nav, /^\* Day 2 operations/m)
-    assert.match(nav, /^\* Enablement/m)
+    assert.match(nav, /^\* Prepare/m)
+    assert.match(nav, /^\*\* xref:setup-environment\.adoc\[Preparing your environment\]/m)
+    assert.match(nav, /^\*\* xref:seed-aap\.adoc\[Seeding Ansible Automation Platform\]/m)
+    assert.match(nav, /^\* Migrate/m)
+    assert.match(nav, /^\*\* Performing a migration wave/m)
+    assert.match(nav, /^\*\* Performing a migration/m)
+    assert.match(nav, /^\*\* Post migration/m)
+    assert.match(nav, /^\*\* xref:scaling-the-automation\.adoc\[Updating the topology\]/m)
+    assert.match(nav, /^\* Operate/m)
+    assert.match(nav, /^\*\* Day 2 operations/m)
+    assert.match(nav, /^\*\* Enablement/m)
     assert.match(nav, /xref:setup-rhdp\.adoc\[RHDP workshop\]/)
   })
 })
@@ -278,6 +281,21 @@ describe('built site search and chrome', () => {
     assert.match(html, /nav-filter\.js/)
     assert.match(html, /Development Guides/)
     assert.match(html, /Migration Factory/)
+  })
+
+  it('embeds the flowchart SVGs on the prerequisite pages', () => {
+    const pages = [
+      ['v2/journey/migration-factory-prerequisites.html', 'laptop-vs-aap.svg'],
+      ['v2/journey/setup-aap-yourself.html', 'aap-setup-path.svg'],
+    ]
+    for (const [page, svg] of pages) {
+      const file = path.join(siteDir, page)
+      assert.ok(fs.existsSync(file), `build the site before running this test: missing ${page}`)
+      const html = fs.readFileSync(file, 'utf8')
+      assert.match(html, new RegExp(`<img src="[^"]*${svg}"`), `${page} must embed ${svg}`)
+      const imgFile = path.join(siteDir, 'v2/journey/_images', svg)
+      assert.ok(fs.existsSync(imgFile), `generated SVG must be copied into the site: ${svg}`)
+    }
   })
 
   it('returns matching v2 journey pages and those URLs exist', () => {
