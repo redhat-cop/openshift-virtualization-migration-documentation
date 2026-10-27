@@ -281,6 +281,8 @@ describe('built site search and chrome', () => {
     assert.match(html, /nav-filter\.js/)
     assert.match(html, /Development Guides/)
     assert.match(html, /Migration Factory/)
+    assert.match(html, /<details class="doc-version-menu">/)
+    assert.match(html, /<summary>v2 · Migration Factory<\/summary>/)
     assert.match(html, /class="navbar-item doc-version-switch"/)
     assert.match(html, /v1 · Development guides/)
     assert.match(html, /v2 · Migration Factory/)

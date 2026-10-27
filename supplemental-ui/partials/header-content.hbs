@@ -6,9 +6,12 @@
       </span>
       <a class="navbar-item site-title" target="_blank" href="{{{or site.url (or siteRootUrl siteRootPath)}}}">{{site.title}}</a>
     </div>
-    <div id="topbar-nav" class="navbar-menu">
-      <div class="navbar-end">
-        <div class="navbar-item doc-version-switch" role="navigation" aria-label="Documentation version">
+    <div class="navbar-item doc-version-switch">
+      <details class="doc-version-menu">
+        <summary>
+          {{~#if (eq page.component.name "v2")}}v2 · Migration Factory{{else}}v1 · Development guides{{/if~}}
+        </summary>
+        <div class="doc-version-panel">
           {{#each site.components}}
           {{#if (eq this.name "guides")}}
           <a href="{{{relativize ./latest.url}}}"{{#if (eq this @root.page.component)}} aria-current="page"{{/if}}>v1 · Development guides</a>
@@ -18,6 +21,10 @@
           {{/if}}
           {{/each}}
         </div>
+      </details>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
         {{#if env.SITE_SEARCH_PROVIDER}}
         <div class="navbar-item search hide-for-print">
           <div id="search-field" class="field">

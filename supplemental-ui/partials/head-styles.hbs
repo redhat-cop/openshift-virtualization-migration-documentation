@@ -4,23 +4,93 @@
     <link rel="stylesheet" href="{{{uiRootPath}}}/css/site.css">
     <link rel="stylesheet" href="{{{uiRootPath}}}/css/nav-filter.css">
     <style>
-      .doc-version-switch {
+      .navbar {
         align-items: center;
-        display: inline-flex;
-        font-family: "Red Hat Text", sans-serif;
-        font-size: 0.85rem;
-        gap: 0.35rem;
+        display: flex;
+        flex-wrap: wrap;
       }
-      .doc-version-switch a {
+      .navbar-brand {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .navbar > .doc-version-switch {
+        flex: 0 0 auto;
+        margin-left: auto;
+        position: relative;
+        z-index: 20;
+      }
+      @media (max-width: 1023px) {
+        .navbar > .doc-version-switch {
+          background: #111;
+          box-sizing: border-box;
+          flex: 1 0 100%;
+          margin: 0;
+          max-width: 100%;
+          padding: 0 0.75rem 0.6rem;
+        }
+        .doc-version-menu,
+        .doc-version-menu > summary {
+          max-width: 100%;
+        }
+        .doc-version-panel {
+          left: 0.75rem;
+          right: 0.75rem;
+        }
+      }
+      .doc-version-menu {
+        font-family: "Red Hat Text", sans-serif;
+        font-size: 0.9rem;
+        position: relative;
+      }
+      .doc-version-menu > summary {
+        background: #fff;
         border: 1px solid #28253d;
-        border-radius: 999px;
+        border-radius: 0.25rem;
         color: #28253d;
-        padding: 0.15rem 0.65rem;
+        cursor: pointer;
+        font-weight: 700;
+        list-style: none;
+        padding: 0.35rem 0.75rem;
+        white-space: nowrap;
+      }
+      .doc-version-menu > summary::-webkit-details-marker {
+        display: none;
+      }
+      .doc-version-menu > summary::after {
+        border: solid #28253d;
+        border-width: 0 2px 2px 0;
+        content: "";
+        display: inline-block;
+        margin-left: 0.55rem;
+        padding: 3px;
+        transform: rotate(45deg) translateY(-2px);
+      }
+      .doc-version-menu[open] > summary::after {
+        transform: rotate(225deg) translateY(1px);
+      }
+      .doc-version-panel {
+        background: #fff;
+        border: 1px solid #c7c7c7;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        min-width: 16rem;
+        padding: 0.25rem 0;
+        position: absolute;
+        right: 0;
+        top: calc(100% + 0.25rem);
+        z-index: 30;
+      }
+      .doc-version-panel a {
+        color: #151515;
+        display: block;
+        padding: 0.5rem 0.85rem;
         text-decoration: none;
       }
-      .doc-version-switch a[aria-current="page"] {
-        background: #28253d;
-        color: #fff;
+      .doc-version-panel a[aria-current="page"] {
+        background: #f2f2f2;
+        font-weight: 700;
+      }
+      .doc-version-panel a:hover {
+        background: #f2f2f2;
       }
       .doc-version-status {
         font-family: "Red Hat Text", sans-serif;
