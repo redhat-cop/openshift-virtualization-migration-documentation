@@ -281,6 +281,16 @@ describe('built site search and chrome', () => {
     assert.match(html, /nav-filter\.js/)
     assert.match(html, /Development Guides/)
     assert.match(html, /Migration Factory/)
+    assert.match(html, /class="navbar-item doc-version-switch"/)
+    assert.match(html, /v1 · Development guides/)
+    assert.match(html, /v2 · Migration Factory/)
+    assert.match(html, /You are reading v2, Migration Factory/)
+    assert.match(html, /href="[^"]*guides\/[^"]*"[^>]*>v1 · Development guides/)
+    const guidesPage = path.join(siteDir, 'guides/home.html')
+    assert.ok(fs.existsSync(guidesPage), 'v1 guides home must ship beside v2')
+    const guidesHtml = fs.readFileSync(guidesPage, 'utf8')
+    assert.match(guidesHtml, /You are reading v1, Development guides\. This set is frozen/)
+    assert.match(guidesHtml, /href="[^"]*v2\/[^"]*"[^>]*>v2 · Migration Factory/)
   })
 
   it('embeds the flowchart SVGs on the prerequisite pages', () => {
