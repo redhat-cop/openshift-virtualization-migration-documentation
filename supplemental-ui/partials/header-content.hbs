@@ -9,12 +9,12 @@
     <div class="navbar-item doc-version-switch">
       <details class="doc-version-menu">
         <summary>
-          {{~#if (eq page.component.name "v2")}}v2 · Migration Factory{{else}}v1 · Development guides{{/if~}}
+          {{~#if (eq page.component.name "v2")}}v2 · Migration Factory{{else}}v1 · Migration Factory{{/if~}}
         </summary>
         <div class="doc-version-panel">
           {{#each site.components}}
           {{#if (eq this.name "guides")}}
-          <a href="{{{relativize ./latest.url}}}"{{#if (eq this @root.page.component)}} aria-current="page"{{/if}}>v1 · Development guides</a>
+          <a href="{{{relativize ./latest.url}}}"{{#if (eq this @root.page.component)}} aria-current="page"{{/if}}>v1 · Migration Factory</a>
           {{/if}}
           {{#if (eq this.name "v2")}}
           <a href="{{{relativize ./latest.url}}}"{{#if (eq this @root.page.component)}} aria-current="page"{{/if}}>v2 · Migration Factory</a>
