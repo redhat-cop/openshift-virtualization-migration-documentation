@@ -294,6 +294,13 @@ describe('built site search and chrome', () => {
     assert.match(guidesHtml, /<summary>v1 · Migration Factory<\/summary>/)
     assert.doesNotMatch(guidesHtml, /You are reading/)
     assert.match(guidesHtml, /href="[^"]*v2\/[^"]*"[^>]*>v2 · Migration Factory/)
+    assert.match(html, /Version 2 is currently under active development and unreleased/)
+    assert.match(html, /Please refer to <a href="[^"]*guides\/[^"]*">Version 1<\/a> for fully supported features/)
+    assert.doesNotMatch(guidesHtml, /under active development and unreleased/)
+    const updating = fs.readFileSync(path.join(siteDir, 'v2/support/updating-the-docs.html'), 'utf8')
+    assert.match(updating, /guides\//)
+    assert.match(updating, /Edit v2/)
+    assert.match(html, /Updating the documentation/)
   })
 
   it('embeds the flowchart SVGs on the prerequisite pages', () => {

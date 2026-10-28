@@ -9,3 +9,4 @@
 *** xref:roles:utility_aap_deploy.adoc[utility_aap_deploy]
 *** xref:roles:utility_openshift_target_credential.adoc[utility_openshift_target_credential]
 ** xref:support:channels.adoc[Support]
+** xref:support:updating-the-docs.adoc[Updating the documentation]

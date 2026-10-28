@@ -1,0 +1,55 @@
+= Updating the documentation
+
+This site publishes two documentation sets from one repository. Edit the tree for the set you want to change.
+
+[cols="1,2,2,2"]
+|===
+| Set | What readers see | Where to edit | What belongs there
+
+| v1
+| v1 · Migration Factory
+| `guides/`
+| Frozen. Correct an error. Do not add new product documentation.
+
+| v2
+| v2 · Migration Factory
+| `v2/`
+| New and changed documentation.
+|===
+
+Both components stay unversioned (`version: ~` in `guides/antora.yml` and `v2/antora.yml`). Do not assign an Antora version. The published paths stay `/guides/` and `/v2/`. The header dropdown switches to the other set's home. It does not open the same article in the other set, because the pages do not correspond.
+
+== Edit v1
+
+Pages and navigation live under `guides/modules/`. Each module has `pages/` for AsciiDoc and `nav.adoc` for the left navigation. The component descriptor is `guides/antora.yml`.
+
+A change under `guides/` updates Version 1 only.
+
+== Edit v2
+
+Pages live under `v2/modules/`. `v2/antora.yml` registers three navigation files: ROOT, journey, and appendix. Add a page to the `nav.adoc` of the module it belongs to.
+
+A change under `v2/` updates Version 2 only.
+
+The Version 2 disclaimer and the header dropdown are UI files, not page content:
+
+* `supplemental-ui/partials/article.hbs` shows the disclaimer on Version 2 pages.
+* `supplemental-ui/partials/header-content.hbs` is the version dropdown.
+* `supplemental-ui/partials/head-styles.hbs` is the styling for both.
+
+== Build and check
+
+[source,console]
+----
+npm i antora @antora/lunr-extension
+npx antora antora-playbook.yml
+node --test tests/
+----
+
+Open `build/site/v2/index.html` for Version 2 and `build/site/guides/home.html` for Version 1.
+
+== Review and publish
+
+A pull request builds a preview with `.github/workflows/preview.yml`. The preview is published under `pr-preview/pr-<number>/` on the GitHub Pages site.
+
+Merging to `main` publishes the public site with `.github/workflows/publish-github-pages.yml`. The site opens on Version 2 (`start_page: v2::index.adoc` in `antora-playbook.yml`).
