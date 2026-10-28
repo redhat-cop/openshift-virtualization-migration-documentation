@@ -27,21 +27,32 @@
         z-index: 20;
       }
       @media (max-width: 1023px) {
-        .navbar > .doc-version-switch {
-          background: #111;
-          box-sizing: border-box;
-          flex: 1 0 100%;
-          margin: 0;
-          max-width: 100%;
-          padding: 0 0.75rem 0.6rem;
+        .navbar {
+          flex-wrap: nowrap;
+          height: 3.5rem;
         }
-        .doc-version-menu,
+        .navbar-brand {
+          overflow: hidden;
+        }
+        .navbar > .doc-version-switch {
+          align-self: center;
+          background: transparent;
+          flex: 0 1 auto;
+          margin: 0 0.5rem 0 0.25rem;
+          max-width: 11.5rem;
+          padding: 0;
+        }
         .doc-version-menu > summary {
+          font-size: 0.75rem;
           max-width: 100%;
+          overflow: hidden;
+          padding: 0.2rem 0.45rem;
+          text-overflow: ellipsis;
         }
         .doc-version-panel {
-          left: 0.75rem;
-          right: 0.75rem;
+          left: auto;
+          min-width: 12rem;
+          right: 0;
         }
       }
       .doc-version-menu {
@@ -98,6 +109,19 @@
       }
       .doc-version-panel a:hover {
         background: #f2f2f2;
+      }
+      .doc-version-disclaimer {
+        background: #fff6e5;
+        border: 1px solid #f0c36d;
+        border-radius: 0.25rem;
+        margin: 0 0 1.25rem;
+        padding: 0.75rem 1rem;
+      }
+      .doc-version-disclaimer p {
+        margin: 0 0 0.5rem;
+      }
+      .doc-version-disclaimer p:last-child {
+        margin-bottom: 0;
       }
     </style>
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -316,6 +340,9 @@
   <li class="nav-item" data-depth="2">
     <a class="nav-link" href="../support/channels.html">Support</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../support/updating-the-docs.html">Updating the documentation</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -360,6 +387,10 @@
 </div>
   <div class="content">
 <article class="doc">
+<div class="doc-version-disclaimer" role="note">
+<p><strong>Disclaimer:</strong> Version 2 is currently under active development and unreleased.</p>
+<p>Features and documentation are subject to change, and stability is not guaranteed. Please refer to <a href="../../guides/index.html">Version 1</a> for fully supported features.</p>
+</div>
 <h1 class="page">mtv_management</h1>
 <div class="paragraph">
 <p>This role is not in the collection. The roles you can use are listed under <a href="index.html" class="xref page">Automation reference</a>.</p>

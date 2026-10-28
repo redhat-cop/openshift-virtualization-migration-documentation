@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <title>Untitled :: Ansible for OpenShift Virtualization Migration Documentation</title>
     <link rel="prev" href="raci.html">
+    <link rel="next" href="../../v2/support/updating-the-docs.html">
     <meta name="generator" content="Antora 3.1.15">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -28,21 +29,32 @@
         z-index: 20;
       }
       @media (max-width: 1023px) {
-        .navbar > .doc-version-switch {
-          background: #111;
-          box-sizing: border-box;
-          flex: 1 0 100%;
-          margin: 0;
-          max-width: 100%;
-          padding: 0 0.75rem 0.6rem;
+        .navbar {
+          flex-wrap: nowrap;
+          height: 3.5rem;
         }
-        .doc-version-menu,
+        .navbar-brand {
+          overflow: hidden;
+        }
+        .navbar > .doc-version-switch {
+          align-self: center;
+          background: transparent;
+          flex: 0 1 auto;
+          margin: 0 0.5rem 0 0.25rem;
+          max-width: 11.5rem;
+          padding: 0;
+        }
         .doc-version-menu > summary {
+          font-size: 0.75rem;
           max-width: 100%;
+          overflow: hidden;
+          padding: 0.2rem 0.45rem;
+          text-overflow: ellipsis;
         }
         .doc-version-panel {
-          left: 0.75rem;
-          right: 0.75rem;
+          left: auto;
+          min-width: 12rem;
+          right: 0;
         }
       }
       .doc-version-menu {
@@ -99,6 +111,19 @@
       }
       .doc-version-panel a:hover {
         background: #f2f2f2;
+      }
+      .doc-version-disclaimer {
+        background: #fff6e5;
+        border: 1px solid #f0c36d;
+        border-radius: 0.25rem;
+        margin: 0 0 1.25rem;
+        padding: 0.75rem 1rem;
+      }
+      .doc-version-disclaimer p {
+        margin: 0 0 0.5rem;
+      }
+      .doc-version-disclaimer p:last-child {
+        margin-bottom: 0;
       }
     </style>
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -270,6 +295,9 @@
   <li class="nav-item is-current-page" data-depth="2">
     <a class="nav-link" href="maintainer.html">Authors &amp; Maintainers</a>
   </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../../v2/support/updating-the-docs.html">Updating the documentation</a>
+  </li>
 </ul>
   </li>
 </ul>
@@ -342,6 +370,7 @@
 </div>
 <nav class="pagination">
   <span class="prev"><a href="raci.html" class="query-params-link">RACI model</a></span>
+  <span class="next"><a href="../../v2/support/updating-the-docs.html" class="query-params-link">Updating the documentation</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">
