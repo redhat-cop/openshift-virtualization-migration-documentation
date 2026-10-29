@@ -1,0 +1,9 @@
+= mtv_query_inventory
+
+Queries the MTV inventory service (the Forklift inventory route or an exec into the inventory pod). There is **no** journey playbook for this role. xref:mtv_maps.adoc[mtv_maps] and xref:mtv_plans.adoc[mtv_plans] include it.
+
+Required: `mtv_query_inventory_endpoint_path` (for example `/providers`). OpenShift API host and token come from `K8S_AUTH_*` or the usual `openshift_host` / `openshift_api_key` defaults. Retrieval method is `api` (default, uses the `forklift-inventory` route) or `exec`.
+
+Results land in `mtv_query_inventory_query_result` unless you set `mtv_query_inventory_result_var`.
+
+Full argument list: link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/roles/mtv_query_inventory/README.md[mtv_query_inventory README].

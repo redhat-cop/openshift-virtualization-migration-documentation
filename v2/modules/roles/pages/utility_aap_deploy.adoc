@@ -1,0 +1,9 @@
+= utility_aap_deploy
+
+Deploys Ansible Automation Platform onto an OpenShift cluster (operator and instance). Used from xref:journey:setup-existing-ocp.adoc[Deploying Ansible Automation Platform]. Does **not** seed Migration Factory content; that is xref:aap_seed.adoc[aap_seed].
+
+Playbook: `infra.openshift_virtualization_migration.utility_aap_deploy` (`playbooks/utility_aap_deploy.yml`). Targets `migration_clusters`.
+
+Defaults include instance name `aap`, operator channel `stable-2.6`, and namespace `virtualization-migration`. Pass `utility_aap_deploy_aap_license_manifest` when the operator needs an entitlement zip.
+
+Full argument list: link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/roles/utility_aap_deploy/README.md[utility_aap_deploy README].

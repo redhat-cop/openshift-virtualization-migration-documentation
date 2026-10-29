@@ -1,0 +1,3 @@
+= Onboarding VMs
+
+Treat migrated VMs as ordinary OpenShift Virtualization workloads in `target_namespace`. Add them to day-2 automation (inventory, credentials, operating system content) with the https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/[OpenShift Virtualization Operations] collection.

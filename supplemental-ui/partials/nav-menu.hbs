@@ -1,0 +1,15 @@
+{{#with page.navigation}}
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    {{#with @root.page.componentVersion}}
+    <h3 class="title"><a href="{{{relativize ./url}}}" class=" query-params-link">{{./title}}</a></h3>
+    {{/with}}
+    <div class="nav-filter hide-for-print">
+      <label class="nav-filter-label" for="nav-filter-input">Filter navigation</label>
+      <input id="nav-filter-input" type="search" placeholder="Filter pages" autocomplete="off" aria-controls="nav-filter-empty">
+      <p id="nav-filter-empty" class="nav-filter-empty" hidden>No matching pages</p>
+    </div>
+{{> nav-tree navigation=this}}
+  </nav>
+</div>
+{{/with}}

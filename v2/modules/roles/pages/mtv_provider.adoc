@@ -1,0 +1,11 @@
+= mtv_provider
+
+Creates an MTV/Forklift source Provider CR and its secret on the destination OpenShift cluster for one source–target pair. Used from xref:journey:create-providers.adoc[Configure providers].
+
+Playbook: `infra.openshift_virtualization_migration.vmf_mtv_provider` (`playbooks/vmf_mtv_provider.yml`).
+
+Required extra vars: `source_name` (host in `vm_sources`) and `target_name` (host in `migration_clusters` whose `vm_sources` list includes the source). Launch once per pair. Source `type` is `vmware` or `ovirt`.
+
+OpenShift API access comes from `K8S_AUTH_*` or from the target host. Source username and password come from the `vm_sources` host (CLI) or the **Migration Factory - Source Environment** credential (AAP).
+
+Full argument list: link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/roles/mtv_provider/README.md[mtv_provider README].

@@ -1,0 +1,24 @@
+<article class="doc">
+{{#if (eq page.layout '404')}}
+<h1 class="page">{{{or page.title 'Page Not Found'}}}</h1>
+<div class="paragraph">
+<p>The page you&#8217;re looking for does not exist. It may have been moved.</p>
+</div>
+<div class="paragraph">
+<p>If you arrived on this page by clicking on a link, please notify the owner of the site that the link is broken.
+If you typed the URL of this page manually, please double check that you entered the address correctly.</p>
+</div>
+{{else}}
+{{#if (eq page.component.name "v2")}}
+<div class="doc-version-disclaimer" role="note">
+<p><strong>Disclaimer:</strong> Version 2 is currently under active development and unreleased.</p>
+<p>Features and documentation are subject to change, and stability is not guaranteed. Please refer to {{#each site.components}}{{#if (eq this.name "guides")}}<a href="{{{relativize ./latest.url}}}">Version 1</a>{{/if}}{{/each}} for fully supported features.</p>
+</div>
+{{/if}}
+{{#with page.title}}
+<h1 class="page">{{{this}}}</h1>
+{{/with}}
+{{{page.contents}}}
+{{/if}}
+{{> pagination}}
+</article>

@@ -9,3 +9,7 @@ nav:
   - modules/ansible-playbooks/nav.adoc
   - modules/existing-aap/nav.adoc
   - modules/appendix/nav.adoc
+asciidoc:
+  attributes:
+    noindex: '@'
+

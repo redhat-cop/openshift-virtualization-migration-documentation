@@ -1,0 +1,11 @@
+= mtv_plans
+
+Creates MTV/Forklift Plan custom resources on the destination OpenShift cluster from a wave request. Used from xref:journey:prepare-migration-wave.adoc[Defining a migration wave]. The role does **not** start the migration.
+
+Playbook: `infra.openshift_virtualization_migration.vmf_mtv_plans` (`playbooks/vmf_mtv_plans.yml`). Targets every host in `migration_clusters` unless you limit the run.
+
+Required extra var: `mtv_plans_migration_request` with at least `vms` or `folders`. `source` and `destination` are MTV **provider names** (defaults `vmware` and `host`), not inventory host names. The role uses xref:mtv_query_inventory.adoc[mtv_query_inventory] to look up providers, VMs, and folders.
+
+Set `dry_run: true` to print Plan manifests without applying them. `verify_plans_ready` waits until plans are **Ready**, not until disks copy.
+
+Full argument list: link:https://github.com/redhat-cop/openshift_virtualization_migration/blob/v2/roles/mtv_plans/README.md[mtv_plans README].
