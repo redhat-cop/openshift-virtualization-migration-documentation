@@ -1,4 +1,5 @@
 = Automation reference
+:page-aliases: aap_cleanup.adoc, aap_deploy.adoc, aap_machine_credentials.adoc, bootstrap.adoc, cluster_healthcheck.adoc, create_mf_aap_token.adoc, mtv_management.adoc, mtv_migrate.adoc, network_mgmt.adoc, ocp_cleanup.adoc, operator_management.adoc, validate_migration.adoc, vm_backup_restore.adoc, vm_collect.adoc, vm_hot_plug.adoc, vm_lifecycle.adoc, vm_mac_address.adoc, vm_networking.adoc, vm_patching.adoc, vm_ssh.adoc
 
 After seed, you run these roles as AAP job templates.
 

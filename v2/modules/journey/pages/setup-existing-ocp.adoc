@@ -8,6 +8,11 @@ You need an AAP entitlement (service account or subscription manifest). Pass the
 
 This is one of the few remaining laptop CLI steps. From the directory that holds a minimal inventory (OpenShift API on `migration_clusters`):
 
+[WARNING]
+====
+`K8S_AUTH_VERIFY_SSL=false` is for a lab only, not production.
+====
+
 [,shell]
 ----
 ansible-navigator run \

@@ -7,7 +7,7 @@ Ansible for OpenShift Virtualization Migration (**Migration Factory**) is a set 
 
 Migration Factory uses Migration Toolkit for Virtualization (MTV) on the destination cluster and AAP to repeat the same sitting: prepare the environment, seed AAP, configure providers and maps, define a wave, migrate, verify, and archive.
 
-image::guides:ROOT:mf-overview.png[Accelerating migrations at scale with Ansible Automation Platform]
+image::mf-overview.png[Accelerating migrations at scale with Ansible Automation Platform]
 
 == Who this journey is for
 

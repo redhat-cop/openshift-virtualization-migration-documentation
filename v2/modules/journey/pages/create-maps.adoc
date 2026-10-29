@@ -117,7 +117,7 @@ Do not mix `include` and `exclude` in the same override list.
 
 In the OpenShift web console: *Migration* → *StorageMaps for virtualization* and *NetworkMaps for virtualization*. Select the project where the maps were created (`openshift-mtv` unless you overrode the namespace). Status **Ready** with a green check.
 
-image::guides:rhdp:openshift-mtv-networkmaps.png[MTV NetworkMaps]
+image::openshift-mtv-networkmaps.png[MTV NetworkMaps]
 
 [NOTE]
 ====

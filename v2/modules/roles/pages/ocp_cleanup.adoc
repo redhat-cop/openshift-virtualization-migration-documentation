@@ -1,3 +1,0 @@
-= ocp_cleanup
-
-include::page$_not-in-collection-v2.adoc[]

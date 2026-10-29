@@ -11,6 +11,6 @@ Catalog item: https://catalog.demo.redhat.com/catalog?item=babylon-catalog-prod/
 . Order the item. Activity: **Practice / Enablement**. Purpose: **Conduct internal training/enablement**.
 . When the service is ready, open **Details** and copy the OpenShift API and console URLs, **admin** password, and vCenter host, username, and password.
 
-image::guides:rhdp:rhdp-service-details.png[RHDP service details]
+image::rhdp-service-details.png[RHDP service details]
 
 Then xref:setup-existing-ocp.adoc[Deploying Ansible Automation Platform] if the lab has no AAP yet, xref:configure-inventory.adoc[Building your inventory] (one cluster, one source), and xref:seed-aap.adoc[Seeding Ansible Automation Platform]. Do not use a `migration_factory_aap` playbook or a hub/spoke inventory.

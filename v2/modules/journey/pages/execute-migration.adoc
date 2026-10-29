@@ -24,7 +24,7 @@ If a plan is not Ready, go back to the wave page. Do not start it.
 
 The plan status becomes **Running**. Open the plan and use the *Virtual Machines* tab for disk transfer and pipeline status.
 
-image::guides:rhdp:openshift-mtv-plan-virtual-machines.png[MTV plan virtual machines while running]
+image::openshift-mtv-plan-virtual-machines.png[MTV plan virtual machines while running]
 
 [NOTE]
 ====
@@ -56,4 +56,4 @@ Use that template only to confirm seed created it. Use the console steps above t
 
 The plan shows **Succeeded** (or is still **Running** while disks copy). Migrated VMs are typically powered off until you start them.
 
-image::guides:rhdp:openshift-mtv-completed-plan.png[MTV plan succeeded]
+image::openshift-mtv-completed-plan.png[MTV plan succeeded]

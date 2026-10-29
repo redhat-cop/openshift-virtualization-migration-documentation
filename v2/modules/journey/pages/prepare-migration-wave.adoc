@@ -123,7 +123,7 @@ After seed, AAP has **OpenShift Virtualization Migration - MTV Plans**.
 
 In the OpenShift web console: *Migration* → *Plans for virtualization*. Select the project where the plans were created (`openshift-mtv` unless you set `migration_namespace`). Status **Ready**.
 
-image::guides:rhdp:openshift-mtv-plans.png[MTV Plans]
+image::openshift-mtv-plans.png[MTV Plans]
 
 Open a plan and use the *Virtual Machines* tab to confirm the wave membership. Do not start the plan here.
 

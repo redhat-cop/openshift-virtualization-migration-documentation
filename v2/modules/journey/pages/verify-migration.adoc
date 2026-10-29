@@ -19,7 +19,7 @@ If the plan is still **Running**, wait. If it never left **Ready**, it was not s
 . Select the project where the plans live.
 . Open the plan. Status **Succeeded**, with the VM count migrated.
 
-image::guides:rhdp:openshift-mtv-completed-plan.png[MTV plan succeeded]
+image::openshift-mtv-completed-plan.png[MTV plan succeeded]
 
 On the *Virtual Machines* tab, every VM in the wave should show a completed pipeline (no error on Initialize / Disk transfer / Convert). If you used `split_plans`, check every Plan CR.
 
@@ -36,7 +36,7 @@ The VM exists in that project. MTV leaves it **Stopped** until you start it.
 . *Actions* → *Start*.
 . Wait until status is **Running**.
 
-image::guides:rhdp:openshift-migrated-vm.png[Migrated virtual machine running]
+image::openshift-migrated-vm.png[Migrated virtual machine running]
 
 Use the console or guest login to confirm the workload. Guest agent data (hostname, IP) appears only after the agent is running in the guest; missing agent text is not a failed migration.
 

@@ -36,7 +36,7 @@ Do not archive while the plan is **Running**, or before cutover on a warm plan.
 
 The plan shows as archived. If you used `split_plans`, archive each Plan CR in the wave.
 
-image::guides:rhdp:openshift-mtv-plans.png[MTV Plans]
+image::openshift-mtv-plans.png[MTV Plans]
 
 [NOTE]
 ====

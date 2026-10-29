@@ -35,7 +35,7 @@ Optional extra vars: `mtv_provider_provider_namespace` if the provider must not 
 
 In the OpenShift web console: *Migration* → *Providers for virtualization*. Select the `mtv_namespace` project. A green check means the connection is valid.
 
-image::guides:rhdp:openshift-mtv-providers.png[MTV Providers]
+image::openshift-mtv-providers.png[MTV Providers]
 
 [NOTE]
 ====
