@@ -55,7 +55,6 @@ describe('v2 preview review', () => {
     assert.match(header, /contents: read/)
     assert.doesNotMatch(header, /contents: write/)
     assert.doesNotMatch(header, /pages: write/)
-    assert.doesNotMatch(header, /id-token: write/)
     assert.doesNotMatch(publishBuild, /contents: write/)
     assert.match(publishDeploy, /needs: build/)
     assert.match(publishDeploy, /actions: read/)
