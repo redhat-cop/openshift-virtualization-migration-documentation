@@ -7,15 +7,10 @@ concurrency:
   group: pages
   cancel-in-progress: true
 permissions:
-  contents: write
-  pages: write
-  id-token: write
+  contents: read
 jobs:
   build:
     runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: https://redhat-cop.github.io/openshift-virtualization-migration-documentation/
     steps:
       - name: Checkout repository
         uses: actions/checkout@11d5960a326750d5838078e36cf38b85af677262 # v4
@@ -31,6 +26,28 @@ jobs:
         run: node --test tests/
       - name: Disable Jekyll
         run: touch build/site/.nojekyll
+      - name: Upload site
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: site
+          path: build/site
+          include-hidden-files: true
+          if-no-files-found: error
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: https://redhat-cop.github.io/openshift-virtualization-migration-documentation/
+    permissions:
+      actions: read
+      contents: write
+    steps:
+      - name: Download site
+        uses: actions/download-artifact@d3f86a106a0bac45b974a628896c90dbdf5c8093 # v4
+        with:
+          name: site
+          path: build/site
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@fa24774553152dd7873cd16ebd8d959b010c5445 # v4
         with:

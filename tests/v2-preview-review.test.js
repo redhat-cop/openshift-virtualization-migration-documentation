@@ -47,6 +47,26 @@ describe('v2 preview review', () => {
     assert.match(build.slice(uploadAt), /include-hidden-files:\s*true/)
   })
 
+  it('gives publish write access only to the deploy job', () => {
+    const publish = fs.readFileSync(path.join(repoRoot, '.github/workflows/publish-github-pages.yml'), 'utf8')
+    const header = publish.slice(0, publish.indexOf('\njobs:'))
+    const publishBuild = jobBlock(publish, 'build')
+    const publishDeploy = jobBlock(publish, 'deploy')
+    assert.match(header, /contents: read/)
+    assert.doesNotMatch(header, /contents: write/)
+    assert.doesNotMatch(header, /pages: write/)
+    assert.doesNotMatch(header, /id-token: write/)
+    assert.doesNotMatch(publishBuild, /contents: write/)
+    assert.match(publishDeploy, /needs: build/)
+    assert.match(publishDeploy, /actions: read/)
+    assert.match(publishDeploy, /contents: write/)
+    assert.match(publishDeploy, /clean-exclude: pr-preview\//)
+    assert.match(publishDeploy, /force: false/)
+    const uploadAt = publishBuild.indexOf('- name: Upload site')
+    assert.ok(uploadAt >= 0, 'missing Upload site step')
+    assert.match(publishBuild.slice(uploadAt), /include-hidden-files:\s*true/)
+  })
+
   it('still removes the preview when the pull request is closed', () => {
     assert.match(deploy, /github\.event\.action == 'closed'/)
     const checkoutAt = deploy.indexOf('- name: Checkout repository')
