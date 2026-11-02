@@ -1,0 +1,27 @@
+= Prerequisites
+
+Confirm you can reach every system Migration Factory talks to. You do not install OpenShift here.
+
+[cols="1,2"]
+|===
+| What | Why
+
+| OpenShift cluster
+| Destination for VMs. `cluster-admin` (or equivalent) on the API. OpenShift Virtualization and MTV must already be installed. See xref:confirm-openshift-ready.adoc[OpenShift].
+
+| Source hypervisor
+| VMware vSphere or RHV URL, username, and password. VDDK image only if you are entitled to build and use one.
+
+| Ansible Automation Platform
+| URL plus an admin token or username and password. If AAP is not installed, use xref:setup-existing-ocp.adoc[Deploying Ansible Automation Platform], which needs an AAP entitlement (service account or subscription manifest).
+
+| Execution environment
+| Pull access to the Migration Factory EE on Quay (`quay.io/redhat-cop/openshift-virtualization-migration-ee`). AAP uses this image for job templates after seed.
+
+| Collection source
+| Git access to link:https://github.com/redhat-cop/openshift_virtualization_migration[openshift_virtualization_migration], or Automation Hub. See xref:source-collection.adoc[Sourcing the collection and execution environment].
+|===
+
+Automation Hub is optional unless you pull extra certified collections.
+
+If you still need laptop tools to seed or to install AAP, see xref:migration-factory-prerequisites.adoc[Migration Factory prerequisites]. After a successful seed, later jobs run from AAP.

@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+echo "Starting build process..."
+echo "Removing old site..."
+rm -rf ./build/*
+echo "Building new site..."
+
+podman run --rm --name showroom-builder --platform linux/amd64 \
+    -v "./:/antora:z" \
+    docker.io/antora/antora \
+    /bin/sh -c "npm i -g @antora/lunr-extension && antora --stacktrace --log-failure-level=error antora-playbook.yml"
+
+echo "Build process complete. Generated site is in ./build/site"
+echo "To view the site locally, run: utilities/lab-serve"
+echo "Then browse to http://localhost:8080/index.html"

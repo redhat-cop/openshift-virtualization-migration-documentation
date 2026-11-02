@@ -3,3 +3,4 @@
 ** xref:tips.adoc[Tips & Tricks]
 ** xref:raci.adoc[RACI model]
 ** xref:maintainer.adoc[Authors & Maintainers]
+** xref:v2:support:updating-the-docs.adoc[Updating the documentation]

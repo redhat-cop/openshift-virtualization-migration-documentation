@@ -1,0 +1,7 @@
+= Day 2 operations
+
+After VMs are on OpenShift Virtualization, guest operations such as patching, backup, and networking at scale are in the Operations collection:
+
+https://console.redhat.com/ansible/automation-hub/collections/validated/infra/openshift_virtualization_ops/details/[infra.openshift_virtualization_ops]
+
+Operate migrated VMs with OpenShift Virtualization and that collection. xref:day2-onboarding.adoc[Onboarding VMs] covers how a migrated VM joins that automation.

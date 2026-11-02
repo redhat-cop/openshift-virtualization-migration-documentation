@@ -1,0 +1,16 @@
+= OpenShift
+
+Start from a cluster that already exists. Cluster size (single node vs multi-node) does not change later steps.
+
+The cluster must already have:
+
+* OpenShift Virtualization
+* Migration Toolkit for Virtualization (MTV)
+
+In the OpenShift web console, *Operators* → *Installed Operators*. Confirm both operators are Succeeded in the namespaces your platform uses (often `openshift-cnv` and `openshift-mtv`).
+
+*Migration* in the left nav should list Providers, Plans, StorageMaps, and NetworkMaps for virtualization.
+
+If those APIs are missing, install the operators before you seed. There is no playbook that installs or verifies these operators.
+
+You need API access that AAP can use: a long-lived token is better than `oc whoami -t`. Mint one with xref:roles:utility_openshift_target_credential.adoc[utility_openshift_target_credential] if you do not already have a service account token.
