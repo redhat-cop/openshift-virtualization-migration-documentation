@@ -1,19 +1,19 @@
-= Quick start: first migration in about four hours
+= Quick start: first migration
 :description: Field run sheet for a Services Consultant — one RHEL 9 cold migration from VMware to OpenShift Virtualization with Migration Factory.
 
-This page is a **timed run sheet** for a Services Consultant on a **customer bring-your-own** environment. It is not a second copy of the journey. Follow the steps here; open the linked journey pages when you need the full procedure.
-
 ifdef::backend-html5[]
-[TIP]
-.Save or print as PDF
-====
-Use your browser **Print** dialog (often Ctrl+P or Cmd+P) and choose **Save as PDF** / **Print to PDF**. Prefer this page alone so the run sheet stays short. Hide the site chrome if your browser offers a simplified print layout.
-====
+++++
+<p class="quick-start-toolbar hide-for-print">
+  <button type="button" class="export-pdf-button" onclick="window.print()">Export PDF</button>
+</p>
+++++
 endif::[]
+
+This page is a **run sheet** for a Services Consultant on a **customer bring-your-own** environment. It is not a second copy of the journey. Follow the steps here; open the linked journey pages when you need the full procedure.
 
 == What you will finish
 
-In about **four hours**, with basic OpenShift Virtualization knowledge (Ansible and MTV may be new):
+With basic OpenShift Virtualization knowledge (Ansible and MTV may be new):
 
 * Confirm the customer environment is ready for Migration Factory (Gate 0).
 * Stand up Migration Factory on that environment (inventory → validate → seed).
@@ -22,26 +22,19 @@ In about **four hours**, with basic OpenShift Virtualization knowledge (Ansible 
 
 This path does **not** cover warm migration, Windows guests, RHV sources, or multi-VM waves. Use the main journey for those.
 
-== Suggested clock
+== Suggested steps
 
-[cols="1,3"]
-|===
-| Block | Focus
+Complete these in order. Do not skip Gate 0.
 
-| 0:00–0:45
-| Access, versions, pick the RHEL 9 VM, Gate 0 (xref:journey:validate-environment.adoc[Validate your environment]).
+. Confirm access and version floors, then pick the RHEL 9 VM.
+. Pass **every** item in Gate 0 (commands below).
+. Finish prepare: inventory → xref:journey:validate-environment.adoc[Validate your environment] → xref:journey:seed-aap.adoc[seed AAP].
+. Configure providers, then storage and network maps.
+. Power off the VM, define a one-VM cold wave, start the plan in MTV, wait for **Succeeded**.
+. Start the VM on OpenShift Virtualization, confirm IP, run a ping smoke test.
+. Send feedback through xref:support:channels.adoc[Support] if something blocked you.
 
-| 0:45–2:00
-| Inventory, seed AAP, providers, storage and network maps.
-
-| 2:00–3:30
-| Power off the VM, define a one-VM cold wave, start the plan in MTV, wait for **Succeeded**.
-
-| 3:30–4:00
-| Start the VM on OpenShift Virtualization, confirm IP, ping smoke test, note feedback.
-|===
-
-Times move with disk size, network, and how complete the customer platform already is. Gate 0 failures usually cost more than the migration itself — fix them before you seed.
+Gate 0 failures usually cost more than the migration itself — fix them before you seed.
 
 == Assumptions
 
@@ -60,7 +53,7 @@ Version floors from the enablement story (confirm against the customer platform 
 
 Full access and credential checklist: xref:journey:prerequisites.adoc[Prerequisites].
 
-== Before the clock: pick the VM
+== Pick the VM
 
 Choose **one** RHEL 9 VM that:
 
@@ -73,17 +66,76 @@ On vSphere, note the VM name (and folder/path if you will identify it that way).
 
 == Gate 0 — ready for Migration Factory?
 
-Do **not** seed until this gate passes. Use the console checks in xref:journey:validate-environment.adoc[Validate your environment]:
+Pass **every** checkbox before you continue. If any item fails, stop, fix it, and re-check. Do not seed to paper over a missing operator. This gate matches xref:journey:validate-environment.adoc[Validate your environment]; the commands below are a CLI path to the same checks.
 
-* OpenShift Virtualization operator Succeeded; VM APIs exist.
-* MTV operator Succeeded; *Migration* appears in the OpenShift console.
-* You can log in to AAP at the hostname you will put in inventory.
-* Inventory draft has the three groups, no leftover `changeme`, and `vm_sources` matches host names (xref:journey:configure-inventory.adoc[Building your inventory]).
-* Execution environment pull works for the Migration Factory EE image.
+=== Checklist
 
-If any row fails, fix that check. Do not seed to paper over a missing operator.
+* [ ] OpenShift Virtualization operator Succeeded; VM APIs exist
+* [ ] MTV operator Succeeded; *Migration* appears in the OpenShift console
+* [ ] You can log in to AAP at the inventory hostname
+* [ ] Inventory has the three groups, no leftover `changeme`, and `vm_sources` names match hosts (xref:journey:configure-inventory.adoc[Building your inventory])
+* [ ] Execution environment pull works for the Migration Factory EE image
 
-== Hour by hour
+=== How to check each item
+
+==== OpenShift Virtualization
+
+Logged in to the destination cluster:
+
+[,shell]
+----
+oc get csv -A | grep -iE 'virt|kubevirt|openshift-virtualization'
+oc api-resources | grep -i kubevirt
+----
+
+Expect a Succeeded CSV (or equivalent) and VirtualMachine-related API resources.
+
+==== MTV
+
+[,shell]
+----
+oc get csv -A | grep -iE 'mtv|forklift|migration-toolkit'
+oc get forkliftcontrollers.forklift.konveyor.io -A
+----
+
+Expect a Succeeded CSV and a Forklift controller. In the console, confirm *Migration* lists Providers and Plans.
+
+==== AAP login
+
+Replace the hostname with your `aap_hostname`:
+
+[,shell]
+----
+curl -kI "https://<aap_hostname>/"
+----
+
+Expect an HTTP response (not a connection error). Then open the same URL in a browser and sign in with the account from the inventory.
+
+==== Inventory file
+
+From the directory that holds your inventory file:
+
+[,shell]
+----
+grep -n 'changeme' inventory.yml || echo 'No changeme placeholders'
+grep -E '^\s*(migration_aap|migration_clusters|vm_sources):' inventory.yml
+----
+
+Expect no `changeme` values you still need to replace, and the three group names present. Confirm by eye that every name under each cluster's `vm_sources` exists as a `vm_sources` host.
+
+==== Execution environment
+
+[,shell]
+----
+podman login quay.io/redhat-cop
+podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest
+----
+
+If jobs run only from AAP, configure the registry credential on AAP instead and confirm a test job can pull the same image. See xref:journey:source-collection.adoc[Sourcing the collection and execution environment].
+
+When every box in the checklist is checked, continue. Next detailed pass after the inventory is finished: xref:journey:validate-environment.adoc[Validate your environment], then xref:journey:seed-aap.adoc[Seeding Ansible Automation Platform].
+
+== Run the quick start
 
 === 1. Prepare the environment
 
@@ -151,21 +203,28 @@ Survey `source_name` / `target_name` are inventory host names. Provider and map 
 . xref:journey:verify-migration.adoc[Verifying a migration]
 . Plan status **Succeeded**.
 . Open the VirtualMachine in `target_namespace`. MTV leaves it **Stopped** — *Actions* → *Start* → wait until **Running**.
-. Confirm the guest has an IP (console, guest agent, or `oc get vmi` / VM details).
-. From a host that can reach that IP, run a **ping** smoke test against the guest. Success means the NIC and route you mapped are good enough for this first sitting.
+. Confirm the guest has an IP (console, guest agent, or `oc` / VM details), then ping it from a host that can reach that address:
++
+[,shell]
+----
+oc get vmi -n <target-namespace>
+ping -c 3 <guest-ip>
+----
++
+Success on **ping** means the NIC and route you mapped are good enough for this first sitting.
 
 [NOTE]
 ====
 Deeper application checks are out of scope for this quick start. If ping fails, fix network map / NAD / firewall before you call the sitting done.
 ====
 
-=== 8. Close the sitting (optional in the four hours)
+=== 8. Close the sitting (optional)
 
 . xref:journey:close-migration-wave.adoc[Closing the migration wave] and xref:journey:archive-plan.adoc[Archiving the plan] when the customer process requires it.
 
 == Done when
 
-* [ ] Gate 0 (validate-environment) passed before seed
+* [ ] Gate 0 passed before seed
 * [ ] One RHEL 9 VM cold-migrated from VMware via MTV + AAP + Migration Factory
 * [ ] MTV plan **Succeeded**
 * [ ] VM **Running** on OpenShift Virtualization with an IP
@@ -199,8 +258,6 @@ Deeper application checks are out of scope for this quick start. If ping fails, 
 | Network map / guest firewall / routing; revisit xref:journey:create-maps.adoc[Configure storage and network maps]
 |===
 
-Support channels: xref:support:channels.adoc[Support].
-
 == Feedback
 
-This enablement page improves with field use. After you run it, send what burned time (Gate 0 vs seed vs MTV vs network) to the Migration Factory docs maintainers or your engagement channel so the four-hour clock stays honest.
+After you run this path, share what blocked you (Gate 0, seed, MTV, or network) through the channels on xref:support:channels.adoc[Support].
