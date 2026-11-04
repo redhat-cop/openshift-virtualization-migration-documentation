@@ -125,6 +125,30 @@
       .doc-version-disclaimer p:last-child {
         margin-bottom: 0;
       }
+      .quick-start-toolbar {
+        margin: 0 0 1rem;
+      }
+      .export-pdf-button {
+        background: #fff;
+        border: 1px solid #28253d;
+        border-radius: 0.25rem;
+        color: #28253d;
+        cursor: pointer;
+        font-family: "Red Hat Text", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        padding: 0.35rem 0.75rem;
+      }
+      .export-pdf-button:hover {
+        background: #f2f2f2;
+      }
+      @media print {
+        .quick-start-toolbar,
+        .export-pdf-button,
+        .hide-for-print {
+          display: none !important;
+        }
+      }
     </style>
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">

@@ -125,6 +125,30 @@
       .doc-version-disclaimer p:last-child {
         margin-bottom: 0;
       }
+      .quick-start-toolbar {
+        margin: 0 0 1rem;
+      }
+      .export-pdf-button {
+        background: #fff;
+        border: 1px solid #28253d;
+        border-radius: 0.25rem;
+        color: #28253d;
+        cursor: pointer;
+        font-family: "Red Hat Text", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        padding: 0.35rem 0.75rem;
+      }
+      .export-pdf-button:hover {
+        background: #f2f2f2;
+      }
+      @media print {
+        .quick-start-toolbar,
+        .export-pdf-button,
+        .hide-for-print {
+          display: none !important;
+        }
+      }
     </style>
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
     <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -310,7 +334,7 @@
     <span class="nav-text">Appendix</span>
 <ul class="nav-list">
   <li class="nav-item" data-depth="2">
-    <a class="nav-link" href="../appendix/quick-start.html">Quick start (≈4 hours)</a>
+    <a class="nav-link" href="../appendix/quick-start.html">Quick start</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -437,7 +461,7 @@
 </div>
 <nav class="pagination">
   <span class="prev"><a href="day2-onboarding.html" class="query-params-link">Onboarding VMs</a></span>
-  <span class="next"><a href="../appendix/quick-start.html" class="query-params-link">Quick start (≈4 hours)</a></span>
+  <span class="next"><a href="../appendix/quick-start.html" class="query-params-link">Quick start</a></span>
 </nav>
 </article>
 <aside class="toc sidebar" data-title="Contents" data-levels="2">

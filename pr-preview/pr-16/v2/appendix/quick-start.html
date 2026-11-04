@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width,initial-scale=1">
-    <title>Quick start: first migration in about four hours :: Ansible for OpenShift Virtualization Migration Documentation</title>
+    <title>Quick start: first migration :: Ansible for OpenShift Virtualization Migration Documentation</title>
     <link rel="prev" href="../journey/setup-rhdp.html">
     <link rel="next" href="../roles/index.html">
     <meta name="description" content="Field run sheet for a Services Consultant — one RHEL 9 cold migration from VMware to OpenShift Virtualization with Migration Factory.">
@@ -125,6 +125,30 @@
       }
       .doc-version-disclaimer p:last-child {
         margin-bottom: 0;
+      }
+      .quick-start-toolbar {
+        margin: 0 0 1rem;
+      }
+      .export-pdf-button {
+        background: #fff;
+        border: 1px solid #28253d;
+        border-radius: 0.25rem;
+        color: #28253d;
+        cursor: pointer;
+        font-family: "Red Hat Text", sans-serif;
+        font-size: 0.9rem;
+        font-weight: 700;
+        padding: 0.35rem 0.75rem;
+      }
+      .export-pdf-button:hover {
+        background: #f2f2f2;
+      }
+      @media print {
+        .quick-start-toolbar,
+        .export-pdf-button,
+        .hide-for-print {
+          display: none !important;
+        }
       }
     </style>
 <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
@@ -311,7 +335,7 @@
     <span class="nav-text">Appendix</span>
 <ul class="nav-list">
   <li class="nav-item is-current-page" data-depth="2">
-    <a class="nav-link" href="quick-start.html">Quick start (≈4 hours)</a>
+    <a class="nav-link" href="quick-start.html">Quick start</a>
   </li>
   <li class="nav-item" data-depth="2">
     <button class="nav-item-toggle"></button>
@@ -388,7 +412,7 @@
   <ul>
     <li><a href="../index.html">Migration Factory</a></li>
     <li>Appendix</li>
-    <li><a href="quick-start.html">Quick start (≈4 hours)</a></li>
+    <li><a href="quick-start.html">Quick start</a></li>
   </ul>
 </nav>
 </div>
@@ -398,26 +422,14 @@
 <p><strong>Disclaimer:</strong> Version 2 is currently under active development and unreleased.</p>
 <p>Features and documentation are subject to change, and stability is not guaranteed. Please refer to <a href="../../guides/index.html">Version 1</a> for fully supported features.</p>
 </div>
-<h1 class="page">Quick start: first migration in about four hours</h1>
+<h1 class="page">Quick start: first migration</h1>
 <div id="preamble">
 <div class="sectionbody">
+<p class="quick-start-toolbar hide-for-print">
+  <button type="button" class="export-pdf-button" onclick="window.print()">Export PDF</button>
+</p>
 <div class="paragraph">
-<p>This page is a <strong>timed run sheet</strong> for a Services Consultant on a <strong>customer bring-your-own</strong> environment. It is not a second copy of the journey. Follow the steps here; open the linked journey pages when you need the full procedure.</p>
-</div>
-<div class="admonitionblock tip">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-tip" title="Tip"></i>
-</td>
-<td class="content">
-<div class="title">Save or print as PDF</div>
-<div class="paragraph">
-<p>Use your browser <strong>Print</strong> dialog (often Ctrl+P or Cmd+P) and choose <strong>Save as PDF</strong> / <strong>Print to PDF</strong>. Prefer this page alone so the run sheet stays short. Hide the site chrome if your browser offers a simplified print layout.</p>
-</div>
-</td>
-</tr>
-</table>
+<p>This page is a <strong>run sheet</strong> for a Services Consultant on a <strong>customer bring-your-own</strong> environment. It is not a second copy of the journey. Follow the steps here; open the linked journey pages when you need the full procedure.</p>
 </div>
 </div>
 </div>
@@ -425,7 +437,7 @@
 <h2 id="what-you-will-finish"><a class="anchor" href="#what-you-will-finish"></a>What you will finish</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>In about <strong>four hours</strong>, with basic OpenShift Virtualization knowledge (Ansible and MTV may be new):</p>
+<p>With basic OpenShift Virtualization knowledge (Ansible and MTV may be new):</p>
 </div>
 <div class="ulist">
 <ul>
@@ -449,40 +461,38 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="suggested-clock"><a class="anchor" href="#suggested-clock"></a>Suggested clock</h2>
+<h2 id="suggested-steps"><a class="anchor" href="#suggested-steps"></a>Suggested steps</h2>
 <div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 25%;">
-<col style="width: 75%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Block</th>
-<th class="tableblock halign-left valign-top">Focus</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0:00–0:45</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Access, versions, pick the RHEL 9 VM, Gate 0 (<a href="../journey/validate-environment.html" class="xref page">Validate your environment</a>).</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">0:45–2:00</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Inventory, seed AAP, providers, storage and network maps.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">2:00–3:30</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Power off the VM, define a one-VM cold wave, start the plan in MTV, wait for <strong>Succeeded</strong>.</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">3:30–4:00</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Start the VM on OpenShift Virtualization, confirm IP, ping smoke test, note feedback.</p></td>
-</tr>
-</tbody>
-</table>
 <div class="paragraph">
-<p>Times move with disk size, network, and how complete the customer platform already is. Gate 0 failures usually cost more than the migration itself — fix them before you seed.</p>
+<p>Complete these in order. Do not skip Gate 0.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Confirm access and version floors, then pick the RHEL 9 VM.</p>
+</li>
+<li>
+<p>Pass <strong>every</strong> item in Gate 0 (commands below).</p>
+</li>
+<li>
+<p>Finish prepare: inventory → <a href="../journey/validate-environment.html" class="xref page">Validate your environment</a> → <a href="../journey/seed-aap.html" class="xref page">seed AAP</a>.</p>
+</li>
+<li>
+<p>Configure providers, then storage and network maps.</p>
+</li>
+<li>
+<p>Power off the VM, define a one-VM cold wave, start the plan in MTV, wait for <strong>Succeeded</strong>.</p>
+</li>
+<li>
+<p>Start the VM on OpenShift Virtualization, confirm IP, run a ping smoke test.</p>
+</li>
+<li>
+<p>Send feedback through <a href="../support/channels.html" class="xref page">Support</a> if something blocked you.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Gate 0 failures usually cost more than the migration itself — fix them before you seed.</p>
 </div>
 </div>
 </div>
@@ -533,7 +543,7 @@
 </div>
 </div>
 <div class="sect1">
-<h2 id="before-the-clock-pick-the-vm"><a class="anchor" href="#before-the-clock-pick-the-vm"></a>Before the clock: pick the VM</h2>
+<h2 id="pick-the-vm"><a class="anchor" href="#pick-the-vm"></a>Pick the VM</h2>
 <div class="sectionbody">
 <div class="paragraph">
 <p>Choose <strong>one</strong> RHEL 9 VM that:</p>
@@ -563,34 +573,108 @@
 <h2 id="gate-0-ready-for-migration-factory"><a class="anchor" href="#gate-0-ready-for-migration-factory"></a>Gate 0 — ready for Migration Factory?</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Do <strong>not</strong> seed until this gate passes. Use the console checks in <a href="../journey/validate-environment.html" class="xref page">Validate your environment</a>:</p>
+<p>Pass <strong>every</strong> checkbox before you continue. If any item fails, stop, fix it, and re-check. Do not seed to paper over a missing operator. This gate matches <a href="../journey/validate-environment.html" class="xref page">Validate your environment</a>; the commands below are a CLI path to the same checks.</p>
 </div>
-<div class="ulist">
-<ul>
+<div class="sect2">
+<h3 id="checklist"><a class="anchor" href="#checklist"></a>Checklist</h3>
+<div class="ulist checklist">
+<ul class="checklist">
 <li>
-<p>OpenShift Virtualization operator Succeeded; VM APIs exist.</p>
+<p><i class="fa fa-square-o"></i> OpenShift Virtualization operator Succeeded; VM APIs exist</p>
 </li>
 <li>
-<p>MTV operator Succeeded; <strong>Migration</strong> appears in the OpenShift console.</p>
+<p><i class="fa fa-square-o"></i> MTV operator Succeeded; <strong>Migration</strong> appears in the OpenShift console</p>
 </li>
 <li>
-<p>You can log in to AAP at the hostname you will put in inventory.</p>
+<p><i class="fa fa-square-o"></i> You can log in to AAP at the inventory hostname</p>
 </li>
 <li>
-<p>Inventory draft has the three groups, no leftover <code>changeme</code>, and <code>vm_sources</code> matches host names (<a href="../journey/configure-inventory.html" class="xref page">Building your inventory</a>).</p>
+<p><i class="fa fa-square-o"></i> Inventory has the three groups, no leftover <code>changeme</code>, and <code>vm_sources</code> names match hosts (<a href="../journey/configure-inventory.html" class="xref page">Building your inventory</a>)</p>
 </li>
 <li>
-<p>Execution environment pull works for the Migration Factory EE image.</p>
+<p><i class="fa fa-square-o"></i> Execution environment pull works for the Migration Factory EE image</p>
 </li>
 </ul>
 </div>
+</div>
+<div class="sect2">
+<h3 id="how-to-check-each-item"><a class="anchor" href="#how-to-check-each-item"></a>How to check each item</h3>
+<div class="sect3">
+<h4 id="openshift-virtualization"><a class="anchor" href="#openshift-virtualization"></a>OpenShift Virtualization</h4>
 <div class="paragraph">
-<p>If any row fails, fix that check. Do not seed to paper over a missing operator.</p>
+<p>Logged in to the destination cluster:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get csv -A | grep -iE 'virt|kubevirt|openshift-virtualization'
+oc api-resources | grep -i kubevirt</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect a Succeeded CSV (or equivalent) and VirtualMachine-related API resources.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="mtv"><a class="anchor" href="#mtv"></a>MTV</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get csv -A | grep -iE 'mtv|forklift|migration-toolkit'
+oc get forkliftcontrollers.forklift.konveyor.io -A</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect a Succeeded CSV and a Forklift controller. In the console, confirm <strong>Migration</strong> lists Providers and Plans.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="aap-login"><a class="anchor" href="#aap-login"></a>AAP login</h4>
+<div class="paragraph">
+<p>Replace the hostname with your <code>aap_hostname</code>:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -kI "https://&lt;aap_hostname&gt;/"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect an HTTP response (not a connection error). Then open the same URL in a browser and sign in with the account from the inventory.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="inventory-file"><a class="anchor" href="#inventory-file"></a>Inventory file</h4>
+<div class="paragraph">
+<p>From the directory that holds your inventory file:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">grep -n 'changeme' inventory.yml || echo 'No changeme placeholders'
+grep -E '^\s*(migration_aap|migration_clusters|vm_sources):' inventory.yml</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect no <code>changeme</code> values you still need to replace, and the three group names present. Confirm by eye that every name under each cluster&#8217;s <code>vm_sources</code> exists as a <code>vm_sources</code> host.</p>
+</div>
+</div>
+<div class="sect3">
+<h4 id="execution-environment"><a class="anchor" href="#execution-environment"></a>Execution environment</h4>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">podman login quay.io/redhat-cop
+podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If jobs run only from AAP, configure the registry credential on AAP instead and confirm a test job can pull the same image. See <a href="../journey/source-collection.html" class="xref page">Sourcing the collection and execution environment</a>.</p>
+</div>
+<div class="paragraph">
+<p>When every box in the checklist is checked, continue. Next detailed pass after the inventory is finished: <a href="../journey/validate-environment.html" class="xref page">Validate your environment</a>, then <a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>.</p>
+</div>
+</div>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="hour-by-hour"><a class="anchor" href="#hour-by-hour"></a>Hour by hour</h2>
+<h2 id="run-the-quick-start"><a class="anchor" href="#run-the-quick-start"></a>Run the quick start</h2>
 <div class="sectionbody">
 <div class="sect2">
 <h3 id="1-prepare-the-environment"><a class="anchor" href="#1-prepare-the-environment"></a>1. Prepare the environment</h3>
@@ -744,10 +828,16 @@
 <p>Open the VirtualMachine in <code>target_namespace</code>. MTV leaves it <strong>Stopped</strong> — <strong>Actions</strong> → <strong>Start</strong> → wait until <strong>Running</strong>.</p>
 </li>
 <li>
-<p>Confirm the guest has an IP (console, guest agent, or <code>oc get vmi</code> / VM details).</p>
-</li>
-<li>
-<p>From a host that can reach that IP, run a <strong>ping</strong> smoke test against the guest. Success means the NIC and route you mapped are good enough for this first sitting.</p>
+<p>Confirm the guest has an IP (console, guest agent, or <code>oc</code> / VM details), then ping it from a host that can reach that address:</p>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc get vmi -n &lt;target-namespace&gt;
+ping -c 3 &lt;guest-ip&gt;</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Success on <strong>ping</strong> means the NIC and route you mapped are good enough for this first sitting.</p>
+</div>
 </li>
 </ol>
 </div>
@@ -767,7 +857,7 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="8-close-the-sitting-optional-in-the-four-hours"><a class="anchor" href="#8-close-the-sitting-optional-in-the-four-hours"></a>8. Close the sitting (optional in the four hours)</h3>
+<h3 id="8-close-the-sitting-optional"><a class="anchor" href="#8-close-the-sitting-optional"></a>8. Close the sitting (optional)</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
@@ -784,7 +874,7 @@
 <div class="ulist checklist">
 <ul class="checklist">
 <li>
-<p><i class="fa fa-square-o"></i> Gate 0 (validate-environment) passed before seed</p>
+<p><i class="fa fa-square-o"></i> Gate 0 passed before seed</p>
 </li>
 <li>
 <p><i class="fa fa-square-o"></i> One RHEL 9 VM cold-migrated from VMware via MTV + AAP + Migration Factory</p>
@@ -847,16 +937,13 @@
 </tr>
 </tbody>
 </table>
-<div class="paragraph">
-<p>Support channels: <a href="../support/channels.html" class="xref page">Support</a>.</p>
-</div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="feedback"><a class="anchor" href="#feedback"></a>Feedback</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>This enablement page improves with field use. After you run it, send what burned time (Gate 0 vs seed vs MTV vs network) to the Migration Factory docs maintainers or your engagement channel so the four-hour clock stays honest.</p>
+<p>After you run this path, share what blocked you (Gate 0, seed, MTV, or network) through the channels on <a href="../support/channels.html" class="xref page">Support</a>.</p>
 </div>
 </div>
 </div>
