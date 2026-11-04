@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Quick start: first migration in about four hours :: Ansible for OpenShift Virtualization Migration Documentation</title>
+    <link rel="prev" href="../journey/setup-rhdp.html">
+    <link rel="next" href="../roles/index.html">
+    <meta name="description" content="Field run sheet for a Services Consultant — one RHEL 9 cold migration from VMware to OpenShift Virtualization with Migration Factory.">
+    <meta name="generator" content="Antora 3.1.15">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Red+Hat+Display:wght@400;500;700&family=Red+Hat+Mono:wght@400;700&family=Red+Hat+Text:wght@400;700&display=swap">
+    <link rel="stylesheet" href="../../_/css/site.css">
+    <link rel="stylesheet" href="../../_/css/nav-filter.css">
+    <style>
+      .navbar {
+        align-items: center;
+        display: flex;
+        flex-wrap: wrap;
+      }
+      .navbar-brand {
+        flex: 1 1 auto;
+        min-width: 0;
+      }
+      .navbar > .doc-version-switch {
+        flex: 0 0 auto;
+        margin-left: auto;
+        position: relative;
+        z-index: 20;
+      }
+      @media (max-width: 1023px) {
+        .navbar {
+          flex-wrap: nowrap;
+          height: 3.5rem;
+        }
+        .navbar-brand {
+          overflow: hidden;
+        }
+        .navbar > .doc-version-switch {
+          align-self: center;
+          background: transparent;
+          flex: 0 1 auto;
+          margin: 0 0.5rem 0 0.25rem;
+          max-width: 11.5rem;
+          padding: 0;
+        }
+        .doc-version-menu > summary {
+          font-size: 0.75rem;
+          max-width: 100%;
+          overflow: hidden;
+          padding: 0.2rem 0.45rem;
+          text-overflow: ellipsis;
+        }
+        .doc-version-panel {
+          left: auto;
+          min-width: 12rem;
+          right: 0;
+        }
+      }
+      .doc-version-menu {
+        font-family: "Red Hat Text", sans-serif;
+        font-size: 0.9rem;
+        position: relative;
+      }
+      .doc-version-menu > summary {
+        background: #fff;
+        border: 1px solid #28253d;
+        border-radius: 0.25rem;
+        color: #28253d;
+        cursor: pointer;
+        font-weight: 700;
+        list-style: none;
+        padding: 0.35rem 0.75rem;
+        white-space: nowrap;
+      }
+      .doc-version-menu > summary::-webkit-details-marker {
+        display: none;
+      }
+      .doc-version-menu > summary::after {
+        border: solid #28253d;
+        border-width: 0 2px 2px 0;
+        content: "";
+        display: inline-block;
+        margin-left: 0.55rem;
+        padding: 3px;
+        transform: rotate(45deg) translateY(-2px);
+      }
+      .doc-version-menu[open] > summary::after {
+        transform: rotate(225deg) translateY(1px);
+      }
+      .doc-version-panel {
+        background: #fff;
+        border: 1px solid #c7c7c7;
+        box-shadow: 0 4px 16px rgba(0, 0, 0, 0.12);
+        min-width: 16rem;
+        padding: 0.25rem 0;
+        position: absolute;
+        right: 0;
+        top: calc(100% + 0.25rem);
+        z-index: 30;
+      }
+      .doc-version-panel a {
+        color: #151515;
+        display: block;
+        padding: 0.5rem 0.85rem;
+        text-decoration: none;
+      }
+      .doc-version-panel a[aria-current="page"] {
+        background: #f2f2f2;
+        font-weight: 700;
+      }
+      .doc-version-panel a:hover {
+        background: #f2f2f2;
+      }
+      .doc-version-disclaimer {
+        background: #fff6e5;
+        border: 1px solid #f0c36d;
+        border-radius: 0.25rem;
+        margin: 0 0 1.25rem;
+        padding: 0.75rem 1rem;
+      }
+      .doc-version-disclaimer p {
+        margin: 0 0 0.5rem;
+      }
+      .doc-version-disclaimer p:last-child {
+        margin-bottom: 0;
+      }
+    </style>
+<link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../_/img/favicon.ico" type="image/x-icon">
+  </head>
+  <body class="article">
+<a class="skip-link" href="#content">Skip to content</a>
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <span class="navbar-item navbar-logo">
+        <img src="../../_/img/logo-demo-platform.svg" alt="Red Hat Demo Platform" class="navbar-logo-img">
+      </span>
+      <a class="navbar-item site-title" target="_blank" href="../..">Ansible for OpenShift Virtualization Migration Documentation</a>
+    </div>
+    <div class="navbar-item doc-version-switch">
+      <details class="doc-version-menu">
+        <summary>v2 · Migration Factory</summary>
+        <div class="doc-version-panel">
+          <a href="../../guides/index.html">v1 · Migration Factory</a>
+          <a href="../index.html" aria-current="page">v2 · Migration Factory</a>
+        </div>
+      </details>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <div class="navbar-item search hide-for-print">
+          <div id="search-field" class="field">
+            <input id="search-input" type="text" placeholder="Search the docs" aria-label="Search the docs">
+          </div>
+        </div>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="v2" data-version="">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html" class=" query-params-link">Migration Factory</a></h3>
+    <div class="nav-filter hide-for-print">
+      <label class="nav-filter-label" for="nav-filter-input">Filter navigation</label>
+      <input id="nav-filter-input" type="search" placeholder="Filter pages" autocomplete="off" aria-controls="nav-filter-empty">
+      <p id="nav-filter-empty" class="nav-filter-empty" hidden>No matching pages</p>
+    </div>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Introduction / Overview</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Prepare</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../journey/setup-environment.html">Preparing your environment</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/prerequisites.html">Prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/migration-factory-prerequisites.html">Migration Factory prerequisites</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/source-collection.html">Sourcing the collection and execution environment</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/confirm-openshift-ready.html">OpenShift</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/setup-aap-yourself.html">Ansible Automation Platform</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/configure-inventory.html">Building your inventory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/setup-existing-ocp.html">Deploying Ansible Automation Platform</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/validate-environment.html">Validate your environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../journey/seed-aap.html">Seeding Ansible Automation Platform</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Migrate</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performing a migration wave</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/run-a-migration.html">Introduction to migration waves</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/create-providers.html">Configure providers</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/create-maps.html">Configure storage and network maps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/prepare-migration-wave.html">Defining a migration wave</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/prepare-vms.html">Preparing VMs for migration</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Performing a migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/execute-migration.html">Migrating VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Post migration</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/verify-migration.html">Verifying a migration</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/close-migration-wave.html">Closing the migration wave</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/archive-plan.html">Archiving the plan</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../journey/scaling-the-automation.html">Updating the topology</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Operate</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Day 2 operations</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/day2-overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/day2-onboarding.html">Onboarding VMs</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Enablement</span>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../journey/setup-rhdp.html">RHDP workshop</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <span class="nav-text">Appendix</span>
+<ul class="nav-list">
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="quick-start.html">Quick start (≈4 hours)</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../roles/index.html">Automation reference</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../roles/aap_seed.html">aap_seed</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../roles/mtv_hook_invoke_aap.html">mtv_hook_invoke_aap</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../roles/mtv_maps.html">mtv_maps</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../roles/mtv_plans.html">mtv_plans</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../roles/mtv_provider.html">mtv_provider</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../roles/mtv_query_inventory.html">mtv_query_inventory</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../roles/utility_aap_deploy.html">utility_aap_deploy</a>
+  </li>
+  <li class="nav-item" data-depth="3">
+    <a class="nav-link" href="../roles/utility_openshift_target_credential.html">utility_openshift_target_credential</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../support/channels.html">Support</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../support/updating-the-docs.html">Updating the documentation</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+  </div>
+  <ul class="components">
+    <li class="component">
+      <span class="title">Development Guides</span>
+      <ul class="versions">
+        <li class="version">
+          <a href="../../guides/index.html">default</a>
+        </li>
+      </ul>
+    </li>
+    <li class="component is-current">
+      <span class="title">Migration Factory</span>
+      <ul class="versions">
+        <li class="version is-current">
+          <a href="../index.html">default</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>    </div>
+  </aside>
+</div>
+<main class="article" id="content">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../../guides/home.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Migration Factory</a></li>
+    <li>Appendix</li>
+    <li><a href="quick-start.html">Quick start (≈4 hours)</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<article class="doc">
+<div class="doc-version-disclaimer" role="note">
+<p><strong>Disclaimer:</strong> Version 2 is currently under active development and unreleased.</p>
+<p>Features and documentation are subject to change, and stability is not guaranteed. Please refer to <a href="../../guides/index.html">Version 1</a> for fully supported features.</p>
+</div>
+<h1 class="page">Quick start: first migration in about four hours</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>This page is a <strong>timed run sheet</strong> for a Services Consultant on a <strong>customer bring-your-own</strong> environment. It is not a second copy of the journey. Follow the steps here; open the linked journey pages when you need the full procedure.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Save or print as PDF</div>
+<div class="paragraph">
+<p>Use your browser <strong>Print</strong> dialog (often Ctrl+P or Cmd+P) and choose <strong>Save as PDF</strong> / <strong>Print to PDF</strong>. Prefer this page alone so the run sheet stays short. Hide the site chrome if your browser offers a simplified print layout.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="what-you-will-finish"><a class="anchor" href="#what-you-will-finish"></a>What you will finish</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In about <strong>four hours</strong>, with basic OpenShift Virtualization knowledge (Ansible and MTV may be new):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Confirm the customer environment is ready for Migration Factory (Gate 0).</p>
+</li>
+<li>
+<p>Stand up Migration Factory on that environment (inventory → validate → seed).</p>
+</li>
+<li>
+<p>Migrate <strong>one</strong> powered-off <strong>RHEL 9</strong> VM from <strong>VMware</strong> to <strong>OpenShift Virtualization</strong> using <strong>MTV + AAP + Migration Factory</strong> (<strong>cold</strong> plan).</p>
+</li>
+<li>
+<p>Validate: MTV plan <strong>Succeeded</strong>, VM <strong>Running</strong>, guest has an IP, and a <strong>ping</strong> smoke test succeeds.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>This path does <strong>not</strong> cover warm migration, Windows guests, RHV sources, or multi-VM waves. Use the main journey for those.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="suggested-clock"><a class="anchor" href="#suggested-clock"></a>Suggested clock</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 25%;">
+<col style="width: 75%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Block</th>
+<th class="tableblock halign-left valign-top">Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0:00–0:45</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access, versions, pick the RHEL 9 VM, Gate 0 (<a href="../journey/validate-environment.html" class="xref page">Validate your environment</a>).</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">0:45–2:00</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inventory, seed AAP, providers, storage and network maps.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2:00–3:30</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Power off the VM, define a one-VM cold wave, start the plan in MTV, wait for <strong>Succeeded</strong>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3:30–4:00</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start the VM on OpenShift Virtualization, confirm IP, ping smoke test, note feedback.</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Times move with disk size, network, and how complete the customer platform already is. Gate 0 failures usually cost more than the migration itself — fix them before you seed.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="assumptions"><a class="anchor" href="#assumptions"></a>Assumptions</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Audience:</strong> Services Consultant; OpenShift Virtualization basics; may be new to AAP and MTV.</p>
+</li>
+<li>
+<p><strong>Environment:</strong> Customer BYO (no shared lab for this guide).</p>
+</li>
+<li>
+<p><strong>Source:</strong> VMware vSphere with one RHEL 9 VM you are allowed to power off.</p>
+</li>
+<li>
+<p><strong>Destination:</strong> OpenShift cluster with OpenShift Virtualization and MTV already installed.</p>
+</li>
+<li>
+<p><strong>Automation:</strong> Ansible Automation Platform available (existing or deployed as part of prepare).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Version floors from the enablement story (confirm against the customer platform and current collection support):</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>vSphere 7.0+</p>
+</li>
+<li>
+<p>OpenShift 4.18+</p>
+</li>
+<li>
+<p>AAP 2.5+</p>
+</li>
+<li>
+<p>MTV 2.6+</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Full access and credential checklist: <a href="../journey/prerequisites.html" class="xref page">Prerequisites</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="before-the-clock-pick-the-vm"><a class="anchor" href="#before-the-clock-pick-the-vm"></a>Before the clock: pick the VM</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Choose <strong>one</strong> RHEL 9 VM that:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>You may power off for a cold migration.</p>
+</li>
+<li>
+<p>Has a stable name you will put in the wave request.</p>
+</li>
+<li>
+<p>Answers <strong>ping</strong> from a host you will use after cutover (or will after you start it on OpenShift Virtualization), so the smoke test is meaningful.</p>
+</li>
+<li>
+<p>Is not the only path to a critical production service for this sitting.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>On vSphere, note the VM name (and folder/path if you will identify it that way). You will power it off before you start the plan.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="gate-0-ready-for-migration-factory"><a class="anchor" href="#gate-0-ready-for-migration-factory"></a>Gate 0 — ready for Migration Factory?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Do <strong>not</strong> seed until this gate passes. Use the console checks in <a href="../journey/validate-environment.html" class="xref page">Validate your environment</a>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>OpenShift Virtualization operator Succeeded; VM APIs exist.</p>
+</li>
+<li>
+<p>MTV operator Succeeded; <strong>Migration</strong> appears in the OpenShift console.</p>
+</li>
+<li>
+<p>You can log in to AAP at the hostname you will put in inventory.</p>
+</li>
+<li>
+<p>Inventory draft has the three groups, no leftover <code>changeme</code>, and <code>vm_sources</code> matches host names (<a href="../journey/configure-inventory.html" class="xref page">Building your inventory</a>).</p>
+</li>
+<li>
+<p>Execution environment pull works for the Migration Factory EE image.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>If any row fails, fix that check. Do not seed to paper over a missing operator.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="hour-by-hour"><a class="anchor" href="#hour-by-hour"></a>Hour by hour</h2>
+<div class="sectionbody">
+<div class="sect2">
+<h3 id="1-prepare-the-environment"><a class="anchor" href="#1-prepare-the-environment"></a>1. Prepare the environment</h3>
+<div class="paragraph">
+<p>Work through <a href="../journey/setup-environment.html" class="xref page">Preparing your environment</a> in order, stopping after validate:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../journey/prerequisites.html" class="xref page">Prerequisites</a></p>
+</li>
+<li>
+<p><a href="../journey/migration-factory-prerequisites.html" class="xref page">Migration Factory prerequisites</a> (only if you still seed or install AAP from a laptop)</p>
+</li>
+<li>
+<p><a href="../journey/source-collection.html" class="xref page">Sourcing the collection and execution environment</a></p>
+</li>
+<li>
+<p><a href="../journey/confirm-openshift-ready.html" class="xref page">OpenShift</a> — Virtualization and MTV already installed</p>
+</li>
+<li>
+<p><a href="../journey/setup-aap-yourself.html" class="xref page">Ansible Automation Platform</a> <strong>or</strong> <a href="../journey/setup-existing-ocp.html" class="xref page">Deploying Ansible Automation Platform</a> if AAP is not installed yet</p>
+</li>
+<li>
+<p><a href="../journey/configure-inventory.html" class="xref page">Building your inventory</a></p>
+</li>
+<li>
+<p><a href="../journey/validate-environment.html" class="xref page">Validate your environment</a> — Gate 0 again on the finished inventory</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="2-seed-ansible-automation-platform"><a class="anchor" href="#2-seed-ansible-automation-platform"></a>2. Seed Ansible Automation Platform</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a></p>
+</li>
+<li>
+<p>In AAP, confirm the Migration Factory templates exist (Provider, Maps, Plans, and the Migrate template used only as a seed check).</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="3-providers-and-maps"><a class="anchor" href="#3-providers-and-maps"></a>3. Providers and maps</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../journey/create-providers.html" class="xref page">Configure providers</a> — one VMware source to this OpenShift target; green check in MTV.</p>
+</li>
+<li>
+<p><a href="../journey/create-maps.html" class="xref page">Configure storage and network maps</a> — maps <strong>Ready</strong> for that pair.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="4-prepare-the-guest-for-a-cold-plan"><a class="anchor" href="#4-prepare-the-guest-for-a-cold-plan"></a>4. Prepare the guest for a cold plan</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../journey/prepare-vms.html" class="xref page">Preparing VMs for migration</a> — maintenance window; VMware Tools as required by MTV.</p>
+</li>
+<li>
+<p>On vSphere, <strong>power off</strong> the RHEL 9 VM. Cold plans expect the source off for the cutover sitting.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="5-define-a-one-vm-cold-wave"><a class="anchor" href="#5-define-a-one-vm-cold-wave"></a>5. Define a one-VM cold wave</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../journey/prepare-migration-wave.html" class="xref page">Defining a migration wave</a></p>
+</li>
+<li>
+<p>Launch <strong>OpenShift Virtualization Migration - MTV Plans</strong> from AAP.</p>
+</li>
+<li>
+<p>Use a request with a single VM and a <strong>cold</strong> plan (cold is the default when you do not set warm). Example shape — replace names with the customer pair and VM:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">quick-start-wave.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mtv_plans_migration_request:
+  source: &lt;mtv-provider-name&gt;           # RFC 1123 form after Configure providers
+  destination: host
+  target_namespace: &lt;project-for-vms&gt;
+  network_map: &lt;source&gt;-host            # or the names from Create maps
+  storage_map: &lt;source&gt;-host
+  verify_plans_ready: true
+  plan_name: quickstart-rhel9-cold
+  vms:
+    - name: &lt;rhel9-vm-name&gt;</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Confirm the Plan CR is <strong>Ready</strong> in <strong>Migration</strong> → <strong>Plans for virtualization</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Survey <code>source_name</code> / <code>target_name</code> are inventory host names. Provider and map names in <code>mtv_plans_migration_request</code> are MTV names. See the wave page if those disagree.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="6-start-the-migration-in-mtv"><a class="anchor" href="#6-start-the-migration-in-mtv"></a>6. Start the migration in MTV</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a></p>
+</li>
+<li>
+<p>Start the <strong>Ready</strong> plan in the OpenShift console. Do <strong>not</strong> expect the AAP <strong>Migrate</strong> template to copy disks.</p>
+</li>
+<li>
+<p>Wait until the plan is <strong>Succeeded</strong> (cold finishes in the same run as <strong>Start</strong>; no separate cutover).</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="7-validate"><a class="anchor" href="#7-validate"></a>7. Validate</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../journey/verify-migration.html" class="xref page">Verifying a migration</a></p>
+</li>
+<li>
+<p>Plan status <strong>Succeeded</strong>.</p>
+</li>
+<li>
+<p>Open the VirtualMachine in <code>target_namespace</code>. MTV leaves it <strong>Stopped</strong> — <strong>Actions</strong> → <strong>Start</strong> → wait until <strong>Running</strong>.</p>
+</li>
+<li>
+<p>Confirm the guest has an IP (console, guest agent, or <code>oc get vmi</code> / VM details).</p>
+</li>
+<li>
+<p>From a host that can reach that IP, run a <strong>ping</strong> smoke test against the guest. Success means the NIC and route you mapped are good enough for this first sitting.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>Deeper application checks are out of scope for this quick start. If ping fails, fix network map / NAD / firewall before you call the sitting done.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="8-close-the-sitting-optional-in-the-four-hours"><a class="anchor" href="#8-close-the-sitting-optional-in-the-four-hours"></a>8. Close the sitting (optional in the four hours)</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><a href="../journey/close-migration-wave.html" class="xref page">Closing the migration wave</a> and <a href="../journey/archive-plan.html" class="xref page">Archiving the plan</a> when the customer process requires it.</p>
+</li>
+</ol>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="done-when"><a class="anchor" href="#done-when"></a>Done when</h2>
+<div class="sectionbody">
+<div class="ulist checklist">
+<ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> Gate 0 (validate-environment) passed before seed</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> One RHEL 9 VM cold-migrated from VMware via MTV + AAP + Migration Factory</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> MTV plan <strong>Succeeded</strong></p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> VM <strong>Running</strong> on OpenShift Virtualization with an IP</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Ping smoke test succeeded</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="if-you-get-stuck"><a class="anchor" href="#if-you-get-stuck"></a>If you get stuck</h2>
+<div class="sectionbody">
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Symptom</th>
+<th class="tableblock halign-left valign-top">Where to look</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Operator or MTV menu missing</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../journey/confirm-openshift-ready.html" class="xref page">OpenShift</a>, Gate 0</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Seed fails / EE pull fails</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>, <a href="../journey/source-collection.html" class="xref page">Sourcing the collection and execution environment</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Provider not green</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../journey/create-providers.html" class="xref page">Configure providers</a></p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plan never <strong>Ready</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../journey/prepare-migration-wave.html" class="xref page">Defining a migration wave</a>, maps and VM name</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP Migrate job green but disks never move</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Expected — start the plan in the console (<a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Plan <strong>Succeeded</strong>, VM missing or wrong project</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>target_namespace</code> (<a href="../journey/verify-migration.html" class="xref page">Verifying a migration</a>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VM Running but ping fails</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Network map / guest firewall / routing; revisit <a href="../journey/create-maps.html" class="xref page">Configure storage and network maps</a></p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Support channels: <a href="../support/channels.html" class="xref page">Support</a>.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="feedback"><a class="anchor" href="#feedback"></a>Feedback</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This enablement page improves with field use. After you run it, send what burned time (Gate 0 vs seed vs MTV vs network) to the Migration Factory docs maintainers or your engagement channel so the four-hour clock stays honest.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="../journey/setup-rhdp.html" class="query-params-link">RHDP workshop</a></span>
+  <span class="next"><a href="../roles/index.html" class="query-params-link">Automation reference</a></span>
+</nav>
+</article>
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>  </div>
+</main>
+</div>
+<footer class="footer">
+  <a href="https://demo.redhat.com" target="_blank" class="poweredBy"><p>Powered by</p><div class="labInfo_poweredBy" style="display: block; width: 260px;"><svg class="labInfo_poweredByLogo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1508.5 178.739"><g fill="#111"><path d="M316.6 63.2v-56H342a21.279 21.279 0 0 1 7.8 1.3 18.111 18.111 0 0 1 5.9 3.5 15.577 15.577 0 0 1 5 11.8 15.051 15.051 0 0 1-3.1 9.5 16.836 16.836 0 0 1-8.4 5.8l12.5 24.1h-9.3l-11.6-23H325v23Zm24.7-48.6H325v18.7h16.3q5.25 0 8.1-2.7a8.7 8.7 0 0 0 2.8-6.6 8.7 8.7 0 0 0-2.8-6.6c-1.8-1.9-4.5-2.8-8.1-2.8ZM364.1 42.8a20.674 20.674 0 0 1 1.6-8.2 20.288 20.288 0 0 1 4.3-6.7 19.92 19.92 0 0 1 6.5-4.5 19.718 19.718 0 0 1 8-1.6 18.463 18.463 0 0 1 7.8 1.6 18.677 18.677 0 0 1 6.2 4.5 20.927 20.927 0 0 1 4.1 6.8 23.2 23.2 0 0 1 1.5 8.4v2.3H372a13.822 13.822 0 0 0 4.6 8.4 13.6 13.6 0 0 0 9.1 3.3 15.553 15.553 0 0 0 5.7-1 12.858 12.858 0 0 0 4.6-2.6l5.1 5a25.983 25.983 0 0 1-7.4 4.1 24.69 24.69 0 0 1-8.4 1.3 21.306 21.306 0 0 1-8.4-1.6 22.763 22.763 0 0 1-6.8-4.4 20.788 20.788 0 0 1-4.5-6.7 23.2 23.2 0 0 1-1.5-8.4Zm20.2-14.2a11.527 11.527 0 0 0-8 3 13.046 13.046 0 0 0-4.2 7.8h24.2a13.091 13.091 0 0 0-4.2-7.8 11.106 11.106 0 0 0-7.8-3ZM443.1 63.2v-3.8a19.448 19.448 0 0 1-5.8 3.3 18.924 18.924 0 0 1-6.7 1.2 19.824 19.824 0 0 1-14.6-6.1 22.268 22.268 0 0 1-4.4-6.7 21.812 21.812 0 0 1 0-16.4A20.534 20.534 0 0 1 416 28a19.335 19.335 0 0 1 6.6-4.5 20.334 20.334 0 0 1 8.2-1.6 20.7 20.7 0 0 1 6.6 1 19.415 19.415 0 0 1 5.7 3V7.2l8-1.8v57.8Zm-25.2-20.4a13.718 13.718 0 0 0 4 10.1 13.45 13.45 0 0 0 9.8 4.1 14.956 14.956 0 0 0 6.4-1.3 15.954 15.954 0 0 0 4.9-3.6V33.6a14.988 14.988 0 0 0-4.9-3.5 15.271 15.271 0 0 0-6.4-1.3 13.423 13.423 0 0 0-9.9 4 13.806 13.806 0 0 0-3.9 10ZM478.1 63.2v-56h8.4v24h29.8v-24h8.4v56h-8.4V38.8h-29.8v24.4ZM547.2 64a16.483 16.483 0 0 1-10.8-3.5 11.037 11.037 0 0 1-4.2-8.9 10.375 10.375 0 0 1 4.7-9.2 20.76 20.76 0 0 1 11.8-3.2 27.841 27.841 0 0 1 5.8.6 27.374 27.374 0 0 1 5.3 1.6v-4.3a8.143 8.143 0 0 0-2.6-6.5 11.452 11.452 0 0 0-7.4-2.2 20.788 20.788 0 0 0-6 .9 34.616 34.616 0 0 0-6.6 2.6l-3-6a54.169 54.169 0 0 1 8.4-3.1 33.18 33.18 0 0 1 8.3-1.1c5.2 0 9.3 1.3 12.2 3.8s4.4 6.1 4.4 10.8v27h-7.8v-3.5a19.441 19.441 0 0 1-5.8 3.2 23.54 23.54 0 0 1-6.7 1Zm-7.3-12.6a5.646 5.646 0 0 0 2.6 4.8 11.193 11.193 0 0 0 6.6 1.8 16.256 16.256 0 0 0 5.9-1 14.449 14.449 0 0 0 4.9-2.9V47a19.778 19.778 0 0 0-4.8-1.8 24.933 24.933 0 0 0-5.7-.6 11.859 11.859 0 0 0-6.8 1.8 5.728 5.728 0 0 0-2.7 5ZM580.6 53.2v-24H572v-6.7h8.6V12.1l7.9-1.9v12.3h12v6.7h-12v22.1a5.94 5.94 0 0 0 1.4 4.4c.9.9 2.5 1.3 4.6 1.3a23.637 23.637 0 0 0 3-.2 10.857 10.857 0 0 0 2.8-.8v6.7a19.28 19.28 0 0 1-3.8.9 27.484 27.484 0 0 1-3.8.3c-3.9 0-7-.9-9-2.8-2-1.7-3.1-4.4-3.1-7.9Z"></path></g><path d="M127 90.2c12.5 0 30.6-2.6 30.6-17.5a12.678 12.678 0 0 0-.3-3.4L149.8 37c-1.7-7.1-3.2-10.3-15.7-16.6-9.7-5-30.8-13.1-37.1-13.1-5.8 0-7.5 7.5-14.4 7.5-6.7 0-11.6-5.6-17.9-5.6-6 0-9.9 4.1-12.9 12.5 0 0-8.4 23.7-9.5 27.2a4.216 4.216 0 0 0-.3 1.9c0 9.2 36.3 39.4 85 39.4Zm32.5-11.4c1.7 8.2 1.7 9.1 1.7 10.1 0 14-15.7 21.8-36.4 21.8-46.8 0-87.7-27.4-87.7-45.5a17.535 17.535 0 0 1 1.5-7.3C21.8 58.8 0 61.8 0 81c0 31.5 74.6 70.3 133.7 70.3 45.3 0 56.7-20.5 56.7-36.6-.1-12.8-11-27.3-30.9-35.9Z" fill="#e00"></path><path d="M159.5 78.8c1.7 8.2 1.7 9.1 1.7 10.1 0 14-15.7 21.8-36.4 21.8-46.8 0-87.7-27.4-87.7-45.5a17.535 17.535 0 0 1 1.5-7.3l3.7-9.1a4.877 4.877 0 0 0-.3 2c0 9.2 36.3 39.4 85 39.4 12.5 0 30.6-2.6 30.6-17.5a12.678 12.678 0 0 0-.3-3.4Z"></path><path d="M253.5 158.7a2.22 2.22 0 0 1-2.2-2.2V2.2a2.2 2.2 0 0 1 4.4 0v154.2a2.242 2.242 0 0 1-2.2 2.3Z" fill="#111"></path><text data-name="Demo Platform" transform="translate(1186 149)" fill="#111" font-size="82" font-family="'RedHatDisplay', 'Overpass', overpass, helvetica, arial, sans-serif" font-weight="700"><tspan x="-877.892" y="0">Demo Platform</tspan></text></svg></div></div>
+</footer>
+<script defer src="../../_/js/vendor/clipboard.js"></script>
+<script defer src="../../_/js/site.js"></script>
+<script defer src="../../_/js/vendor/highlight.js"></script>
+<script defer src="../../_/js/nav-filter.js"></script>
+<script src="../../_/js/vendor/lunr.js"></script>
+<script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
+<script async src="../../search-index.js"></script>
+<script defer src="../../_/js/search-empty.js"></script>
+  </body>
+</html>
