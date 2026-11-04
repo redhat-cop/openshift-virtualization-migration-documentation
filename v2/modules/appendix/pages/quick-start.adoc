@@ -4,7 +4,7 @@
 ifdef::backend-html5[]
 ++++
 <p class="quick-start-toolbar hide-for-print">
-  <button type="button" class="export-pdf-button" onclick="window.print()">Export PDF</button>
+  <button type="button" class="export-pdf-button" onclick="exportDocPdf()">Export PDF</button>
 </p>
 ++++
 endif::[]
