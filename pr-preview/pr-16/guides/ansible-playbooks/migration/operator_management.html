@@ -142,11 +142,72 @@
       .export-pdf-button:hover {
         background: #f2f2f2;
       }
+      /* Keep print/PDF closer to the on-screen article (overrides theme print flattening). */
       @media print {
+        html,
+        body {
+          background: #fff !important;
+          color: #151515 !important;
+          padding: 0 !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .navbar,
+        .nav-container,
+        .toolbar,
+        #topbar-nav,
+        footer.footer,
+        .pagination,
+        .doc-version-switch,
+        .doc-version-disclaimer,
         .quick-start-toolbar,
         .export-pdf-button,
-        .hide-for-print {
+        .hide-for-print,
+        .nav-toggle {
           display: none !important;
+        }
+
+        .body,
+        main,
+        .article,
+        .content {
+          display: block !important;
+          width: 100% !important;
+          max-width: none !important;
+          margin: 0 !important;
+          padding: 0 !important;
+        }
+
+        .doc {
+          color: #151515 !important;
+          margin: 0 auto !important;
+          max-width: 46rem !important;
+          padding: 0 !important;
+        }
+
+        .doc a {
+          color: #06c !important;
+          text-decoration: underline;
+        }
+
+        .doc pre.highlight code,
+        .doc pre:not(.highlight) {
+          background: #f2f2f2 !important;
+          -webkit-print-color-adjust: exact;
+          print-color-adjust: exact;
+        }
+
+        .listingblock,
+        .admonitionblock,
+        table.tableblock,
+        pre {
+          break-inside: avoid;
+          page-break-inside: avoid;
+        }
+
+        @page {
+          margin: 0.6in;
         }
       }
     </style>
@@ -454,6 +515,7 @@
 <script defer src="../../../_/js/site.js"></script>
 <script defer src="../../../_/js/vendor/highlight.js"></script>
 <script defer src="../../../_/js/nav-filter.js"></script>
+<script defer src="../../../_/js/export-pdf.js"></script>
 <script src="../../../_/js/vendor/lunr.js"></script>
 <script src="../../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../../.." data-snippet-length="100" data-stylesheet="../../../_/css/search.css"></script>
 <script async src="../../../search-index.js"></script>
