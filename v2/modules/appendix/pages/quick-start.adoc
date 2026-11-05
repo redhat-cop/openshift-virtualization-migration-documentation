@@ -1,0 +1,379 @@
+= Quick start: first migration
+:description: Field run sheet for a Services Consultant — first VMware to OpenShift Virtualization migration with Migration Factory in about four hours (RHEL or Windows).
+
+ifdef::backend-html5[]
+++++
+<p class="quick-start-toolbar hide-for-print">
+  <button type="button" class="export-pdf-button" onclick="exportDocPdf()">Export PDF</button>
+</p>
+++++
+endif::[]
+
+This page is a **run sheet** for a Services Consultant on a **customer bring-your-own** environment. Target: finish your first Migration Factory sitting in about **four hours**, including environment setup. It is not a second copy of the journey — follow the steps here; open the linked journey pages when you need the full procedure.
+
+== Formats
+
+* **Web:** this Antora page (always current).
+* **PDF:** use **Export PDF** at the top. The PDF keeps the same ordered steps and the same links into the documentation on this site. There is no separate offline PDF artifact to download.
+
+== What you will finish
+
+With basic OpenShift Virtualization knowledge (Ansible and MTV may be new):
+
+* Confirm the customer environment is ready for Migration Factory (Gate 0).
+* Stand up Migration Factory on that environment (inventory → validate → seed).
+* Migrate **one** VM from **VMware** to **OpenShift Virtualization** using **MTV + AAP + Migration Factory**.
+* Validate: MTV plan **Succeeded**, VM **Running**, guest has an IP, **ping** works, and an **app check** you define when ping is not enough.
+
+== Which guest and plan type?
+
+Migration Factory and MTV support more than one guest OS and plan type. For a **first** sitting, use a **cold** plan (source powered off). Cold finishes in one MTV **Start** and is easier to reason about than warm (precopy + later cutover).
+
+Pick **one** of these recommended first paths:
+
+[cols="1,2,2"]
+|===
+| Path | Guest | Plan
+
+| A (default)
+| RHEL 8 or RHEL 9
+| Cold
+
+| B
+| Windows Server (supported by MTV for your version)
+| Cold
+|===
+
+Same factory steps for A and B. Differences are guest prep, how you prove the app after cutover, and MTV/OS prerequisites (VMware Tools / virtio / guest agent). Follow link:https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/[MTV documentation] for guest OS support on your MTV version.
+
+=== Other combinations (after the first sitting)
+
+[cols="1,2"]
+|===
+| Need | Where to go
+
+| Warm migration (source stays up until cutover)
+| Set `type: warm` on the wave (xref:journey:prepare-migration-wave.adoc[Defining a migration wave]), then **Cutover** in xref:journey:execute-migration.adoc[Migrating VMs]. Budget extra time for precopy and cutover.
+
+| RHV / other sources
+| Same journey after the provider matches the source; see xref:journey:prerequisites.adoc[Prerequisites] and xref:journey:create-providers.adoc[Configure providers].
+
+| Multi-VM wave
+| Same wave page with more `vms` or `folders`; not the goal of this first four-hour sitting.
+|===
+
+== Estimated duration (~4 hours)
+
+Use this to plan the engagement. Disk size, network, and how complete the platform already is will move the clock; Gate 0 failures usually cost more than the migration itself.
+
+[cols="1,1,3"]
+|===
+| Phase | Budget | Focus
+
+| Access, pick VM, Gate 0
+| ~45 min
+| Versions, one guest (RHEL or Windows), pass every Gate 0 check.
+
+| Prepare + seed
+| ~75 min
+| Inventory → validate → seed AAP.
+
+| Providers + maps
+| ~30 min
+| One VMware→OpenShift pair; maps **Ready**.
+
+| Guest prep + wave + migrate
+| ~60–90 min
+| Power off (cold), one-VM plan, MTV **Start** → **Succeeded**.
+
+| Validate + feedback
+| ~30 min
+| Start VM, IP, ping, app check if needed; xref:support:channels.adoc[Support] if blocked.
+|===
+
+== Suggested steps
+
+Complete these in order. Do not skip Gate 0.
+
+. Confirm access and version floors, then pick the RHEL or Windows VM.
+. Pass **every** item in Gate 0 (commands below).
+. Finish prepare: inventory → xref:journey:validate-environment.adoc[Validate your environment] → xref:journey:seed-aap.adoc[seed AAP].
+. Configure providers, then storage and network maps.
+. Prepare the guest, power it off (cold), define a one-VM cold wave, start the plan in MTV, wait for **Succeeded**.
+. Start the VM on OpenShift Virtualization, confirm IP, ping, then your app check if ping is not enough.
+. Send feedback through xref:support:channels.adoc[Support] if something blocked you.
+
+== Assumptions
+
+* **Audience:** Services Consultant; OpenShift Virtualization basics; may be new to AAP and MTV.
+* **Environment:** Customer BYO (no shared lab for this guide).
+* **Source:** VMware vSphere with one RHEL or Windows VM you are allowed to power off for a cold plan.
+* **Destination:** OpenShift cluster with OpenShift Virtualization and MTV already installed.
+* **Automation:** Ansible Automation Platform available (existing or deployed as part of prepare).
+
+Version floors from the enablement story (confirm against the customer platform and current collection support):
+
+* vSphere 7.0+
+* OpenShift 4.18+
+* AAP 2.5+
+* MTV 2.6+
+
+Full access and credential checklist: xref:journey:prerequisites.adoc[Prerequisites].
+
+== Pick the VM
+
+Choose **one** VM (RHEL or Windows) that:
+
+* You may power off for a cold migration.
+* Has a stable name you will put in the wave request.
+* Can answer **ping** from a host you will use after cutover (or will after you start it on OpenShift Virtualization).
+* Has an **app check** you can describe if ping alone is not enough for the customer (HTTP URL, Windows service name, SSH command, and so on).
+* Is not the only path to a critical production service for this sitting.
+
+On vSphere, note the VM name (and folder/path if you will identify it that way). You will power it off before you start the plan.
+
+== Gate 0 — ready for Migration Factory?
+
+Pass **every** checkbox before you continue. If any item fails, stop, fix it, and re-check. Do not seed to paper over a missing operator. This gate matches xref:journey:validate-environment.adoc[Validate your environment]; the commands below are a CLI path to the same checks.
+
+=== Checklist
+
+* [ ] OpenShift Virtualization operator Succeeded; VM APIs exist
+* [ ] MTV operator Succeeded; *Migration* appears in the OpenShift console
+* [ ] You can log in to AAP at the inventory hostname
+* [ ] Inventory has the three groups, no leftover `changeme`, and `vm_sources` names match hosts (xref:journey:configure-inventory.adoc[Building your inventory])
+* [ ] Execution environment pull works for the Migration Factory EE image
+
+=== How to check each item
+
+==== OpenShift Virtualization
+
+Logged in to the destination cluster:
+
+[,shell]
+----
+oc get csv -A | grep -iE 'virt|kubevirt|openshift-virtualization'
+oc api-resources | grep -i kubevirt
+----
+
+Expect a Succeeded CSV (or equivalent) and VirtualMachine-related API resources.
+
+==== MTV
+
+[,shell]
+----
+oc get csv -A | grep -iE 'mtv|forklift|migration-toolkit'
+oc get forkliftcontrollers.forklift.konveyor.io -A
+----
+
+Expect a Succeeded CSV and a Forklift controller. In the console, confirm *Migration* lists Providers and Plans.
+
+==== AAP login
+
+Replace the hostname with your `aap_hostname`:
+
+[,shell]
+----
+curl -kI "https://<aap_hostname>/"
+----
+
+Expect an HTTP response (not a connection error). Then open the same URL in a browser and sign in with the account from the inventory.
+
+==== Inventory file
+
+From the directory that holds your inventory file:
+
+[,shell]
+----
+grep -n 'changeme' inventory.yml || echo 'No changeme placeholders'
+grep -E '^\s*(migration_aap|migration_clusters|vm_sources):' inventory.yml
+----
+
+Expect no `changeme` values you still need to replace, and the three group names present. Confirm by eye that every name under each cluster's `vm_sources` exists as a `vm_sources` host.
+
+==== Execution environment
+
+[,shell]
+----
+podman login quay.io/redhat-cop
+podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest
+----
+
+If jobs run only from AAP, configure the registry credential on AAP instead and confirm a test job can pull the same image. See xref:journey:source-collection.adoc[Sourcing the collection and execution environment].
+
+When every box in the checklist is checked, continue. Next detailed pass after the inventory is finished: xref:journey:validate-environment.adoc[Validate your environment], then xref:journey:seed-aap.adoc[Seeding Ansible Automation Platform].
+
+== Run the quick start
+
+=== 1. Prepare the environment
+
+Work through xref:journey:setup-environment.adoc[Preparing your environment] in order, stopping after validate:
+
+. xref:journey:prerequisites.adoc[Prerequisites]
+. xref:journey:migration-factory-prerequisites.adoc[Migration Factory prerequisites] (only if you still seed or install AAP from a laptop)
+. xref:journey:source-collection.adoc[Sourcing the collection and execution environment]
+. xref:journey:confirm-openshift-ready.adoc[OpenShift] — Virtualization and MTV already installed
+. xref:journey:setup-aap-yourself.adoc[Ansible Automation Platform] **or** xref:journey:setup-existing-ocp.adoc[Deploying Ansible Automation Platform] if AAP is not installed yet
+. xref:journey:configure-inventory.adoc[Building your inventory]
+. xref:journey:validate-environment.adoc[Validate your environment] — Gate 0 again on the finished inventory
+
+=== 2. Seed Ansible Automation Platform
+
+. xref:journey:seed-aap.adoc[Seeding Ansible Automation Platform]
+. In AAP, confirm the Migration Factory templates exist (Provider, Maps, Plans, and the Migrate template used only as a seed check).
+
+[NOTE]
+.Screenshot placeholder — for reference only
+====
+The image below is an empty stand-in. Replace it later with a capture of AAP *Templates* after a successful seed (Migration Factory templates visible).
+====
+
+image::aap-templates-after-seed-placeholder.png[Placeholder for AAP Templates after seed — screenshot to be added later]
+
+=== 3. Providers and maps
+
+. xref:journey:create-providers.adoc[Configure providers] — one VMware source to this OpenShift target; green check in MTV.
+
+image::journey:openshift-mtv-providers.png[MTV Providers with a valid source]
+
+. xref:journey:create-maps.adoc[Configure storage and network maps] — maps **Ready** for that pair.
+
+image::journey:openshift-mtv-networkmaps.png[MTV NetworkMaps Ready]
+
+=== 4. Prepare the guest for a cold plan
+
+. xref:journey:prepare-vms.adoc[Preparing VMs for migration] — maintenance window; VMware Tools (and Windows virtio / guest drivers as required by MTV).
+. On vSphere, **power off** the VM. Cold plans expect the source off for the cutover sitting.
+
+=== 5. Define a one-VM cold wave
+
+. xref:journey:prepare-migration-wave.adoc[Defining a migration wave]
+. Launch **OpenShift Virtualization Migration - MTV Plans** from AAP.
+. Use a request with a single VM and a **cold** plan (cold is the default when you do not set warm). Example shape — replace names with the customer pair and VM:
+
+.quick-start-wave.yml
+[source,yaml]
+----
+mtv_plans_migration_request:
+  source: <mtv-provider-name>           # RFC 1123 form after Configure providers
+  destination: host
+  target_namespace: <project-for-vms>
+  network_map: <source>-host            # or the names from Create maps
+  storage_map: <source>-host
+  verify_plans_ready: true
+  plan_name: quickstart-cold-01
+  vms:
+    - name: <vm-name>
+----
+
+. Confirm the Plan CR is **Ready** in *Migration* → *Plans for virtualization*.
+
+image::journey:openshift-mtv-plans.png[MTV Plans Ready]
+
+[NOTE]
+====
+Survey `source_name` / `target_name` are inventory host names. Provider and map names in `mtv_plans_migration_request` are MTV names. See the wave page if those disagree.
+====
+
+=== 6. Start the migration in MTV
+
+. xref:journey:execute-migration.adoc[Migrating VMs]
+. Start the **Ready** plan in the OpenShift console. Do **not** expect the AAP **Migrate** template to copy disks.
+
+image::journey:openshift-mtv-plan-virtual-machines.png[MTV plan Virtual Machines tab while running]
+
+. Wait until the plan is **Succeeded** (cold finishes in the same run as **Start**; no separate cutover).
+
+image::journey:openshift-mtv-completed-plan.png[MTV plan Succeeded]
+
+=== 7. Validate
+
+. xref:journey:verify-migration.adoc[Verifying a migration]
+. Plan status **Succeeded**.
+. Open the VirtualMachine in `target_namespace`. MTV leaves it **Stopped** — *Actions* → *Start* → wait until **Running**.
+
+image::journey:openshift-migrated-vm.png[Migrated virtual machine Running]
+
+. Confirm the guest has an IP (console, guest agent, or `oc` / VM details), then ping it from a host that can reach that address:
++
+[,shell]
+----
+oc get vmi -n <target-namespace>
+ping -c 3 <guest-ip>
+----
++
+Success on **ping** means the NIC and route you mapped are good enough for connectivity.
+
+. **App check:** if ping is enough for this engagement, you are done with validation. If the customer needs proof the workload is up, run an app check **you define** for that VM — for example:
++
+--
+* RHEL: SSH and a service or HTTP check (`curl -I http://<guest-ip>/`, `systemctl is-active <service>`).
+* Windows: RDP or WinRM reachability, or confirm a named service is running inside the guest.
+* Any guest: the customer's own smoke test written down before you start the plan.
+--
++
+Record what you ran and the result. If ping fails, fix network map / NAD / firewall before you treat an app check as meaningful.
+
+=== 8. Close the sitting (optional)
+
+. xref:journey:close-migration-wave.adoc[Closing the migration wave] and xref:journey:archive-plan.adoc[Archiving the plan] when the customer process requires it.
+
+== Done when
+
+* [ ] Gate 0 passed before seed
+* [ ] One VMware VM (RHEL or Windows) cold-migrated via MTV + AAP + Migration Factory
+* [ ] MTV plan **Succeeded**
+* [ ] VM **Running** on OpenShift Virtualization with an IP
+* [ ] Ping succeeded
+* [ ] App check done (your definition), or documented that ping was enough for this sitting
+
+== Troubleshooting
+
+Work the symptom that matches, then use the linked journey page for the long procedure.
+
+=== Operator or MTV menu missing
+
+. Confirm you are on the destination cluster (`oc whoami --show-console`).
+. Re-run the Gate 0 OpenShift Virtualization and MTV commands.
+. In the console: *Operators* → *Installed Operators* — both must be Succeeded.
+. If APIs are missing, install or repair the operators before seed. See xref:journey:confirm-openshift-ready.adoc[OpenShift].
+
+=== Seed fails or EE will not pull
+
+. Confirm `podman pull` (or the AAP registry credential) for `quay.io/redhat-cop/openshift-virtualization-migration-ee:latest`.
+. Re-check inventory: no `changeme`, AAP URL and auth correct.
+. Read the seed job log in AAP or the navigator output; fix the first hard error (auth, project sync, EE), then re-run. See xref:journey:seed-aap.adoc[Seeding Ansible Automation Platform] and xref:journey:source-collection.adoc[Sourcing the collection and execution environment].
+
+=== Provider not green
+
+. Confirm the AAP **MTV Provider** job used the right `source_name` / `target_name` inventory hosts.
+. In MTV: *Providers for virtualization* — open the provider and read the status message (URL, credentials, VDDK).
+. Fix inventory credentials or network path to vSphere, then re-launch the provider template. See xref:journey:create-providers.adoc[Configure providers].
+
+=== Plan never Ready
+
+. Confirm maps for that pair are **Ready** (xref:journey:create-maps.adoc[Configure storage and network maps]).
+. Confirm the VM name (or path) exists on the source and matches `mtv_plans_migration_request`.
+. Confirm provider names in the request are MTV names, not only inventory host names.
+. Re-launch **MTV Plans** after fixes. See xref:journey:prepare-migration-wave.adoc[Defining a migration wave].
+
+=== AAP Migrate job green but disks never move
+
+Expected. That template does not start MTV. Start the **Ready** plan in the OpenShift console (*Migration* → *Plans for virtualization*). See xref:journey:execute-migration.adoc[Migrating VMs].
+
+=== Plan Succeeded but VM missing or wrong project
+
+. Open the plan and note `target_namespace`.
+. In *Virtualization* → *VirtualMachines*, select that project (not only `openshift-mtv`).
+. See xref:journey:verify-migration.adoc[Verifying a migration].
+
+=== VM Running but ping or app check fails
+
+. Confirm the guest has an IP (`oc get vmi -n <target-namespace>` or console).
+. Confirm your ping/app-check host can route to that subnet (NAD, NetworkMap, firewall, NSG).
+. Inside the guest, confirm firewall allows ICMP or your app port.
+. Revisit xref:journey:create-maps.adoc[Configure storage and network maps] if the wrong network was mapped.
+
+== Feedback
+
+After you run this path, share what blocked you (Gate 0, seed, MTV, or network) through the channels on xref:support:channels.adoc[Support].
