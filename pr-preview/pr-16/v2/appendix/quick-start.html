@@ -6,7 +6,7 @@
     <title>Quick start: first migration :: Ansible for OpenShift Virtualization Migration Documentation</title>
     <link rel="prev" href="../journey/setup-rhdp.html">
     <link rel="next" href="../roles/index.html">
-    <meta name="description" content="Field run sheet for a Services Consultant — one RHEL 9 cold migration from VMware to OpenShift Virtualization with Migration Factory.">
+    <meta name="description" content="Field run sheet for a Services Consultant — first VMware to OpenShift Virtualization migration with Migration Factory in about four hours (RHEL or Windows).">
     <meta name="generator" content="Antora 3.1.15">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -490,7 +490,22 @@
   <button type="button" class="export-pdf-button" onclick="exportDocPdf()">Export PDF</button>
 </p>
 <div class="paragraph">
-<p>This page is a <strong>run sheet</strong> for a Services Consultant on a <strong>customer bring-your-own</strong> environment. It is not a second copy of the journey. Follow the steps here; open the linked journey pages when you need the full procedure.</p>
+<p>This page is a <strong>run sheet</strong> for a Services Consultant on a <strong>customer bring-your-own</strong> environment. Target: finish your first Migration Factory sitting in about <strong>four hours</strong>, including environment setup. It is not a second copy of the journey — follow the steps here; open the linked journey pages when you need the full procedure.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="formats"><a class="anchor" href="#formats"></a>Formats</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Web:</strong> this Antora page (always current).</p>
+</li>
+<li>
+<p><strong>PDF:</strong> use <strong>Export PDF</strong> at the top. The PDF keeps the same ordered steps and the same links into the documentation on this site. There is no separate offline PDF artifact to download.</p>
+</li>
+</ul>
 </div>
 </div>
 </div>
@@ -509,16 +524,131 @@
 <p>Stand up Migration Factory on that environment (inventory → validate → seed).</p>
 </li>
 <li>
-<p>Migrate <strong>one</strong> powered-off <strong>RHEL 9</strong> VM from <strong>VMware</strong> to <strong>OpenShift Virtualization</strong> using <strong>MTV + AAP + Migration Factory</strong> (<strong>cold</strong> plan).</p>
+<p>Migrate <strong>one</strong> VM from <strong>VMware</strong> to <strong>OpenShift Virtualization</strong> using <strong>MTV + AAP + Migration Factory</strong>.</p>
 </li>
 <li>
-<p>Validate: MTV plan <strong>Succeeded</strong>, VM <strong>Running</strong>, guest has an IP, and a <strong>ping</strong> smoke test succeeds.</p>
+<p>Validate: MTV plan <strong>Succeeded</strong>, VM <strong>Running</strong>, guest has an IP, <strong>ping</strong> works, and an <strong>app check</strong> you define when ping is not enough.</p>
 </li>
 </ul>
 </div>
-<div class="paragraph">
-<p>This path does <strong>not</strong> cover warm migration, Windows guests, RHV sources, or multi-VM waves. Use the main journey for those.</p>
 </div>
+</div>
+<div class="sect1">
+<h2 id="which-guest-and-plan-type"><a class="anchor" href="#which-guest-and-plan-type"></a>Which guest and plan type?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Migration Factory and MTV support more than one guest OS and plan type. For a <strong>first</strong> sitting, use a <strong>cold</strong> plan (source powered off). Cold finishes in one MTV <strong>Start</strong> and is easier to reason about than warm (precopy + later cutover).</p>
+</div>
+<div class="paragraph">
+<p>Pick <strong>one</strong> of these recommended first paths:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Path</th>
+<th class="tableblock halign-left valign-top">Guest</th>
+<th class="tableblock halign-left valign-top">Plan</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">A (default)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RHEL 8 or RHEL 9</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cold</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">B</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Windows Server (supported by MTV for your version)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Cold</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Same factory steps for A and B. Differences are guest prep, how you prove the app after cutover, and MTV/OS prerequisites (VMware Tools / virtio / guest agent). Follow <a href="https://docs.redhat.com/en/documentation/migration_toolkit_for_virtualization/">MTV documentation</a> for guest OS support on your MTV version.</p>
+</div>
+<div class="sect2">
+<h3 id="other-combinations-after-the-first-sitting"><a class="anchor" href="#other-combinations-after-the-first-sitting"></a>Other combinations (after the first sitting)</h3>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 66.6667%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Need</th>
+<th class="tableblock halign-left valign-top">Where to go</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Warm migration (source stays up until cutover)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Set <code>type: warm</code> on the wave (<a href="../journey/prepare-migration-wave.html" class="xref page">Defining a migration wave</a>), then <strong>Cutover</strong> in <a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a>. Budget extra time for precopy and cutover.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">RHV / other sources</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Same journey after the provider matches the source; see <a href="../journey/prerequisites.html" class="xref page">Prerequisites</a> and <a href="../journey/create-providers.html" class="xref page">Configure providers</a>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Multi-VM wave</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Same wave page with more <code>vms</code> or <code>folders</code>; not the goal of this first four-hour sitting.</p></td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="estimated-duration-4-hours"><a class="anchor" href="#estimated-duration-4-hours"></a>Estimated duration (~4 hours)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Use this to plan the engagement. Disk size, network, and how complete the platform already is will move the clock; Gate 0 failures usually cost more than the migration itself.</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 20%;">
+<col style="width: 60%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Phase</th>
+<th class="tableblock halign-left valign-top">Budget</th>
+<th class="tableblock halign-left valign-top">Focus</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Access, pick VM, Gate 0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~45 min</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Versions, one guest (RHEL or Windows), pass every Gate 0 check.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Prepare + seed</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~75 min</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Inventory → validate → seed AAP.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Providers + maps</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~30 min</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">One VMware→OpenShift pair; maps <strong>Ready</strong>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Guest prep + wave + migrate</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~60–90 min</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Power off (cold), one-VM plan, MTV <strong>Start</strong> → <strong>Succeeded</strong>.</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Validate + feedback</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">~30 min</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Start VM, IP, ping, app check if needed; <a href="../support/channels.html" class="xref page">Support</a> if blocked.</p></td>
+</tr>
+</tbody>
+</table>
 </div>
 </div>
 <div class="sect1">
@@ -530,7 +660,7 @@
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Confirm access and version floors, then pick the RHEL 9 VM.</p>
+<p>Confirm access and version floors, then pick the RHEL or Windows VM.</p>
 </li>
 <li>
 <p>Pass <strong>every</strong> item in Gate 0 (commands below).</p>
@@ -542,18 +672,15 @@
 <p>Configure providers, then storage and network maps.</p>
 </li>
 <li>
-<p>Power off the VM, define a one-VM cold wave, start the plan in MTV, wait for <strong>Succeeded</strong>.</p>
+<p>Prepare the guest, power it off (cold), define a one-VM cold wave, start the plan in MTV, wait for <strong>Succeeded</strong>.</p>
 </li>
 <li>
-<p>Start the VM on OpenShift Virtualization, confirm IP, run a ping smoke test.</p>
+<p>Start the VM on OpenShift Virtualization, confirm IP, ping, then your app check if ping is not enough.</p>
 </li>
 <li>
 <p>Send feedback through <a href="../support/channels.html" class="xref page">Support</a> if something blocked you.</p>
 </li>
 </ol>
-</div>
-<div class="paragraph">
-<p>Gate 0 failures usually cost more than the migration itself — fix them before you seed.</p>
 </div>
 </div>
 </div>
@@ -569,7 +696,7 @@
 <p><strong>Environment:</strong> Customer BYO (no shared lab for this guide).</p>
 </li>
 <li>
-<p><strong>Source:</strong> VMware vSphere with one RHEL 9 VM you are allowed to power off.</p>
+<p><strong>Source:</strong> VMware vSphere with one RHEL or Windows VM you are allowed to power off for a cold plan.</p>
 </li>
 <li>
 <p><strong>Destination:</strong> OpenShift cluster with OpenShift Virtualization and MTV already installed.</p>
@@ -607,7 +734,7 @@
 <h2 id="pick-the-vm"><a class="anchor" href="#pick-the-vm"></a>Pick the VM</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>Choose <strong>one</strong> RHEL 9 VM that:</p>
+<p>Choose <strong>one</strong> VM (RHEL or Windows) that:</p>
 </div>
 <div class="ulist">
 <ul>
@@ -618,7 +745,10 @@
 <p>Has a stable name you will put in the wave request.</p>
 </li>
 <li>
-<p>Answers <strong>ping</strong> from a host you will use after cutover (or will after you start it on OpenShift Virtualization), so the smoke test is meaningful.</p>
+<p>Can answer <strong>ping</strong> from a host you will use after cutover (or will after you start it on OpenShift Virtualization).</p>
+</li>
+<li>
+<p>Has an <strong>app check</strong> you can describe if ping alone is not enough for the customer (HTTP URL, Windows service name, SSH command, and so on).</p>
 </li>
 <li>
 <p>Is not the only path to a critical production service for this sitting.</p>
@@ -780,6 +910,26 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 </li>
 </ol>
 </div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="title">Screenshot placeholder — for reference only</div>
+<div class="paragraph">
+<p>The image below is an empty stand-in. Replace it later with a capture of AAP <strong>Templates</strong> after a successful seed (Migration Factory templates visible).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="_images/aap-templates-after-seed-placeholder.png" alt="Placeholder for AAP Templates after seed — screenshot to be added later">
+</div>
+</div>
 </div>
 <div class="sect2">
 <h3 id="3-providers-and-maps"><a class="anchor" href="#3-providers-and-maps"></a>3. Providers and maps</h3>
@@ -788,10 +938,24 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <li>
 <p><a href="../journey/create-providers.html" class="xref page">Configure providers</a> — one VMware source to this OpenShift target; green check in MTV.</p>
 </li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../journey/_images/openshift-mtv-providers.png" alt="MTV Providers with a valid source">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p><a href="../journey/create-maps.html" class="xref page">Configure storage and network maps</a> — maps <strong>Ready</strong> for that pair.</p>
 </li>
 </ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../journey/_images/openshift-mtv-networkmaps.png" alt="MTV NetworkMaps Ready">
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -799,10 +963,10 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="../journey/prepare-vms.html" class="xref page">Preparing VMs for migration</a> — maintenance window; VMware Tools as required by MTV.</p>
+<p><a href="../journey/prepare-vms.html" class="xref page">Preparing VMs for migration</a> — maintenance window; VMware Tools (and Windows virtio / guest drivers as required by MTV).</p>
 </li>
 <li>
-<p>On vSphere, <strong>power off</strong> the RHEL 9 VM. Cold plans expect the source off for the cutover sitting.</p>
+<p>On vSphere, <strong>power off</strong> the VM. Cold plans expect the source off for the cutover sitting.</p>
 </li>
 </ol>
 </div>
@@ -832,9 +996,9 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
   network_map: &lt;source&gt;-host            # or the names from Create maps
   storage_map: &lt;source&gt;-host
   verify_plans_ready: true
-  plan_name: quickstart-rhel9-cold
+  plan_name: quickstart-cold-01
   vms:
-    - name: &lt;rhel9-vm-name&gt;</code></pre>
+    - name: &lt;vm-name&gt;</code></pre>
 </div>
 </div>
 <div class="olist arabic">
@@ -843,6 +1007,11 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <p>Confirm the Plan CR is <strong>Ready</strong> in <strong>Migration</strong> → <strong>Plans for virtualization</strong>.</p>
 </li>
 </ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../journey/_images/openshift-mtv-plans.png" alt="MTV Plans Ready">
+</div>
 </div>
 <div class="admonitionblock note">
 <table>
@@ -869,10 +1038,24 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <li>
 <p>Start the <strong>Ready</strong> plan in the OpenShift console. Do <strong>not</strong> expect the AAP <strong>Migrate</strong> template to copy disks.</p>
 </li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../journey/_images/openshift-mtv-plan-virtual-machines.png" alt="MTV plan Virtual Machines tab while running">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Wait until the plan is <strong>Succeeded</strong> (cold finishes in the same run as <strong>Start</strong>; no separate cutover).</p>
 </li>
 </ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../journey/_images/openshift-mtv-completed-plan.png" alt="MTV plan Succeeded">
+</div>
 </div>
 </div>
 <div class="sect2">
@@ -888,6 +1071,15 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <li>
 <p>Open the VirtualMachine in <code>target_namespace</code>. MTV leaves it <strong>Stopped</strong> — <strong>Actions</strong> → <strong>Start</strong> → wait until <strong>Running</strong>.</p>
 </li>
+</ol>
+</div>
+<div class="imageblock">
+<div class="content">
+<img src="../journey/_images/openshift-migrated-vm.png" alt="Migrated virtual machine Running">
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
 <li>
 <p>Confirm the guest has an IP (console, guest agent, or <code>oc</code> / VM details), then ping it from a host that can reach that address:</p>
 <div class="listingblock">
@@ -897,24 +1089,33 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 </div>
 </div>
 <div class="paragraph">
-<p>Success on <strong>ping</strong> means the NIC and route you mapped are good enough for this first sitting.</p>
+<p>Success on <strong>ping</strong> means the NIC and route you mapped are good enough for connectivity.</p>
+</div>
+</li>
+<li>
+<p><strong>App check:</strong> if ping is enough for this engagement, you are done with validation. If the customer needs proof the workload is up, run an app check <strong>you define</strong> for that VM — for example:</p>
+<div class="openblock">
+<div class="content">
+<div class="ulist">
+<ul>
+<li>
+<p>RHEL: SSH and a service or HTTP check (<code>curl -I <a href="http://&lt;guest-ip&gt;/" class="bare">http://&lt;guest-ip&gt;/</a></code>, <code>systemctl is-active &lt;service&gt;</code>).</p>
+</li>
+<li>
+<p>Windows: RDP or WinRM reachability, or confirm a named service is running inside the guest.</p>
+</li>
+<li>
+<p>Any guest: the customer&#8217;s own smoke test written down before you start the plan.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<div class="paragraph">
+<p>Record what you ran and the result. If ping fails, fix network map / NAD / firewall before you treat an app check as meaningful.</p>
 </div>
 </li>
 </ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="paragraph">
-<p>Deeper application checks are out of scope for this quick start. If ping fails, fix network map / NAD / firewall before you call the sitting done.</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 </div>
 <div class="sect2">
@@ -938,7 +1139,7 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <p><i class="fa fa-square-o"></i> Gate 0 passed before seed</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> One RHEL 9 VM cold-migrated from VMware via MTV + AAP + Migration Factory</p>
+<p><i class="fa fa-square-o"></i> One VMware VM (RHEL or Windows) cold-migrated via MTV + AAP + Migration Factory</p>
 </li>
 <li>
 <p><i class="fa fa-square-o"></i> MTV plan <strong>Succeeded</strong></p>
@@ -947,57 +1148,132 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <p><i class="fa fa-square-o"></i> VM <strong>Running</strong> on OpenShift Virtualization with an IP</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> Ping smoke test succeeded</p>
+<p><i class="fa fa-square-o"></i> Ping succeeded</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> App check done (your definition), or documented that ping was enough for this sitting</p>
 </li>
 </ul>
 </div>
 </div>
 </div>
 <div class="sect1">
-<h2 id="if-you-get-stuck"><a class="anchor" href="#if-you-get-stuck"></a>If you get stuck</h2>
+<h2 id="troubleshooting"><a class="anchor" href="#troubleshooting"></a>Troubleshooting</h2>
 <div class="sectionbody">
-<table class="tableblock frame-all grid-all stretch">
-<colgroup>
-<col style="width: 33.3333%;">
-<col style="width: 66.6667%;">
-</colgroup>
-<thead>
-<tr>
-<th class="tableblock halign-left valign-top">Symptom</th>
-<th class="tableblock halign-left valign-top">Where to look</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Operator or MTV menu missing</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../journey/confirm-openshift-ready.html" class="xref page">OpenShift</a>, Gate 0</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Seed fails / EE pull fails</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>, <a href="../journey/source-collection.html" class="xref page">Sourcing the collection and execution environment</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Provider not green</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../journey/create-providers.html" class="xref page">Configure providers</a></p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Plan never <strong>Ready</strong></p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><a href="../journey/prepare-migration-wave.html" class="xref page">Defining a migration wave</a>, maps and VM name</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AAP Migrate job green but disks never move</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Expected — start the plan in the console (<a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a>)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Plan <strong>Succeeded</strong>, VM missing or wrong project</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Check <code>target_namespace</code> (<a href="../journey/verify-migration.html" class="xref page">Verifying a migration</a>)</p></td>
-</tr>
-<tr>
-<td class="tableblock halign-left valign-top"><p class="tableblock">VM Running but ping fails</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">Network map / guest firewall / routing; revisit <a href="../journey/create-maps.html" class="xref page">Configure storage and network maps</a></p></td>
-</tr>
-</tbody>
-</table>
+<div class="paragraph">
+<p>Work the symptom that matches, then use the linked journey page for the long procedure.</p>
+</div>
+<div class="sect2">
+<h3 id="operator-or-mtv-menu-missing"><a class="anchor" href="#operator-or-mtv-menu-missing"></a>Operator or MTV menu missing</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Confirm you are on the destination cluster (<code>oc whoami --show-console</code>).</p>
+</li>
+<li>
+<p>Re-run the Gate 0 OpenShift Virtualization and MTV commands.</p>
+</li>
+<li>
+<p>In the console: <strong>Operators</strong> → <strong>Installed Operators</strong> — both must be Succeeded.</p>
+</li>
+<li>
+<p>If APIs are missing, install or repair the operators before seed. See <a href="../journey/confirm-openshift-ready.html" class="xref page">OpenShift</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="seed-fails-or-ee-will-not-pull"><a class="anchor" href="#seed-fails-or-ee-will-not-pull"></a>Seed fails or EE will not pull</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Confirm <code>podman pull</code> (or the AAP registry credential) for <code>quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code>.</p>
+</li>
+<li>
+<p>Re-check inventory: no <code>changeme</code>, AAP URL and auth correct.</p>
+</li>
+<li>
+<p>Read the seed job log in AAP or the navigator output; fix the first hard error (auth, project sync, EE), then re-run. See <a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a> and <a href="../journey/source-collection.html" class="xref page">Sourcing the collection and execution environment</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="provider-not-green"><a class="anchor" href="#provider-not-green"></a>Provider not green</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Confirm the AAP <strong>MTV Provider</strong> job used the right <code>source_name</code> / <code>target_name</code> inventory hosts.</p>
+</li>
+<li>
+<p>In MTV: <strong>Providers for virtualization</strong> — open the provider and read the status message (URL, credentials, VDDK).</p>
+</li>
+<li>
+<p>Fix inventory credentials or network path to vSphere, then re-launch the provider template. See <a href="../journey/create-providers.html" class="xref page">Configure providers</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="plan-never-ready"><a class="anchor" href="#plan-never-ready"></a>Plan never Ready</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Confirm maps for that pair are <strong>Ready</strong> (<a href="../journey/create-maps.html" class="xref page">Configure storage and network maps</a>).</p>
+</li>
+<li>
+<p>Confirm the VM name (or path) exists on the source and matches <code>mtv_plans_migration_request</code>.</p>
+</li>
+<li>
+<p>Confirm provider names in the request are MTV names, not only inventory host names.</p>
+</li>
+<li>
+<p>Re-launch <strong>MTV Plans</strong> after fixes. See <a href="../journey/prepare-migration-wave.html" class="xref page">Defining a migration wave</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aap-migrate-job-green-but-disks-never-move"><a class="anchor" href="#aap-migrate-job-green-but-disks-never-move"></a>AAP Migrate job green but disks never move</h3>
+<div class="paragraph">
+<p>Expected. That template does not start MTV. Start the <strong>Ready</strong> plan in the OpenShift console (<strong>Migration</strong> → <strong>Plans for virtualization</strong>). See <a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="plan-succeeded-but-vm-missing-or-wrong-project"><a class="anchor" href="#plan-succeeded-but-vm-missing-or-wrong-project"></a>Plan Succeeded but VM missing or wrong project</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the plan and note <code>target_namespace</code>.</p>
+</li>
+<li>
+<p>In <strong>Virtualization</strong> → <strong>VirtualMachines</strong>, select that project (not only <code>openshift-mtv</code>).</p>
+</li>
+<li>
+<p>See <a href="../journey/verify-migration.html" class="xref page">Verifying a migration</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="vm-running-but-ping-or-app-check-fails"><a class="anchor" href="#vm-running-but-ping-or-app-check-fails"></a>VM Running but ping or app check fails</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Confirm the guest has an IP (<code>oc get vmi -n &lt;target-namespace&gt;</code> or console).</p>
+</li>
+<li>
+<p>Confirm your ping/app-check host can route to that subnet (NAD, NetworkMap, firewall, NSG).</p>
+</li>
+<li>
+<p>Inside the guest, confirm firewall allows ICMP or your app port.</p>
+</li>
+<li>
+<p>Revisit <a href="../journey/create-maps.html" class="xref page">Configure storage and network maps</a> if the wrong network was mapped.</p>
+</li>
+</ol>
+</div>
+</div>
 </div>
 </div>
 <div class="sect1">
