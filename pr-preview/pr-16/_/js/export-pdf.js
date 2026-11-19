@@ -41,6 +41,12 @@
       return
     }
 
+    // Persist live checkbox state onto attributes so cloneNode keeps marks.
+    article.querySelectorAll('ul.checklist input[type="checkbox"]').forEach(function (input) {
+      if (input.checked) input.setAttribute('checked', '')
+      else input.removeAttribute('checked')
+    })
+
     var clone = article.cloneNode(true)
     clone
       .querySelectorAll(

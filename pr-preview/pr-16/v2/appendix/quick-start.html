@@ -143,6 +143,29 @@
       .export-pdf-button:hover {
         background: #f2f2f2;
       }
+      /* Interactive Gate 0 / validate checklists (web only; state in localStorage). */
+      article.doc ul.checklist {
+        list-style: none;
+        padding-left: 0.25rem;
+      }
+      article.doc ul.checklist label.checkbox {
+        align-items: flex-start;
+        cursor: pointer;
+        display: flex;
+        gap: 0.5rem;
+      }
+      article.doc ul.checklist input[type="checkbox"] {
+        cursor: pointer;
+        flex: 0 0 auto;
+        height: 1rem;
+        margin: 0.2rem 0 0;
+        width: 1rem;
+      }
+      article.doc ul.checklist li.is-checked > p,
+      article.doc ul.checklist li.is-checked > label {
+        color: #6a6e73;
+        text-decoration: line-through;
+      }
       /* Keep print/PDF closer to the on-screen article (overrides theme print flattening). */
       @media print {
         html,
@@ -500,7 +523,7 @@
 <div class="ulist">
 <ul>
 <li>
-<p><strong>Web:</strong> this Antora page (always current).</p>
+<p><strong>Web:</strong> this page (always current).</p>
 </li>
 <li>
 <p><strong>PDF:</strong> use <strong>Export PDF</strong> at the top. The PDF keeps the same ordered steps and the same links into the documentation on this site. There is no separate offline PDF artifact to download.</p>
@@ -710,7 +733,7 @@
 </ul>
 </div>
 <div class="paragraph">
-<p>Version floors from the enablement story (confirm against the customer platform and current collection support):</p>
+<p>Version floors we have tested against (confirm these on the customer platform so you avoid known incompatibilities):</p>
 </div>
 <div class="ulist">
 <ul>
@@ -771,6 +794,9 @@
 </div>
 <div class="sect2">
 <h3 id="checklist"><a class="anchor" href="#checklist"></a>Checklist</h3>
+<div class="paragraph">
+<p>On the web page, mark each item as you complete it. Your checks stay in this browser until you clear them.</p>
+</div>
 <div class="paragraph">
 <p>Platform (do these first; no inventory file required yet):</p>
 </div>
@@ -1523,6 +1549,7 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <script defer src="../../_/js/vendor/highlight.js"></script>
 <script defer src="../../_/js/nav-filter.js"></script>
 <script defer src="../../_/js/export-pdf.js"></script>
+<script defer src="../../_/js/interactive-checklist.js"></script>
 <script src="../../_/js/vendor/lunr.js"></script>
 <script src="../../_/js/search-ui.js" id="search-ui-script" data-site-root-path="../.." data-snippet-length="100" data-stylesheet="../../_/css/search.css"></script>
 <script async src="../../search-index.js"></script>
