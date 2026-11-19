@@ -518,18 +518,30 @@ sudo dnf install -y ansible-navigator</code></pre>
 <h2 id="quay-login"><a class="anchor" href="#quay-login"></a>Quay login</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>The EE is on a protected Quay repository.</p>
+<p>The EE (<code>quay.io/redhat-cop/openshift-virtualization-migration-ee</code>) is on a protected Quay repository. Pull credentials are in the Bitwarden collection <strong>Migration Factory</strong> (not published in this documentation).</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Get a Red Hat Bitwarden account via <a href="https://redhathub.service-now.com/hub?id=kb_article&amp;sysparm_article=KB0010984&amp;table=kb_knowledge&amp;searchTerm=bitwarden">KB0010984</a> and, if needed, <a href="https://redhathub.service-now.com/hub?id=request_help">Request help</a>.</p>
+</li>
+<li>
+<p>Join the <code>migration-factory</code> Google Group (onboarding form / project onboarding doc) and wait until <strong>Migration Factory</strong> appears in your vault.</p>
+</li>
+<li>
+<p>Copy the Quay username and password (or robot token) from that collection, then:</p>
+</li>
+</ol>
 </div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">podman login quay.io/redhat-cop</code></pre>
 </div>
 </div>
+<div class="paragraph">
+<p>Use the same values for the AAP execution-environment registry credential when you seed (<code>aap_execution_environment_username</code> / <code>aap_execution_environment_password</code> on the <code>migration_aap</code> host).
+== OpenShift CLI</p>
 </div>
-</div>
-<div class="sect1">
-<h2 id="openshift-cli"><a class="anchor" href="#openshift-cli"></a>OpenShift CLI</h2>
-<div class="sectionbody">
 <div class="paragraph">
 <p>Install <code>oc</code> from the <a href="https://access.redhat.com/downloads/content/290">OpenShift Container Platform downloads</a> page if you need it for <a href="confirm-openshift-ready.html" class="xref page">OpenShift</a> checks or for <code>utility_aap_deploy</code>. You do not use <code>oc</code> to launch provider, maps, or plan jobs after seed.</p>
 </div>

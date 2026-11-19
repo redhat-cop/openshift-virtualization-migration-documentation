@@ -532,29 +532,42 @@ ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAACAQC5uBNhGE8fsGFzVdmQ0Rq8DEZWU5VomjapuWYqHqen
 <h2 id="bitwarden"><a class="anchor" href="#bitwarden"></a>Bitwarden</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p><a href="https://bitwarden.com">Bitwarden</a> is used to store sensitive resources for the Ansible for OpenShift Virtualization Migration Project and are located in a Bitwarden <a href="https://bitwarden.com/help/about-collections">Collection</a>. To gain access to the collection, you must have a Bitwarden account associated with your @redhat.com Email Address.</p>
+<p><a href="https://bitwarden.com">Bitwarden</a> stores shared secrets for the Ansible for OpenShift Virtualization Migration project (for example Quay credentials for the Migration Factory execution environment). Items live in a Bitwarden <a href="https://bitwarden.com/help/about-collections">Collection</a> named <strong>Migration Factory</strong>. You must use a Bitwarden account tied to your <strong>@redhat.com</strong> address.</p>
 </div>
+<div class="sect2">
+<h3 id="create-a-red-hat-bitwarden-account"><a class="anchor" href="#create-a-red-hat-bitwarden-account"></a>Create a Red Hat Bitwarden account</h3>
 <div class="paragraph">
-<p>Use the following steps to complete the setup process.</p>
+<p>Do <strong>not</strong> start from the public Bitwarden “free account” signup for this project. Red Hat provisions Bitwarden through IT:</p>
 </div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="https://bitwarden.com/go/start-free">Create a Bitwarden account</a> using your Red Hat email address</p>
+<p>Follow the Red Hat Hub knowledge article: <a href="https://redhathub.service-now.com/hub?id=kb_article&amp;sysparm_article=KB0010984&amp;table=kb_knowledge&amp;searchTerm=bitwarden">KB0010984 — Bitwarden</a>.</p>
 </li>
 <li>
-<p>Join the <code>migration-factory</code> Google Group. The easiest way to join the Google Group is to onboard to the Ansible for OpenShift Virtualization Migration using <a href="https://docs.google.com/document/d/1zyx4vl6evt15jgHBcpaGOfcjcU6CSqUMLqQVBSGmdoE">this</a> form.</p>
+<p>If you still need an account or access, open an IT request: <a href="https://redhathub.service-now.com/hub?id=request_help">Request help</a> (ServiceNow Hub).</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="access-the-migration-factory-collection"><a class="anchor" href="#access-the-migration-factory-collection"></a>Access the Migration Factory collection</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Join the <code>migration-factory</code> Google Group. The recommended path is the Ansible for OpenShift Virtualization Migration <a href="https://docs.google.com/document/d/1zyx4vl6evt15jgHBcpaGOfcjcU6CSqUMLqQVBSGmdoE">onboarding form</a> (or the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdH9hUDTXMoDHGlXYvYhwe-Vu6bEs5rdgmZo0nL7N9WR12Smw/viewform">onboarding Google Form</a>).</p>
 </li>
 <li>
-<p>Download one of the supported applications or use the Bitwarden website to access the resources that are available to you.</p>
+<p>Sign in to Bitwarden (web or supported app) with your Red Hat–provisioned account.</p>
+</li>
+<li>
+<p>After Google Group membership is confirmed, wait for synchronization. The <strong>Migration Factory</strong> collection appears under <strong>Collections</strong> in your vault.</p>
 </li>
 </ol>
 </div>
 <div class="paragraph">
-<p>Once the membership to the <em>migration-factory</em> Google Group has been confirmed, it may take some time until the Bitwarden Collection called <em>Migration Factory</em> is available.</p>
+<p>When the collection is visible, copy the Quay (and any other) credentials you need into your local inventory or lab env file. Do not commit those values to git.</p>
 </div>
-<div class="paragraph">
-<p>When the synchronization has completed, the <em>Migration Factory</em> Collection should be present under the <em>Collection</em> section of the Bitwarden Vault.</p>
 </div>
 </div>
 </div>

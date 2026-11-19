@@ -498,26 +498,65 @@
 <p>The playbook is <code>vmf_seed_aap</code> (<code>aap_seed</code> role only). It does <strong>not</strong> install AAP. See <a href="../roles/aap_seed.html" class="xref page">aap_seed</a>.</p>
 </div>
 <div class="paragraph">
-<p>This is the last required laptop run. After it succeeds, use AAP.</p>
+<p>This is the last required laptop (or bastion) run. After it succeeds, use AAP.</p>
 </div>
 </div>
 </div>
 <div class="sect1">
 <h2 id="populate-aap"><a class="anchor" href="#populate-aap"></a>Populate AAP</h2>
 <div class="sectionbody">
+<div class="sect2">
+<h3 id="aap-2-5-authentication"><a class="anchor" href="#aap-2-5-authentication"></a>AAP 2.5+ authentication</h3>
 <div class="paragraph">
-<p>From the directory that holds your inventory:</p>
+<p>On AAP 2.5 and later (platform gateway), minting a controller token at <code>/api/v2/tokens/</code> returns <strong>404</strong>. Prefer an <strong>OAuth token from the gateway</strong> in the inventory (<code>aap_token</code>) instead of relying on username/password for seed:</p>
 </div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">ansible-navigator run \
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -sk -u '&lt;user&gt;:&lt;password&gt;' \
+  -H 'Content-Type: application/json' \
+  -d '{"description":"mf-seed","application":null,"scope":"write"}' \
+  "https://&lt;aap_hostname&gt;/api/gateway/v1/tokens/"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Put the returned <code>token</code> value on the <code>migration_aap</code> host as <code>aap_token</code> (and omit <code>aap_username</code> / <code>aap_password</code> for seed). See <a href="configure-inventory.html" class="xref page">Building your inventory</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="run-the-seed-playbook"><a class="anchor" href="#run-the-seed-playbook"></a>Run the seed playbook</h3>
+<div class="paragraph">
+<p>From a host that can reach AAP (often a bastion), with Quay credentials available for the EE:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell"># Clone v2 if the EE image still ships older playbook names
+git clone --branch v2 --depth 1 \
+  https://github.com/redhat-cop/openshift_virtualization_migration.git
+cd openshift_virtualization_migration
+
+ansible-navigator run \
+  playbooks/vmf_seed_aap.yml \
+  -i &lt;inventory&gt; \
   --pp=missing \
   --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
   -m stdout \
   --pae=false \
-  infra.openshift_virtualization_migration.vmf_seed_aap \
-  -i &lt;inventory&gt;</code></pre>
+  --eev "$(pwd):/usr/share/ansible/collections/ansible_collections/infra/openshift_virtualization_migration:Z"</code></pre>
 </div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p><code>quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code> may still contain an older collection that does <strong>not</strong> expose <code>infra.openshift_virtualization_migration.vmf_seed_aap</code>. Mounting the <strong>v2</strong> git checkout over the collection path (as above) matches this documentation. Pull credentials for that EE image come from the Bitwarden <strong>Migration Factory</strong> collection — see <a href="migration-factory-prerequisites.html" class="xref page">Migration Factory prerequisites</a>.</p>
+</div>
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The playbook targets <code>migration_aap</code>.</p>
@@ -537,12 +576,13 @@
 <p><strong>OpenShift Virtualization Migration - MTV Plans</strong></p>
 </li>
 <li>
-<p><strong>OpenShift Virtualization Migration - Migrate</strong> — does not start VMs. See <a href="execute-migration.html" class="xref page">Migrating VMs</a>.</p>
+<p><strong>OpenShift Virtualization Migration - MTV Migrate</strong> — does not start VMs. See <a href="execute-migration.html" class="xref page">Migrating VMs</a>.</p>
 </li>
 </ul>
 </div>
 <div class="paragraph">
 <p>Surveys ask for <code>source_name</code> and <code>target_name</code> (inventory host names).</p>
+</div>
 </div>
 </div>
 </div>
@@ -552,6 +592,12 @@
 <div class="ulist">
 <ul>
 <li>
+<p><code>Failed to get token</code> / HTTP 404 — use a gateway <code>aap_token</code> (AAP 2.5+), not only username/password.</p>
+</li>
+<li>
+<p><code>playbook &#8230;&#8203; vmf_seed_aap could not be found</code> — mount the v2 collection into the EE as shown above (or use an EE that already includes v2).</p>
+</li>
+<li>
 <p><code>changeme</code> still in the inventory — fix <a href="configure-inventory.html" class="xref page">Building your inventory</a> and run the <strong>same</strong> playbook.</p>
 </li>
 <li>
@@ -559,6 +605,9 @@
 </li>
 <li>
 <p>AAP not reachable — <a href="setup-aap-yourself.html" class="xref page">Ansible Automation Platform</a>; seed does not deploy the operator.</p>
+</li>
+<li>
+<p>EE pull unauthorized — Quay credentials from Bitwarden; set <code>aap_execution_environment_*</code> on <code>migration_aap</code>.</p>
 </li>
 </ul>
 </div>

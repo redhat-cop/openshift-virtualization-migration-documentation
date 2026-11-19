@@ -663,10 +663,10 @@
 <p>Confirm access and version floors, then pick the RHEL or Windows VM.</p>
 </li>
 <li>
-<p>Pass <strong>every</strong> item in Gate 0 (commands below).</p>
+<p>Pass <strong>platform</strong> Gate 0 (OpenShift Virtualization, MTV, AAP reachability, EE). Skip the inventory checkbox until the inventory file exists.</p>
 </li>
 <li>
-<p>Finish prepare: inventory → <a href="../journey/validate-environment.html" class="xref page">Validate your environment</a> → <a href="../journey/seed-aap.html" class="xref page">seed AAP</a>.</p>
+<p>Finish prepare: inventory → re-check the <strong>inventory</strong> Gate 0 item → <a href="../journey/validate-environment.html" class="xref page">Validate your environment</a> → <a href="../journey/seed-aap.html" class="xref page">seed AAP</a>.</p>
 </li>
 <li>
 <p>Configure providers, then storage and network maps.</p>
@@ -696,13 +696,16 @@
 <p><strong>Environment:</strong> Customer BYO (no shared lab for this guide).</p>
 </li>
 <li>
-<p><strong>Source:</strong> VMware vSphere with one RHEL or Windows VM you are allowed to power off for a cold plan.</p>
+<p><strong>Source:</strong> VMware vSphere via <strong>vCenter</strong> or a <strong>standalone ESXi</strong> host (MTV 2.6+ supports Endpoint type <strong>ESXi</strong> / <code>settings.sdkEndpoint: esxi</code>). You need one RHEL or Windows VM you may power off for a cold plan. If you only reach the hypervisor through a bastion, run Gate 0 <code>oc</code>/<code>curl</code> checks from that bastion (or any host that can reach the OpenShift API, AAP, and the ESXi/vCenter SDK URL).</p>
 </li>
 <li>
-<p><strong>Destination:</strong> OpenShift cluster with OpenShift Virtualization and MTV already installed.</p>
+<p><strong>VDDK:</strong> Build and set a VDDK init image on the VMware provider before the first cold plan (<a href="../journey/configure-inventory.html" class="xref page">Configure the inventory</a> — <code>vddk.image</code>). Without it, cold copy on standalone ESXi often fails in <strong>ConvertGuest</strong> (<code>nbdkit</code> / HTTP range not supported), and <code>skipGuestConversion</code> still requires VDDK for raw copy. Use an image <strong>you</strong> are entitled to build — not an internal RHDP/demo tag.</p>
 </li>
 <li>
-<p><strong>Automation:</strong> Ansible Automation Platform available (existing or deployed as part of prepare).</p>
+<p><strong>Destination:</strong> OpenShift cluster with OpenShift Virtualization and MTV already installed. Confirm <code>oc whoami --show-server</code> is <strong>that</strong> cluster — not a leftover workshop kubeconfig on your laptop.</p>
+</li>
+<li>
+<p><strong>Automation:</strong> Ansible Automation Platform available (existing or deployed as part of prepare). On AAP 2.5+, the controller REST API is under <code>/api/controller/v2/</code> (not <code>/api/v2/</code>).</p>
 </li>
 </ul>
 </div>
@@ -768,8 +771,14 @@
 </div>
 <div class="sect2">
 <h3 id="checklist"><a class="anchor" href="#checklist"></a>Checklist</h3>
+<div class="paragraph">
+<p>Platform (do these first; no inventory file required yet):</p>
+</div>
 <div class="ulist checklist">
 <ul class="checklist">
+<li>
+<p><i class="fa fa-square-o"></i> <code>oc</code> reaches the <strong>destination</strong> cluster (correct context / API URL)</p>
+</li>
 <li>
 <p><i class="fa fa-square-o"></i> OpenShift Virtualization operator Succeeded; VM APIs exist</p>
 </li>
@@ -777,19 +786,41 @@
 <p><i class="fa fa-square-o"></i> MTV operator Succeeded; <strong>Migration</strong> appears in the OpenShift console</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> You can log in to AAP at the inventory hostname</p>
+<p><i class="fa fa-square-o"></i> You can log in to AAP (URL you will put in the inventory as <code>aap_hostname</code>)</p>
 </li>
 <li>
-<p><i class="fa fa-square-o"></i> Inventory has the three groups, no leftover <code>changeme</code>, and <code>vm_sources</code> names match hosts (<a href="../journey/configure-inventory.html" class="xref page">Building your inventory</a>)</p>
+<p><i class="fa fa-square-o"></i> Execution environment pull works for the Migration Factory EE image (laptop Podman <strong>or</strong> AAP registry credential)</p>
 </li>
+</ul>
+</div>
+<div class="paragraph">
+<p>After <a href="../journey/configure-inventory.html" class="xref page">Building your inventory</a>:</p>
+</div>
+<div class="ulist checklist">
+<ul class="checklist">
 <li>
-<p><i class="fa fa-square-o"></i> Execution environment pull works for the Migration Factory EE image</p>
+<p><i class="fa fa-square-o"></i> Inventory has the three groups, no leftover <code>changeme</code>, and <code>vm_sources</code> names match hosts</p>
 </li>
 </ul>
 </div>
 </div>
 <div class="sect2">
 <h3 id="how-to-check-each-item"><a class="anchor" href="#how-to-check-each-item"></a>How to check each item</h3>
+<div class="sect3">
+<h4 id="openshift-api-and-context"><a class="anchor" href="#openshift-api-and-context"></a>OpenShift API and context</h4>
+<div class="paragraph">
+<p>Confirm you are talking to the customer destination before any operator checks:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">oc whoami
+oc whoami --show-server</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect a successful identity and an API URL for <strong>this</strong> engagement. If DNS fails, the request times out, or the URL is a leftover workshop/sandbox, fix kubeconfig / <code>oc login</code> and stop — do not interpret empty <code>oc get csv</code> greps as “operators missing.”</p>
+</div>
+</div>
 <div class="sect3">
 <h4 id="openshift-virtualization"><a class="anchor" href="#openshift-virtualization"></a>OpenShift Virtualization</h4>
 <div class="paragraph">
@@ -830,11 +861,22 @@ oc get forkliftcontrollers.forklift.konveyor.io -A</code></pre>
 <div class="paragraph">
 <p>Expect an HTTP response (not a connection error). Then open the same URL in a browser and sign in with the account from the inventory.</p>
 </div>
+<div class="paragraph">
+<p>On AAP 2.5+, you can also confirm the controller API (path is <code>/api/controller/v2</code>, not <code>/api/v2</code>):</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">curl -sk -u '&lt;user&gt;:&lt;password&gt;' "https://&lt;aap_hostname&gt;/api/controller/v2/ping/"</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Expect JSON that includes a <code>version</code> field.</p>
+</div>
 </div>
 <div class="sect3">
 <h4 id="inventory-file"><a class="anchor" href="#inventory-file"></a>Inventory file</h4>
 <div class="paragraph">
-<p>From the directory that holds your inventory file:</p>
+<p>Run this only <strong>after</strong> you have copied and filled the inventory from the collection sample (<a href="../journey/configure-inventory.html" class="xref page">Building your inventory</a>). From the directory that holds your inventory file:</p>
 </div>
 <div class="listingblock">
 <div class="content">
@@ -848,6 +890,19 @@ grep -E '^\s*(migration_aap|migration_clusters|vm_sources):' inventory.yml</code
 </div>
 <div class="sect3">
 <h4 id="execution-environment"><a class="anchor" href="#execution-environment"></a>Execution environment</h4>
+<div class="paragraph">
+<p>Prefer the path you will actually use for seed:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Seed / jobs from AAP:</strong> configure the registry credential on AAP and confirm a test job can pull <code>quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code>. That satisfies this Gate 0 item without local Podman.</p>
+</li>
+<li>
+<p><strong>Laptop Podman (optional):</strong> on macOS, ensure the Podman machine is running (<code>podman machine start</code> if the socket connection is refused), then:</p>
+</li>
+</ul>
+</div>
 <div class="listingblock">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-shell hljs" data-lang="shell">podman login quay.io/redhat-cop
@@ -855,10 +910,13 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 </div>
 </div>
 <div class="paragraph">
-<p>If jobs run only from AAP, configure the registry credential on AAP instead and confirm a test job can pull the same image. See <a href="../journey/source-collection.html" class="xref page">Sourcing the collection and execution environment</a>.</p>
+<p>Quay credentials for that repository come from the Bitwarden collection <strong>Migration Factory</strong>. Create or request your Red Hat Bitwarden account with <a href="https://redhathub.service-now.com/hub?id=kb_article&amp;sysparm_article=KB0010984&amp;table=kb_knowledge&amp;searchTerm=bitwarden">KB0010984</a> and <a href="https://redhathub.service-now.com/hub?id=request_help">Request help</a> if needed, then join the <code>migration-factory</code> Google Group. Details: <a href="../journey/migration-factory-prerequisites.html" class="xref page">Migration Factory prerequisites</a>.</p>
 </div>
 <div class="paragraph">
-<p>When every box in the checklist is checked, continue. Next detailed pass after the inventory is finished: <a href="../journey/validate-environment.html" class="xref page">Validate your environment</a>, then <a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>.</p>
+<p>See <a href="../journey/source-collection.html" class="xref page">Sourcing the collection and execution environment</a>.</p>
+</div>
+<div class="paragraph">
+<p>When every <strong>platform</strong> box is checked, continue to prepare. After the inventory file exists, check the inventory box, then <a href="../journey/validate-environment.html" class="xref page">Validate your environment</a>, then <a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>.</p>
 </div>
 </div>
 </div>
@@ -903,40 +961,92 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a></p>
+<p>Put Quay pull credentials (Bitwarden <strong>Migration Factory</strong>) on the <code>migration_aap</code> host as <code>aap_execution_environment_username</code> / <code>aap_execution_environment_password</code>.</p>
 </li>
 <li>
-<p>In AAP, confirm the Migration Factory templates exist (Provider, Maps, Plans, and the Migrate template used only as a seed check).</p>
+<p>On <strong>AAP 2.5+</strong>, mint a gateway token and set <code>aap_token</code> on <code>migration_aap</code> (do not rely on <code>/api/v2/tokens/</code> — it 404s). See <a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>.</p>
+</li>
+<li>
+<p>Run the seed playbook from a host that reaches AAP (bastion is fine). If <code>EE:latest</code> lacks <code>vmf_seed_aap</code>, mount the <strong>v2</strong> git checkout into the EE as shown on the seed page.</p>
+</li>
+<li>
+<p>In AAP, confirm the Migration Factory templates exist:
+<strong>MTV Provider</strong>, <strong>MTV Maps</strong>, <strong>MTV Plans</strong>, and <strong>MTV Migrate</strong>.</p>
+</li>
+<li>
+<p>Open <strong>Jobs</strong> after later steps — you will use that list as proof the sitting used AAP (not only a local <code>ansible-navigator</code> run).</p>
 </li>
 </ol>
-</div>
-<div class="admonitionblock note">
-<table>
-<tr>
-<td class="icon">
-<i class="fa icon-note" title="Note"></i>
-</td>
-<td class="content">
-<div class="title">Screenshot placeholder — for reference only</div>
-<div class="paragraph">
-<p>The image below is an empty stand-in. Replace it later with a capture of AAP <strong>Templates</strong> after a successful seed (Migration Factory templates visible).</p>
-</div>
-</td>
-</tr>
-</table>
 </div>
 <div class="imageblock">
 <div class="content">
 <img src="_images/aap-templates-after-seed-placeholder.png" alt="Placeholder for AAP Templates after seed — screenshot to be added later">
 </div>
 </div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+<div class="title">Lab helper</div>
+<div class="paragraph">
+<p>From this documentation repository, after <code>lab.env</code> is filled: <code>SEED_AAP=1 ./utilities/quick-start-lab/bootstrap.sh</code> (or <code>./seed-aap.sh</code> on the bastion workdir). Helpers accelerate Gate 0 + seed; they do not replace this run sheet.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 </div>
 <div class="sect2">
-<h3 id="3-providers-and-maps"><a class="anchor" href="#3-providers-and-maps"></a>3. Providers and maps</h3>
+<h3 id="3-providers-and-maps-aap-job-templates"><a class="anchor" href="#3-providers-and-maps-aap-job-templates"></a>3. Providers and maps (AAP job templates)</h3>
+<div class="paragraph">
+<p>After seed, run these steps from <strong>AAP</strong> (<strong>Automation Execution</strong> → <strong>Templates</strong>). The Quick Start sitting is proven by <strong>successful AAP jobs</strong> (Provider → Maps → Plans) plus MTV <strong>Start</strong>. Lab validation also confirmed <code>ansible-navigator</code> can create Plans when the v2 collection is mounted into the EE, but that is a debug/bootstrap path — do not skip AAP for the consultant run sheet.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="title">Execution environment must include the v2 roles</div>
+<div class="paragraph">
+<p><code>quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code> may ship an older collection <strong>without</strong> <code>mtv_provider</code> / <code>mtv_maps</code> / <code>mtv_plans</code>. Before the first Provider launch, confirm the EE used by the Migration Factory templates can resolve those roles (or rebuild/point the AAP execution environment at an image that includes the <strong>v2</strong> collection). If a Provider job fails with <code>role &#8230;&#8203; mtv_provider was not found</code>, fix the EE first.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="../journey/create-providers.html" class="xref page">Configure providers</a> — one VMware source to this OpenShift target; green check in MTV.</p>
+<p>Confirm inventory hosts and credentials exist: source host in <code>vm_sources</code>, target in <code>migration_clusters</code>, plus <strong>Migration Factory - Source Environment</strong> and <strong>Migration Factory - Target Environment</strong> credentials. On launch, attach both credentials when the template asks.</p>
+</li>
+<li>
+<p>Put VDDK on the source inventory host (<code>vddk.image</code>, and registry username/password if the image is private). Create a matching docker-registry pull secret in <code>openshift-mtv</code> if needed. See <a href="../journey/configure-inventory.html" class="xref page">Configure the inventory</a>.</p>
+</li>
+<li>
+<p>For <strong>standalone ESXi</strong>, pass Provider extra vars so MTV uses the ESXi endpoint and VDDK init image:</p>
+</li>
+</ol>
+</div>
+<div class="listingblock">
+<div class="title">provider-extra-vars.yml</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">source_name: &lt;vm_sources host name&gt;      # e.g. esxi-lab
+target_name: &lt;migration_clusters host&gt;  # e.g. ocp-lab
+mtv_provider_provider_override:
+  settings:
+    sdkEndpoint: esxi
+    vddkInitImage: registry.example.com/vddk:8.0   # image you are entitled to build</code></pre>
+</div>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Launch <strong>OpenShift Virtualization Migration - MTV Provider</strong>. Wait until the AAP job is <strong>Successful</strong> and the Provider is green in MTV.</p>
 </li>
 </ol>
 </div>
@@ -948,7 +1058,7 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p><a href="../journey/create-maps.html" class="xref page">Configure storage and network maps</a> — maps <strong>Ready</strong> for that pair.</p>
+<p>Launch <strong>OpenShift Virtualization Migration - MTV Maps</strong> with survey/extra vars <code>source_name</code> and <code>target_name</code> (same inventory host names). Wait until the job is <strong>Successful</strong> and both NetworkMap and StorageMap are <strong>Ready</strong>.</p>
 </li>
 </ol>
 </div>
@@ -956,6 +1066,9 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <div class="content">
 <img src="../journey/_images/openshift-mtv-networkmaps.png" alt="MTV NetworkMaps Ready">
 </div>
+</div>
+<div class="paragraph">
+<p>Full procedure: <a href="../journey/create-providers.html" class="xref page">Configure providers</a>, <a href="../journey/create-maps.html" class="xref page">Configure storage and network maps</a>.</p>
 </div>
 </div>
 <div class="sect2">
@@ -966,37 +1079,42 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <p><a href="../journey/prepare-vms.html" class="xref page">Preparing VMs for migration</a> — maintenance window; VMware Tools (and Windows virtio / guest drivers as required by MTV).</p>
 </li>
 <li>
-<p>On vSphere, <strong>power off</strong> the VM. Cold plans expect the source off for the cutover sitting.</p>
+<p>On vSphere / ESXi, <strong>power off</strong> the VM. Cold plans expect the source off for the cutover sitting.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
-<h3 id="5-define-a-one-vm-cold-wave"><a class="anchor" href="#5-define-a-one-vm-cold-wave"></a>5. Define a one-VM cold wave</h3>
+<h3 id="5-define-a-one-vm-cold-wave-aap-mtv-plans"><a class="anchor" href="#5-define-a-one-vm-cold-wave-aap-mtv-plans"></a>5. Define a one-VM cold wave (AAP MTV Plans)</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
 <p><a href="../journey/prepare-migration-wave.html" class="xref page">Defining a migration wave</a></p>
 </li>
 <li>
-<p>Launch <strong>OpenShift Virtualization Migration - MTV Plans</strong> from AAP.</p>
+<p>In AAP, launch <strong>OpenShift Virtualization Migration - MTV Plans</strong>.</p>
 </li>
 <li>
-<p>Use a request with a single VM and a <strong>cold</strong> plan (cold is the default when you do not set warm). Example shape — replace names with the customer pair and VM:</p>
+<p>Attach the Source + Target credentials. Set <code>source_name</code> / <code>target_name</code> (inventory host names) <strong>and</strong> the wave request (MTV names):</p>
 </li>
 </ol>
 </div>
 <div class="listingblock">
 <div class="title">quick-start-wave.yml</div>
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">mtv_plans_migration_request:
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">source_name: &lt;vm_sources host name&gt;
+target_name: &lt;migration_clusters host&gt;
+mtv_plans_migration_request:
   source: &lt;mtv-provider-name&gt;           # RFC 1123 form after Configure providers
   destination: host
   target_namespace: &lt;project-for-vms&gt;
   network_map: &lt;source&gt;-host            # or the names from Create maps
   storage_map: &lt;source&gt;-host
   verify_plans_ready: true
-  plan_name: quickstart-cold-01
+  plan_name: quickstart-aap-cold-01
+  type: cold
+  plan_overrides:
+    preserveStaticIPs: false            # avoid warn when mapping to pod network
   vms:
     - name: &lt;vm-name&gt;</code></pre>
 </div>
@@ -1004,7 +1122,7 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Confirm the Plan CR is <strong>Ready</strong> in <strong>Migration</strong> → <strong>Plans for virtualization</strong>.</p>
+<p>Wait until the AAP job is <strong>Successful</strong>. Confirm the Plan CR is <strong>Ready</strong> in <strong>Migration</strong> → <strong>Plans for virtualization</strong>.</p>
 </li>
 </ol>
 </div>
@@ -1036,7 +1154,10 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <p><a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a></p>
 </li>
 <li>
-<p>Start the <strong>Ready</strong> plan in the OpenShift console. Do <strong>not</strong> expect the AAP <strong>Migrate</strong> template to copy disks.</p>
+<p>In the OpenShift console, open the <strong>Ready</strong> plan → <strong>Start</strong>. That creates the Migration CR and copies disks. Cold finishes in the same run (no separate cutover).</p>
+</li>
+<li>
+<p>Optional: launch <strong>OpenShift Virtualization Migration - MTV Migrate</strong> with <code>source_name</code>, <code>target_name</code>, <code>mtv_migrate_plan_name</code>, and <code>mtv_migrate_plan_namespace</code>. Attach Source + Target credentials. Treat console <strong>Start</strong> as the cutover you rely on for this guide; confirm in the job log whether your collection version also creates the Migration CR.</p>
 </li>
 </ol>
 </div>
@@ -1048,7 +1169,7 @@ podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</cod
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Wait until the plan is <strong>Succeeded</strong> (cold finishes in the same run as <strong>Start</strong>; no separate cutover).</p>
+<p>In AAP <strong>Jobs</strong>, you should see successful <strong>Provider</strong>, <strong>Maps</strong>, and <strong>Plans</strong> (and optionally <strong>Migrate</strong>). Wait until the plan is <strong>Succeeded</strong> in MTV.</p>
 </li>
 </ol>
 </div>
@@ -1139,6 +1260,12 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <p><i class="fa fa-square-o"></i> Gate 0 passed before seed</p>
 </li>
 <li>
+<p><i class="fa fa-square-o"></i> AAP jobs <strong>Successful</strong> for <strong>MTV Provider</strong>, <strong>MTV Maps</strong>, and <strong>MTV Plans</strong> (visible under <strong>Jobs</strong>)</p>
+</li>
+<li>
+<p><i class="fa fa-square-o"></i> Plan <strong>Start</strong>ed from the OpenShift console (not the AAP Migrate template)</p>
+</li>
+<li>
 <p><i class="fa fa-square-o"></i> One VMware VM (RHEL or Windows) cold-migrated via MTV + AAP + Migration Factory</p>
 </li>
 <li>
@@ -1164,11 +1291,27 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <p>Work the symptom that matches, then use the linked journey page for the long procedure.</p>
 </div>
 <div class="sect2">
+<h3 id="cannot-reach-the-openshift-api-wrong-cluster"><a class="anchor" href="#cannot-reach-the-openshift-api-wrong-cluster"></a>Cannot reach the OpenShift API / wrong cluster</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Run <code>oc whoami</code> and <code>oc whoami --show-server</code>.</p>
+</li>
+<li>
+<p>If you see DNS errors, timeouts, or a workshop/sandbox URL that is not this customer, <code>oc login</code> to the destination (or select the correct kube context) and re-check.</p>
+</li>
+<li>
+<p>Only then re-run the Gate 0 Virtualization and MTV commands. Empty greps on a dead API are not proof that operators are missing.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
 <h3 id="operator-or-mtv-menu-missing"><a class="anchor" href="#operator-or-mtv-menu-missing"></a>Operator or MTV menu missing</h3>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Confirm you are on the destination cluster (<code>oc whoami --show-console</code>).</p>
+<p>Confirm you are on the destination cluster (<code>oc whoami --show-server</code>, <code>oc whoami --show-console</code>).</p>
 </li>
 <li>
 <p>Re-run the Gate 0 OpenShift Virtualization and MTV commands.</p>
@@ -1187,7 +1330,19 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Confirm <code>podman pull</code> (or the AAP registry credential) for <code>quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code>.</p>
+<p>Prefer proving EE pull via the AAP registry credential if jobs run from AAP.</p>
+</li>
+<li>
+<p>On a laptop: if Podman reports the socket connection refused, start the Podman machine, then retry <code>podman pull</code> for <code>quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code>.</p>
+</li>
+<li>
+<p>Quay unauthorized — load credentials from Bitwarden <strong>Migration Factory</strong> (<a href="../journey/migration-factory-prerequisites.html" class="xref page">Migration Factory prerequisites</a>).</p>
+</li>
+<li>
+<p><code>Failed to get token</code> / 404 — use gateway <code>aap_token</code> on AAP 2.5+ (<a href="../journey/seed-aap.html" class="xref page">Seeding Ansible Automation Platform</a>).</p>
+</li>
+<li>
+<p><code>vmf_seed_aap could not be found</code> — mount the v2 collection into the EE (same seed page).</p>
 </li>
 <li>
 <p>Re-check inventory: no <code>changeme</code>, AAP URL and auth correct.</p>
@@ -1203,13 +1358,32 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <div class="olist arabic">
 <ol class="arabic">
 <li>
-<p>Confirm the AAP <strong>MTV Provider</strong> job used the right <code>source_name</code> / <code>target_name</code> inventory hosts.</p>
+<p>For <strong>standalone ESXi</strong>, the Provider must use Endpoint type <strong>ESXi</strong> (<code>settings.sdkEndpoint: esxi</code>) and URL <code><a href="https://&lt;esxi-host&gt;/sdk" class="bare">https://&lt;esxi-host&gt;/sdk</a></code>. With Migration Factory templates, pass that via <code>mtv_provider_provider_override</code> if the inventory only has <code>host</code> + <code>sdk_endpoint</code>.</p>
+</li>
+<li>
+<p>Confirm the OpenShift <strong>nodes</strong> (not only your bastion) can reach the ESXi/vCenter SDK URL on 443.</p>
+</li>
+<li>
+<p>Confirm the AAP <strong>MTV Provider</strong> job used the right <code>source_name</code> / <code>target_name</code> inventory hosts and attached the Source + Target credentials.</p>
+</li>
+<li>
+<p>If the AAP job fails creating the provider secret with <code>secrets.forklift.konveyor</code> / webhook EOF, check <code>forklift-api</code> logs in <code>openshift-mtv</code>. On some MTV 5.0 builds the secret admitter <strong>panics</strong> (nil URL) when a labeled provider secret is created before the Provider CR exists — <code>failurePolicy: Ignore</code> is not enough because the API still returns 500. Backup and temporarily <strong>delete</strong> <code>validatingwebhookconfiguration/forklift-api-secrets</code>, re-launch <strong>MTV Provider</strong>, then restore the webhook from the backup.</p>
 </li>
 <li>
 <p>In MTV: <strong>Providers for virtualization</strong> — open the provider and read the status message (URL, credentials, VDDK).</p>
 </li>
 <li>
 <p>Fix inventory credentials or network path to vSphere, then re-launch the provider template. See <a href="../journey/create-providers.html" class="xref page">Configure providers</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
+<h3 id="aap-job-role-mtv_provider-mtv_maps-mtv_plans-not-found"><a class="anchor" href="#aap-job-role-mtv_provider-mtv_maps-mtv_plans-not-found"></a>AAP job: role mtv_provider / mtv_maps / mtv_plans not found</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>The Migration Factory execution environment image is older than the <strong>v2</strong> project playbooks. Point the AAP EE at an image that includes those roles (or rebuild the EE with the v2 collection) and re-launch.</p>
 </li>
 </ol>
 </div>
@@ -1228,15 +1402,47 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <p>Confirm provider names in the request are MTV names, not only inventory host names.</p>
 </li>
 <li>
+<p>If the plan shows <strong>VDDKInitImageUnavailable</strong> / <strong>VDDKInitImageNotReady</strong>, set <code>spec.settings.vddkInitImage</code> on the source provider and a matching registry pull secret in <code>openshift-mtv</code> (and ensure cluster nodes can pull that image). Re-check until the plan is <strong>Ready</strong>.</p>
+</li>
+<li>
 <p>Re-launch <strong>MTV Plans</strong> after fixes. See <a href="../journey/prepare-migration-wave.html" class="xref page">Defining a migration wave</a>.</p>
 </li>
 </ol>
 </div>
 </div>
 <div class="sect2">
+<h3 id="convertguest-fails-range-nbdkit-or-vddk-required"><a class="anchor" href="#convertguest-fails-range-nbdkit-or-vddk-required"></a>ConvertGuest fails (range / nbdkit) or VDDK required</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Open the plan → failed VM → <strong>ConvertGuest</strong> (or importer) pod logs. On standalone ESXi without VDDK, a common message is that the server does not support HTTP range requests.</p>
+</li>
+<li>
+<p>Set a VDDK init image on the provider and a pull secret; do <strong>not</strong> rely on <code>skipGuestConversion</code> alone — raw copy still requires VDDK.</p>
+</li>
+<li>
+<p>Delete the failed Migration/Plan (and leftover PVCs in the target namespace if needed), power the source VM off again, recreate the cold plan, <strong>Start</strong> again.</p>
+</li>
+<li>
+<p>Customer-built VDDK tooling: <a href="https://github.com/redhat-cop/openshift-virtualization-vmware-vddk">openshift-virtualization-vmware-vddk</a>. Inventory shape: <a href="../journey/configure-inventory.html" class="xref page">Configure the inventory</a>.</p>
+</li>
+</ol>
+</div>
+</div>
+<div class="sect2">
 <h3 id="aap-migrate-job-green-but-disks-never-move"><a class="anchor" href="#aap-migrate-job-green-but-disks-never-move"></a>AAP Migrate job green but disks never move</h3>
-<div class="paragraph">
-<p>Expected. That template does not start MTV. Start the <strong>Ready</strong> plan in the OpenShift console (<strong>Migration</strong> → <strong>Plans for virtualization</strong>). See <a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a>.</p>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Confirm you already <strong>Start</strong>ed the Ready plan in the OpenShift console (<strong>Migration</strong> → <strong>Plans for virtualization</strong>), or that your collection’s Migrate playbook creates a Migration CR (check the job stdout).</p>
+</li>
+<li>
+<p>If the launch form asks for <code>mtv_migrate_plan_name</code> / <code>mtv_migrate_plan_namespace</code>, set them to the Plan you created; missing vars prevent the job from starting.</p>
+</li>
+<li>
+<p>See <a href="../journey/execute-migration.html" class="xref page">Migrating VMs</a>.</p>
+</li>
+</ol>
 </div>
 </div>
 <div class="sect2">
@@ -1273,6 +1479,73 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 </li>
 </ol>
 </div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="screenshots-to-capture-documentation-todo"><a class="anchor" href="#screenshots-to-capture-documentation-todo"></a>Screenshots to capture (documentation TODO)</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Replace placeholders and add captures where the run sheet currently reuses older journey images. Priority order from lab validation:</p>
+</div>
+<table class="tableblock frame-all grid-all stretch">
+<colgroup>
+<col style="width: 20%;">
+<col style="width: 40%;">
+<col style="width: 40%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Priority</th>
+<th class="tableblock halign-left valign-top">Capture</th>
+<th class="tableblock halign-left valign-top">Where it goes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP <strong>Templates</strong> after seed (Provider, Maps, Plans, Migrate visible)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Step 2 (replace <code>aap-templates-after-seed-placeholder.png</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP <strong>Jobs</strong> list with <strong>Successful</strong> Provider, Maps, and Plans</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">After step 6 (full Quick Start proof)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift console: Ready plan → <strong>Start</strong> (before/while running)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Step 6</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP launch form for <strong>MTV Provider</strong> with Source + Target credentials selected and ESXi/<code>vddkInitImage</code> extra vars</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Step 3</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP launch form for <strong>MTV Plans</strong> showing <code>mtv_plans_migration_request</code> (or Variables tab)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Step 5</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MTV Providers green for ESXi source (and destination <code>host</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Step 3 (can keep or replace <code>openshift-mtv-providers.png</code>)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MTV plan <strong>Succeeded</strong> + VirtualMachine <strong>Stopped</strong> then <strong>Running</strong> in <code>target_namespace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Steps 6–7</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P2</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Bitwarden / Quay credential setup is <strong>out of band</strong> — do not screenshot secrets</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">—</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Existing <code>image::journey:…</code> screenshots remain until you drop in Quick Start–specific captures.</p>
 </div>
 </div>
 </div>
