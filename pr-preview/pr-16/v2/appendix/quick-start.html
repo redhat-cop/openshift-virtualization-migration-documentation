@@ -1052,7 +1052,7 @@ mtv_provider_provider_override:
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/aap-launch-mtv-provider.png" alt="AAP launch form for MTV Provider with Source and Target credentials">
+<img src="_images/aap-launch-mtv-provider.png" alt="AAP job Output for MTV Provider while the job is running">
 </div>
 </div>
 <div class="imageblock">
@@ -1069,7 +1069,7 @@ mtv_provider_provider_override:
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../journey/_images/openshift-mtv-networkmaps.png" alt="MTV NetworkMaps Ready">
+<img src="_images/openshift-mtv-networkmaps.png" alt="MTV Network map esxi-lab-host Ready">
 </div>
 </div>
 <div class="paragraph">
@@ -1133,12 +1133,7 @@ mtv_plans_migration_request:
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/aap-launch-mtv-plans.png" alt="AAP launch Variables for MTV Plans with mtv_plans_migration_request">
-</div>
-</div>
-<div class="imageblock">
-<div class="content">
-<img src="../journey/_images/openshift-mtv-plans.png" alt="MTV Plans Ready">
+<img src="_images/aap-launch-mtv-plans.png" alt="MTV plan verify-aap-cold-00 Ready for migration with Start">
 </div>
 </div>
 <div class="admonitionblock note">
@@ -1173,12 +1168,12 @@ mtv_plans_migration_request:
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/console-start-migration-plan.png" alt="OpenShift console Start on a Ready MTV migration plan">
+<img src="_images/console-start-migration-plan.png" alt="Migration plans list with Start on Ready cold plan">
 </div>
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="../journey/_images/openshift-mtv-plan-virtual-machines.png" alt="MTV plan Virtual Machines tab while running">
+<img src="_images/openshift-mtv-plan-virtual-machines.png" alt="MTV plan qs-running-cold-01 Migration running">
 </div>
 </div>
 <div class="olist arabic">
@@ -1195,7 +1190,7 @@ mtv_plans_migration_request:
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/openshift-mtv-plan-succeeded-qs.png" alt="MTV plan Succeeded after cold migration">
+<img src="_images/openshift-mtv-plan-succeeded-qs.png" alt="MTV plan qs-running-cold-01 Complete after cold migration">
 </div>
 </div>
 </div>
@@ -1216,7 +1211,7 @@ mtv_plans_migration_request:
 </div>
 <div class="imageblock">
 <div class="content">
-<img src="_images/openshift-migrated-vm-running-qs.png" alt="Migrated virtual machine Running in the target namespace">
+<img src="_images/openshift-migrated-vm-running-qs.png" alt="Migrated VM rhel-10 Stopped in vm-workloads with Actions Start">
 </div>
 </div>
 <div class="olist arabic">
@@ -1539,7 +1534,7 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">qs-02</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">P1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AAP launch for <strong>MTV Provider</strong> — Source + Target credentials selected; Variables show ESXi / <code>vddkInitImage</code> if used</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">AAP <strong>MTV Provider</strong> job Output (Successful or Running) — or the launch form with Source + Target credentials</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aap-launch-mtv-provider.png</code> — <strong>=== 3. Providers and maps</strong> (right after “Launch … MTV Provider”)</p></td>
 </tr>
 <tr>
@@ -1549,16 +1544,28 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>openshift-mtv-providers-qs.png</code> — <strong>=== 3</strong> (immediately under qs-02)</p></td>
 </tr>
 <tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qs-03b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift <strong>Network maps</strong> — map Ready (e.g. <code>esxi-lab-host</code>)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openshift-mtv-networkmaps.png</code> — <strong>=== 3</strong> (after “Launch … MTV Maps” / maps Ready)</p></td>
+</tr>
+<tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">qs-04</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">P1</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">AAP launch for <strong>MTV Plans</strong> — Variables / extra vars with <code>mtv_plans_migration_request</code> (or equivalent survey)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift <strong>Plans for virtualization</strong> — plan <strong>Ready for migration</strong> (e.g. <code>verify-aap-cold-00</code>) with <strong>Start</strong></p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>aap-launch-mtv-plans.png</code> — <strong>=== 5. Define a one-VM cold wave</strong> (after “Plan CR is Ready”)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">qs-05</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">P0</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift console on the Ready plan — <strong>Start</strong> control visible (or confirm dialog)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift <strong>Migration plans</strong> — <strong>Start</strong> on a Ready cold plan</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>console-start-migration-plan.png</code> — <strong>=== 6. Start the migration in MTV</strong> (after the Start / Migrate bullets)</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">qs-05b</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">P0</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">OpenShift plan details — <strong>Migration running</strong> (progress visible)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openshift-mtv-plan-virtual-machines.png</code> — <strong>=== 6</strong> (while plan is Executing)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">qs-06</p></td>
@@ -1569,19 +1576,19 @@ ping -c 3 &lt;guest-ip&gt;</code></pre>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">qs-07</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">P2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">MTV plan status <strong>Succeeded</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">MTV plan status <strong>Complete</strong> / <strong>Succeeded</strong> (e.g. <code>qs-running-cold-01</code>)</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock"><code>openshift-mtv-plan-succeeded-qs.png</code> — <strong>=== 6</strong> (end of step, after qs-06)</p></td>
 </tr>
 <tr>
 <td class="tableblock halign-left valign-top"><p class="tableblock">qs-08</p></td>
 <td class="tableblock halign-left valign-top"><p class="tableblock">P2</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock">VirtualMachine in <code>target_namespace</code> <strong>Running</strong> (after you Start it)</p></td>
-<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openshift-migrated-vm-running-qs.png</code> — <strong>=== 7. Validate</strong> (after “Actions → Start”)</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">VirtualMachine in <code>target_namespace</code> <strong>Stopped</strong> after MTV (Actions → <strong>Start</strong> visible); ideally follow with <strong>Running</strong></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>openshift-migrated-vm-running-qs.png</code> — <strong>=== 7. Validate</strong> (after “MTV leaves it Stopped”)</p></td>
 </tr>
 </tbody>
 </table>
 <div class="paragraph">
-<p>Still reused from the journey module (optional to leave as-is): <code>image::journey:openshift-mtv-networkmaps.png</code> and <code>image::journey:openshift-mtv-plans.png</code> / <code>image::journey:openshift-mtv-plan-virtual-machines.png</code> in steps 3–6. Prefer the <code><strong>-qs.png</code> / <code>aap-</strong>.png</code> slots above for Quick Start–specific captures.</p>
+<p>Prefer the appendix <code>images/</code> slots above for Quick Start–specific captures.</p>
 </div>
 <div class="paragraph">
 <p>Do <strong>not</strong> screenshot Bitwarden, Quay passwords, or other secrets.</p>
