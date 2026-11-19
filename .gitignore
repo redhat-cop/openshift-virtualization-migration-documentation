@@ -4,4 +4,9 @@ _bmad/
 build/
 utilities/*
 !utilities/lab-build
+!utilities/quick-start-lab/
+!utilities/quick-start-lab/**
+utilities/quick-start-lab/lab.env
+utilities/quick-start-lab/inventory.yml
+utilities/quick-start-lab/*.local.*
 node_modules

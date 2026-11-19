@@ -8,22 +8,49 @@ When you are done, AAP shows the Migration Factory templates.
 
 The playbook is `vmf_seed_aap` (`aap_seed` role only). It does **not** install AAP. See xref:roles:aap_seed.adoc[aap_seed].
 
-This is the last required laptop run. After it succeeds, use AAP.
+This is the last required laptop (or bastion) run. After it succeeds, use AAP.
 
 == Populate AAP
 
-From the directory that holds your inventory:
+=== AAP 2.5+ authentication
+
+On AAP 2.5 and later (platform gateway), minting a controller token at `/api/v2/tokens/` returns **404**. Prefer an **OAuth token from the gateway** in the inventory (`aap_token`) instead of relying on username/password for seed:
 
 [,shell]
 ----
+curl -sk -u '<user>:<password>' \
+  -H 'Content-Type: application/json' \
+  -d '{"description":"mf-seed","application":null,"scope":"write"}' \
+  "https://<aap_hostname>/api/gateway/v1/tokens/"
+----
+
+Put the returned `token` value on the `migration_aap` host as `aap_token` (and omit `aap_username` / `aap_password` for seed). See xref:configure-inventory.adoc[Building your inventory].
+
+=== Run the seed playbook
+
+From a host that can reach AAP (often a bastion), with Quay credentials available for the EE:
+
+[,shell]
+----
+# Clone v2 if the EE image still ships older playbook names
+git clone --branch v2 --depth 1 \
+  https://github.com/redhat-cop/openshift_virtualization_migration.git
+cd openshift_virtualization_migration
+
 ansible-navigator run \
+  playbooks/vmf_seed_aap.yml \
+  -i <inventory> \
   --pp=missing \
   --eei=quay.io/redhat-cop/openshift-virtualization-migration-ee:latest \
   -m stdout \
   --pae=false \
-  infra.openshift_virtualization_migration.vmf_seed_aap \
-  -i <inventory>
+  --eev "$(pwd):/usr/share/ansible/collections/ansible_collections/infra/openshift_virtualization_migration:Z"
 ----
+
+[NOTE]
+====
+`quay.io/redhat-cop/openshift-virtualization-migration-ee:latest` may still contain an older collection that does **not** expose `infra.openshift_virtualization_migration.vmf_seed_aap`. Mounting the **v2** git checkout over the collection path (as above) matches this documentation. Pull credentials for that EE image come from the Bitwarden *Migration Factory* collection — see xref:migration-factory-prerequisites.adoc[Migration Factory prerequisites].
+====
 
 The playbook targets `migration_aap`.
 
@@ -32,15 +59,18 @@ After a successful run, AAP has at least:
 * **OpenShift Virtualization Migration - MTV Provider**
 * **OpenShift Virtualization Migration - MTV Maps**
 * **OpenShift Virtualization Migration - MTV Plans**
-* **OpenShift Virtualization Migration - Migrate** — does not start VMs. See xref:execute-migration.adoc[Migrating VMs].
+* **OpenShift Virtualization Migration - MTV Migrate** — does not start VMs. See xref:execute-migration.adoc[Migrating VMs].
 
 Surveys ask for `source_name` and `target_name` (inventory host names).
 
 == If seed fails
 
+* `Failed to get token` / HTTP 404 — use a gateway `aap_token` (AAP 2.5+), not only username/password.
+* `playbook ... vmf_seed_aap could not be found` — mount the v2 collection into the EE as shown above (or use an EE that already includes v2).
 * `changeme` still in the inventory — fix xref:configure-inventory.adoc[Building your inventory] and run the **same** playbook.
 * MTV missing — xref:confirm-openshift-ready.adoc[OpenShift], not a different seed command.
 * AAP not reachable — xref:setup-aap-yourself.adoc[Ansible Automation Platform]; seed does not deploy the operator.
+* EE pull unauthorized — Quay credentials from Bitwarden; set `aap_execution_environment_*` on `migration_aap`.
 
 == When you are done
 
