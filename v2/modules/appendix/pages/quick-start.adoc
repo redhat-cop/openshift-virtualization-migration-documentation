@@ -13,7 +13,7 @@ This page is a **run sheet** for a Services Consultant on a **customer bring-you
 
 == Formats
 
-* **Web:** this Antora page (always current).
+* **Web:** this page (always current).
 * **PDF:** use **Export PDF** at the top. The PDF keeps the same ordered steps and the same links into the documentation on this site. There is no separate offline PDF artifact to download.
 
 == What you will finish
@@ -112,7 +112,7 @@ Complete these in order. Do not skip Gate 0.
 * **Destination:** OpenShift cluster with OpenShift Virtualization and MTV already installed. Confirm `oc whoami --show-server` is **that** cluster — not a leftover workshop kubeconfig on your laptop.
 * **Automation:** Ansible Automation Platform available (existing or deployed as part of prepare). On AAP 2.5+, the controller REST API is under `/api/controller/v2/` (not `/api/v2/`).
 
-Version floors from the enablement story (confirm against the customer platform and current collection support):
+Version floors we have tested against (confirm these on the customer platform so you avoid known incompatibilities):
 
 * vSphere 7.0+
 * OpenShift 4.18+
@@ -138,6 +138,10 @@ On vSphere, note the VM name (and folder/path if you will identify it that way).
 Pass **every** checkbox before you continue. If any item fails, stop, fix it, and re-check. Do not seed to paper over a missing operator. This gate matches xref:journey:validate-environment.adoc[Validate your environment]; the commands below are a CLI path to the same checks.
 
 === Checklist
+
+ifdef::backend-html5[]
+On the web page, mark each item as you complete it. Your checks stay in this browser until you clear them.
+endif::[]
 
 Platform (do these first; no inventory file required yet):
 
