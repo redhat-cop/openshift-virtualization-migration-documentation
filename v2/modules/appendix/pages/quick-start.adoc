@@ -298,14 +298,15 @@ mtv_provider_provider_override:
 . Launch **OpenShift Virtualization Migration - MTV Provider**. Wait until the AAP job is **Successful** and the Provider is green in MTV.
 
 // Screenshot slot qs-02 — replace file: v2/modules/appendix/images/aap-launch-mtv-provider.png
-image::aap-launch-mtv-provider.png[AAP launch form for MTV Provider with Source and Target credentials]
+image::aap-launch-mtv-provider.png[AAP job Output for MTV Provider while the job is running]
 
 // Screenshot slot qs-03 — replace file: v2/modules/appendix/images/openshift-mtv-providers-qs.png
 image::openshift-mtv-providers-qs.png[MTV Providers with a valid ESXi or vCenter source]
 
 . Launch **OpenShift Virtualization Migration - MTV Maps** with survey/extra vars `source_name` and `target_name` (same inventory host names). Wait until the job is **Successful** and both NetworkMap and StorageMap are **Ready**.
 
-image::journey:openshift-mtv-networkmaps.png[MTV NetworkMaps Ready]
+// Screenshot slot qs-03b — replace file: v2/modules/appendix/images/openshift-mtv-networkmaps.png
+image::openshift-mtv-networkmaps.png[MTV Network map esxi-lab-host Ready]
 
 Full procedure: xref:journey:create-providers.adoc[Configure providers], xref:journey:create-maps.adoc[Configure storage and network maps].
 
@@ -343,9 +344,7 @@ mtv_plans_migration_request:
 . Wait until the AAP job is **Successful**. Confirm the Plan CR is **Ready** in *Migration* → *Plans for virtualization*.
 
 // Screenshot slot qs-04 — replace file: v2/modules/appendix/images/aap-launch-mtv-plans.png
-image::aap-launch-mtv-plans.png[AAP launch Variables for MTV Plans with mtv_plans_migration_request]
-
-image::journey:openshift-mtv-plans.png[MTV Plans Ready]
+image::aap-launch-mtv-plans.png[MTV plan verify-aap-cold-00 Ready for migration with Start]
 
 [NOTE]
 ====
@@ -359,9 +358,10 @@ Survey `source_name` / `target_name` are inventory host names. Provider and map 
 . Optional: launch **OpenShift Virtualization Migration - MTV Migrate** with `source_name`, `target_name`, `mtv_migrate_plan_name`, and `mtv_migrate_plan_namespace`. Attach Source + Target credentials. Treat console **Start** as the cutover you rely on for this guide; confirm in the job log whether your collection version also creates the Migration CR.
 
 // Screenshot slot qs-05 — replace file: v2/modules/appendix/images/console-start-migration-plan.png
-image::console-start-migration-plan.png[OpenShift console Start on a Ready MTV migration plan]
+image::console-start-migration-plan.png[Migration plans list with Start on Ready cold plan]
 
-image::journey:openshift-mtv-plan-virtual-machines.png[MTV plan Virtual Machines tab while running]
+// Screenshot slot qs-05b — replace file: v2/modules/appendix/images/openshift-mtv-plan-virtual-machines.png
+image::openshift-mtv-plan-virtual-machines.png[MTV plan qs-running-cold-01 Migration running]
 
 . In AAP *Jobs*, you should see successful **Provider**, **Maps**, and **Plans** (and optionally **Migrate**). Wait until the plan is **Succeeded** in MTV.
 
@@ -369,7 +369,7 @@ image::journey:openshift-mtv-plan-virtual-machines.png[MTV plan Virtual Machines
 image::aap-jobs-provider-maps-plans.png[AAP Jobs list with Successful MTV Provider Maps and Plans]
 
 // Screenshot slot qs-07 — replace file: v2/modules/appendix/images/openshift-mtv-plan-succeeded-qs.png
-image::openshift-mtv-plan-succeeded-qs.png[MTV plan Succeeded after cold migration]
+image::openshift-mtv-plan-succeeded-qs.png[MTV plan qs-running-cold-01 Complete after cold migration]
 
 === 7. Validate
 
@@ -378,7 +378,7 @@ image::openshift-mtv-plan-succeeded-qs.png[MTV plan Succeeded after cold migrati
 . Open the VirtualMachine in `target_namespace`. MTV leaves it **Stopped** — *Actions* → *Start* → wait until **Running**.
 
 // Screenshot slot qs-08 — replace file: v2/modules/appendix/images/openshift-migrated-vm-running-qs.png
-image::openshift-migrated-vm-running-qs.png[Migrated virtual machine Running in the target namespace]
+image::openshift-migrated-vm-running-qs.png[Migrated VM rhel-10 Stopped in vm-workloads with Actions Start]
 
 . Confirm the guest has an IP (console, guest agent, or `oc` / VM details), then ping it from a host that can reach that address:
 +
@@ -508,7 +508,7 @@ Do not rename files unless you also change the matching `image::` line. Gray pla
 
 | qs-02
 | P1
-| AAP launch for **MTV Provider** — Source + Target credentials selected; Variables show ESXi / `vddkInitImage` if used
+| AAP **MTV Provider** job Output (Successful or Running) — or the launch form with Source + Target credentials
 | `aap-launch-mtv-provider.png` — **=== 3. Providers and maps** (right after “Launch … MTV Provider”)
 
 | qs-03
@@ -516,15 +516,25 @@ Do not rename files unless you also change the matching `image::` line. Gray pla
 | OpenShift *Migration* → *Providers for virtualization* — source provider green (ESXi or vCenter)
 | `openshift-mtv-providers-qs.png` — **=== 3** (immediately under qs-02)
 
+| qs-03b
+| P1
+| OpenShift *Network maps* — map Ready (e.g. `esxi-lab-host`)
+| `openshift-mtv-networkmaps.png` — **=== 3** (after “Launch … MTV Maps” / maps Ready)
+
 | qs-04
 | P1
-| AAP launch for **MTV Plans** — Variables / extra vars with `mtv_plans_migration_request` (or equivalent survey)
+| OpenShift *Plans for virtualization* — plan **Ready for migration** (e.g. `verify-aap-cold-00`) with **Start**
 | `aap-launch-mtv-plans.png` — **=== 5. Define a one-VM cold wave** (after “Plan CR is Ready”)
 
 | qs-05
 | P0
-| OpenShift console on the Ready plan — **Start** control visible (or confirm dialog)
+| OpenShift *Migration plans* — **Start** on a Ready cold plan
 | `console-start-migration-plan.png` — **=== 6. Start the migration in MTV** (after the Start / Migrate bullets)
+
+| qs-05b
+| P0
+| OpenShift plan details — **Migration running** (progress visible)
+| `openshift-mtv-plan-virtual-machines.png` — **=== 6** (while plan is Executing)
 
 | qs-06
 | P0
@@ -533,16 +543,16 @@ Do not rename files unless you also change the matching `image::` line. Gray pla
 
 | qs-07
 | P2
-| MTV plan status **Succeeded**
+| MTV plan status **Complete** / **Succeeded** (e.g. `qs-running-cold-01`)
 | `openshift-mtv-plan-succeeded-qs.png` — **=== 6** (end of step, after qs-06)
 
 | qs-08
 | P2
-| VirtualMachine in `target_namespace` **Running** (after you Start it)
-| `openshift-migrated-vm-running-qs.png` — **=== 7. Validate** (after “Actions → Start”)
+| VirtualMachine in `target_namespace` **Stopped** after MTV (Actions → **Start** visible); ideally follow with **Running**
+| `openshift-migrated-vm-running-qs.png` — **=== 7. Validate** (after “MTV leaves it Stopped”)
 |===
 
-Still reused from the journey module (optional to leave as-is): `image::journey:openshift-mtv-networkmaps.png` and `image::journey:openshift-mtv-plans.png` / `image::journey:openshift-mtv-plan-virtual-machines.png` in steps 3–6. Prefer the `*-qs.png` / `aap-*.png` slots above for Quick Start–specific captures.
+Prefer the appendix `images/` slots above for Quick Start–specific captures.
 
 Do **not** screenshot Bitwarden, Quay passwords, or other secrets.
 
