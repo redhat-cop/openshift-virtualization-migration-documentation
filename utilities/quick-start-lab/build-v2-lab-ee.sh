@@ -6,7 +6,9 @@ cd "$(dirname "$0")"
 set -a; source ./lab.env; set +a
 
 EE_BASE="${EE_IMAGE:-quay.io/redhat-cop/openshift-virtualization-migration-ee:latest}"
-EE_LAB="${EE_LAB_IMAGE:-quay.io/redhat-cop/openshift-virtualization-migration-ee:v2-lab-shebi}"
+EE_LAB="${EE_LAB_IMAGE:?Set EE_LAB_IMAGE to the Quay image to build and push}"
+: "${AAP_EXECUTION_ENVIRONMENT_ID:?Set AAP_EXECUTION_ENVIRONMENT_ID}"
+: "${AAP_REGISTRY_CREDENTIAL_ID:?Set AAP_REGISTRY_CREDENTIAL_ID}"
 COL="${COLLECTION_PATH:-/root/openshift_virtualization_migration}"
 API="${AAP_URL}${AAP_API_PREFIX:-/api/controller/v2}"
 
@@ -31,8 +33,8 @@ TOK=$(curl -sk -u "$AAP_USER:$AAP_PASSWORD" -H "Content-Type: application/json" 
 echo "$TOK" > /tmp/aap.tok
 
 curl -sk -H "Authorization: Bearer ${TOK}" -H "Content-Type: application/json" \
-  -X PATCH "${API}/execution_environments/4/" \
-  -d "{\"image\":\"${EE_LAB}\",\"pull\":\"always\",\"credential\":5}" \
+  -X PATCH "${API}/execution_environments/${AAP_EXECUTION_ENVIRONMENT_ID}/" \
+  -d "{\"image\":\"${EE_LAB}\",\"pull\":\"always\",\"credential\":${AAP_REGISTRY_CREDENTIAL_ID}}" \
   | python3 -c 'import sys,json; r=json.load(sys.stdin); print("ee", r["id"], r["image"], "cred", r.get("credential"), "pull", r.get("pull"))'
 
 echo EE_READY

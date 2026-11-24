@@ -1,6 +1,6 @@
 = Support
 
-* Jira: link:https://github.com/redhat-cop/openshift_virtualization_migration/issues[GitHub Issues]
+* Issues: link:https://github.com/redhat-cop/openshift_virtualization_migration/issues[GitHub Issues]
 * Collection issues: link:https://github.com/redhat-cop/openshift_virtualization_migration[redhat-cop/openshift_virtualization_migration]
 * Documentation: link:https://github.com/redhat-cop/openshift-virtualization-migration-documentation[redhat-cop/openshift-virtualization-migration-documentation]
 

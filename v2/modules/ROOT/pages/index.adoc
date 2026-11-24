@@ -48,4 +48,4 @@ Stay up-to-date with the solution. Collection downloads and related links: link:
 
 == Use Cases Request
 
-Use the https://docs.google.com/forms/d/e/1FAIpQLSfKQzd1eQomLCkj3yrfTUFNaon4gfP-TwqWtEp0U6mhk0_nVA/viewform[form] to submit real-world examples where the collection is (or could be) applied.
+Open a https://github.com/redhat-cop/openshift_virtualization_migration/issues[GitHub issue] to submit real-world examples where the collection is (or could be) applied.

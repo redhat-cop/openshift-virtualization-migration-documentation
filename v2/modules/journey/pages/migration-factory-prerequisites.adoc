@@ -19,11 +19,7 @@ If you cannot use the RPM: `pip install ansible-navigator`. Podman comes with th
 
 == Quay login
 
-The EE (`quay.io/redhat-cop/openshift-virtualization-migration-ee`) is on a protected Quay repository. Pull credentials are in the Bitwarden collection *Migration Factory* (not published in this documentation).
-
-. Get a Red Hat Bitwarden account via link:https://redhathub.service-now.com/hub?id=kb_article&sysparm_article=KB0010984&table=kb_knowledge&searchTerm=bitwarden[KB0010984] and, if needed, link:https://redhathub.service-now.com/hub?id=request_help[Request help].
-. Join the `migration-factory` Google Group (onboarding form / project onboarding doc) and wait until *Migration Factory* appears in your vault.
-. Copy the Quay username and password (or robot token) from that collection, then:
+The EE (`quay.io/redhat-cop/openshift-virtualization-migration-ee`) is on a protected Quay repository. Pull credentials are required and are not published in this documentation.
 
 [,shell]
 ----

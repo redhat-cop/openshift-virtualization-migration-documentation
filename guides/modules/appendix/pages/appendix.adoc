@@ -5,7 +5,6 @@
 To access content stored on GitHub, your GitHub account must have credentials associated to your account. Two options are available:
 
 . xref:github-credentials[GitHub Credentials]
-. xref:bitwarden[Bitwarden]
 . xref:ssh-key-generation[SSH Key Generation]
 
 The following sections will describe how to configure your GitHub account with these credential types.
@@ -64,25 +63,6 @@ Click *Generate token* to create the token.
 A confirmation page will be displayed and includes the value of the generated token. Be sure to copy the value as it cannot be accessed after the page is closed.
 
 GitHub repositories can now be accessed using the _HTTPS_ protocol.
-
-== Bitwarden
-
-link:https://bitwarden.com[Bitwarden] stores shared secrets for the Ansible for OpenShift Virtualization Migration project (for example Quay credentials for the Migration Factory execution environment). Items live in a Bitwarden link:https://bitwarden.com/help/about-collections[Collection] named *Migration Factory*. You must use a Bitwarden account tied to your *@redhat.com* address.
-
-=== Create a Red Hat Bitwarden account
-
-Do **not** start from the public Bitwarden “free account” signup for this project. Red Hat provisions Bitwarden through IT:
-
-. Follow the Red Hat Hub knowledge article: link:https://redhathub.service-now.com/hub?id=kb_article&sysparm_article=KB0010984&table=kb_knowledge&searchTerm=bitwarden[KB0010984 — Bitwarden].
-. If you still need an account or access, open an IT request: link:https://redhathub.service-now.com/hub?id=request_help[Request help] (ServiceNow Hub).
-
-=== Access the Migration Factory collection
-
-. Join the `migration-factory` Google Group. The recommended path is the Ansible for OpenShift Virtualization Migration link:https://docs.google.com/document/d/1zyx4vl6evt15jgHBcpaGOfcjcU6CSqUMLqQVBSGmdoE[onboarding form] (or the link:https://docs.google.com/forms/d/e/1FAIpQLSdH9hUDTXMoDHGlXYvYhwe-Vu6bEs5rdgmZo0nL7N9WR12Smw/viewform[onboarding Google Form]).
-. Sign in to Bitwarden (web or supported app) with your Red Hat–provisioned account.
-. After Google Group membership is confirmed, wait for synchronization. The *Migration Factory* collection appears under *Collections* in your vault.
-
-When the collection is visible, copy the Quay (and any other) credentials you need into your local inventory or lab env file. Do not commit those values to git.
 
 == SSH Key Generation
 

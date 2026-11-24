@@ -2,14 +2,14 @@
 
 Accelerate the appendix Quick Start on a **BYO lab reached through an SSH bastion**. Helpers do **not** replace the run sheet and do **not** auto-migrate VMs.
 
-## Proven path (shebi lab)
+## Proven path
 
 | Piece | Result |
 | --- | --- |
 | Bastion | SSH → OCP / AAP / ESXi |
 | Gate 0 | PASS |
 | Standalone ESXi | MTV provider Ready (`sdkEndpoint: esxi`) |
-| Quay EE | Bitwarden *Migration Factory* robot user |
+| Quay EE | Pull credentials are required and are not published in this documentation |
 | Seed | PASS — MF templates created (Provider, Maps, Plans, Migrate, …) |
 | AAP auth | Gateway token via `POST /api/gateway/v1/tokens/` |
 | Seed playbook | Mount **v2** git checkout into EE (`vmf_seed_aap.yml`) |
@@ -30,7 +30,7 @@ Secrets live in `lab.env` (gitignored). Commit only `lab.env.example`.
 
 ```bash
 cp utilities/quick-start-lab/lab.env.example utilities/quick-start-lab/lab.env
-# edit lab.env — include QUAY_* from Bitwarden
+# edit lab.env — set QUAY_* ; pull credentials are required and are not published in this documentation
 
 chmod +x utilities/quick-start-lab/*.sh
 
@@ -52,7 +52,7 @@ cd /root/migration-factory-lab
 
 1. **AAP 2.5+:** username/password seed often fails with `Failed to get token` / 404. Mint `aap_token` from `/api/gateway/v1/tokens/`.
 2. **EE:latest** may ship collection **1.21.x** without `vmf_seed_aap`. Mount the v2 repo over the collection path (see `seed-aap.sh`).
-3. **Quay** credentials are required for EE pull — Bitwarden KB0010984 + Request help + `migration-factory` group.
+3. **Quay** pull credentials are required for EE pull and are not published in this documentation.
 
 ## Next after seed
 

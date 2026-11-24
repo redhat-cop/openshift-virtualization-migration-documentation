@@ -108,7 +108,7 @@ Complete these in order. Do not skip Gate 0.
 * **Audience:** Services Consultant; OpenShift Virtualization basics; may be new to AAP and MTV.
 * **Environment:** Customer BYO (no shared lab for this guide).
 * **Source:** VMware vSphere via **vCenter** or a **standalone ESXi** host (MTV 2.6+ supports Endpoint type **ESXi** / `settings.sdkEndpoint: esxi`). You need one RHEL or Windows VM you may power off for a cold plan. If you only reach the hypervisor through a bastion, run Gate 0 `oc`/`curl` checks from that bastion (or any host that can reach the OpenShift API, AAP, and the ESXi/vCenter SDK URL).
-* **VDDK:** Build and set a VDDK init image on the VMware provider before the first cold plan (xref:journey:configure-inventory.adoc[Configure the inventory] — `vddk.image`). Without it, cold copy on standalone ESXi often fails in **ConvertGuest** (`nbdkit` / HTTP range not supported), and `skipGuestConversion` still requires VDDK for raw copy. Use an image **you** are entitled to build — not an internal RHDP/demo tag.
+* **VDDK:** Build and set a VDDK init image on the VMware provider before the first cold plan (xref:journey:configure-inventory.adoc[Configure the inventory] — `vddk.image`). Without it, cold copy on standalone ESXi often fails in **ConvertGuest** (`nbdkit` / HTTP range not supported), and `skipGuestConversion` still requires VDDK for raw copy. Use an image **you** are entitled to build.
 * **Destination:** OpenShift cluster with OpenShift Virtualization and MTV already installed. Confirm `oc whoami --show-server` is **that** cluster — not a leftover workshop kubeconfig on your laptop.
 * **Automation:** Ansible Automation Platform available (existing or deployed as part of prepare). On AAP 2.5+, the controller REST API is under `/api/controller/v2/` (not `/api/v2/`).
 
@@ -236,7 +236,7 @@ podman login quay.io/redhat-cop
 podman pull quay.io/redhat-cop/openshift-virtualization-migration-ee:latest
 ----
 
-Quay credentials for that repository come from the Bitwarden collection *Migration Factory*. Create or request your Red Hat Bitwarden account with link:https://redhathub.service-now.com/hub?id=kb_article&sysparm_article=KB0010984&table=kb_knowledge&searchTerm=bitwarden[KB0010984] and link:https://redhathub.service-now.com/hub?id=request_help[Request help] if needed, then join the `migration-factory` Google Group. Details: xref:journey:migration-factory-prerequisites.adoc[Migration Factory prerequisites].
+Pull credentials for that repository are required and are not published in this documentation. Details: xref:journey:migration-factory-prerequisites.adoc[Migration Factory prerequisites].
 
 See xref:journey:source-collection.adoc[Sourcing the collection and execution environment].
 
@@ -258,7 +258,7 @@ Work through xref:journey:setup-environment.adoc[Preparing your environment] in 
 
 === 2. Seed Ansible Automation Platform
 
-. Put Quay pull credentials (Bitwarden *Migration Factory*) on the `migration_aap` host as `aap_execution_environment_username` / `aap_execution_environment_password`.
+. Put Quay pull credentials on the `migration_aap` host as `aap_execution_environment_username` / `aap_execution_environment_password`. Pull credentials are required and are not published in this documentation.
 . On **AAP 2.5+**, mint a gateway token and set `aap_token` on `migration_aap` (do not rely on `/api/v2/tokens/` — it 404s). See xref:journey:seed-aap.adoc[Seeding Ansible Automation Platform].
 . Run the seed playbook from a host that reaches AAP (bastion is fine). If `EE:latest` lacks `vmf_seed_aap`, mount the **v2** git checkout into the EE as shown on the seed page.
 . In AAP, confirm the Migration Factory templates exist:
@@ -440,7 +440,7 @@ Work the symptom that matches, then use the linked journey page for the long pro
 
 . Prefer proving EE pull via the AAP registry credential if jobs run from AAP.
 . On a laptop: if Podman reports the socket connection refused, start the Podman machine, then retry `podman pull` for `quay.io/redhat-cop/openshift-virtualization-migration-ee:latest`.
-. Quay unauthorized — load credentials from Bitwarden *Migration Factory* (xref:journey:migration-factory-prerequisites.adoc[Migration Factory prerequisites]).
+. Quay unauthorized — pull credentials are required and are not published in this documentation (xref:journey:migration-factory-prerequisites.adoc[Migration Factory prerequisites]).
 . `Failed to get token` / 404 — use gateway `aap_token` on AAP 2.5+ (xref:journey:seed-aap.adoc[Seeding Ansible Automation Platform]).
 . `vmf_seed_aap could not be found` — mount the v2 collection into the EE (same seed page).
 . Re-check inventory: no `changeme`, AAP URL and auth correct.

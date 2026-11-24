@@ -1,6 +1,6 @@
 ﻿# Ansible for OpenShift Virtualization Migration Prerequisites
 
-To begin either actively contributing or using the Ansible for OpenShift Virtualization Migration, there are several steps that must be completed beforehand. This document describes the required actions that are needed before getting started. While not required, it is recommended that you complete the link:https://docs.google.com/forms/d/e/1FAIpQLSdH9hUDTXMoDHGlXYvYhwe-Vu6bEs5rdgmZo0nL7N9WR12Smw/viewform[onboarding form].
+To begin either actively contributing or using the Ansible for OpenShift Virtualization Migration, there are several steps that must be completed beforehand. This document describes the required actions that are needed before getting started.
 
 == Required Access
 
@@ -56,17 +56,9 @@ Ansible automation content (Collections) for the Ansible for OpenShift Virtualiz
 
 Consult the xref:appendix:appendix.adoc#github-credentials[Appendix] for the steps to configure these resources for use.
 
-=== Bitwarden
-
-The project keeps shared credentials (including Quay pull access for the Migration Factory execution environment) in a link:https://bitwarden.com[Bitwarden] collection named *Migration Factory*. Access requires a Red Hat–provisioned Bitwarden account and membership in the _migration-factory_ Google Group.
-
-. Create or request your Bitwarden account using link:https://redhathub.service-now.com/hub?id=kb_article&sysparm_article=KB0010984&table=kb_knowledge&searchTerm=bitwarden[KB0010984] and, if needed, link:https://redhathub.service-now.com/hub?id=request_help[Request help] on Red Hat Hub.
-. Join the Google Group via the link:https://docs.google.com/forms/d/e/1FAIpQLSdH9hUDTXMoDHGlXYvYhwe-Vu6bEs5rdgmZo0nL7N9WR12Smw/viewform[onboarding form] (see also the link:https://docs.google.com/document/d/1zyx4vl6evt15jgHBcpaGOfcjcU6CSqUMLqQVBSGmdoE[onboarding document]).
-. Full steps: xref:appendix:appendix.adoc#bitwarden[Appendix — Bitwarden].
-
 === Quay
 
-Container images for the project are on link:https://quay.io[quay.io] (for example `quay.io/redhat-cop/openshift-virtualization-migration-ee`). Pull credentials are in the Migration Factory xref:appendix:appendix.adoc#bitwarden[Bitwarden] collection — not in this documentation.
+Container images for the project are on link:https://quay.io[quay.io] (for example `quay.io/redhat-cop/openshift-virtualization-migration-ee`). Pull credentials are required and are not published in this documentation.
 
 === Red Hat Automation Hub
 
@@ -140,7 +132,7 @@ Ansible Navigator makes use of link:https://www.redhat.com/en/technologies/manag
 
 The Ansible for OpenShift Virtualization Migration Execution Environments are hosted in protected repositories within quay.io.
 
-Using credentials source from the Migration Factory Bitwarden Collection, authenticate to Quay so that these resources can be obtained when running Ansible Navigator.
+Pull credentials are required and are not published in this documentation. Authenticate to Quay so that these resources can be obtained when running Ansible Navigator.
 
 [,shell]
 ----
