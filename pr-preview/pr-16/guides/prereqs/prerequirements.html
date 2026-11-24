@@ -454,7 +454,7 @@
 <div id="preamble">
 <div class="sectionbody">
 <div class="paragraph">
-<p>To begin either actively contributing or using the Ansible for OpenShift Virtualization Migration, there are several steps that must be completed beforehand. This document describes the required actions that are needed before getting started. While not required, it is recommended that you complete the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdH9hUDTXMoDHGlXYvYhwe-Vu6bEs5rdgmZo0nL7N9WR12Smw/viewform">onboarding form</a>.</p>
+<p>To begin either actively contributing or using the Ansible for OpenShift Virtualization Migration, there are several steps that must be completed beforehand. This document describes the required actions that are needed before getting started.</p>
 </div>
 </div>
 </div>
@@ -562,28 +562,9 @@
 </div>
 </div>
 <div class="sect2">
-<h3 id="bitwarden"><a class="anchor" href="#bitwarden"></a>Bitwarden</h3>
-<div class="paragraph">
-<p>The project keeps shared credentials (including Quay pull access for the Migration Factory execution environment) in a <a href="https://bitwarden.com">Bitwarden</a> collection named <strong>Migration Factory</strong>. Access requires a Red Hat–provisioned Bitwarden account and membership in the <em>migration-factory</em> Google Group.</p>
-</div>
-<div class="olist arabic">
-<ol class="arabic">
-<li>
-<p>Create or request your Bitwarden account using <a href="https://redhathub.service-now.com/hub?id=kb_article&amp;sysparm_article=KB0010984&amp;table=kb_knowledge&amp;searchTerm=bitwarden">KB0010984</a> and, if needed, <a href="https://redhathub.service-now.com/hub?id=request_help">Request help</a> on Red Hat Hub.</p>
-</li>
-<li>
-<p>Join the Google Group via the <a href="https://docs.google.com/forms/d/e/1FAIpQLSdH9hUDTXMoDHGlXYvYhwe-Vu6bEs5rdgmZo0nL7N9WR12Smw/viewform">onboarding form</a> (see also the <a href="https://docs.google.com/document/d/1zyx4vl6evt15jgHBcpaGOfcjcU6CSqUMLqQVBSGmdoE">onboarding document</a>).</p>
-</li>
-<li>
-<p>Full steps: <a href="../appendix/appendix.html#bitwarden" class="xref page">Appendix — Bitwarden</a>.</p>
-</li>
-</ol>
-</div>
-</div>
-<div class="sect2">
 <h3 id="quay"><a class="anchor" href="#quay"></a>Quay</h3>
 <div class="paragraph">
-<p>Container images for the project are on <a href="https://quay.io">quay.io</a> (for example <code>quay.io/redhat-cop/openshift-virtualization-migration-ee</code>). Pull credentials are in the Migration Factory <a href="../appendix/appendix.html#bitwarden" class="xref page">Bitwarden</a> collection — not in this documentation.</p>
+<p>Container images for the project are on <a href="https://quay.io">quay.io</a> (for example <code>quay.io/redhat-cop/openshift-virtualization-migration-ee</code>). Pull credentials are required and are not published in this documentation.</p>
 </div>
 </div>
 <div class="sect2">
@@ -708,7 +689,7 @@
 <p>The Ansible for OpenShift Virtualization Migration Execution Environments are hosted in protected repositories within quay.io.</p>
 </div>
 <div class="paragraph">
-<p>Using credentials source from the Migration Factory Bitwarden Collection, authenticate to Quay so that these resources can be obtained when running Ansible Navigator.</p>
+<p>Pull credentials are required and are not published in this documentation. Authenticate to Quay so that these resources can be obtained when running Ansible Navigator.</p>
 </div>
 <div class="listingblock">
 <div class="content">

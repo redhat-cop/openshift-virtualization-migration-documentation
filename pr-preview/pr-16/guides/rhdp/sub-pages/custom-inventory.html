@@ -540,7 +540,7 @@ cd rhdp</code></pre>
 <h2 id="ansible-execution-environment"><a class="anchor" href="#ansible-execution-environment"></a>Ansible Execution Environment</h2>
 <div class="sectionbody">
 <div class="paragraph">
-<p>To configure the Ansible for OpenShift Virtualization Migration Ansible Execution Environment within Ansible Automation Platform,  get the credentials of <code><code>OpenShift Virtualization Migration EE</code></code> from the Bitwarden Collection.</p>
+<p>To configure the Ansible for OpenShift Virtualization Migration Ansible Execution Environment within Ansible Automation Platform, pull credentials are required and are not published in this documentation.</p>
 </div>
 <div class="paragraph">
 <p>Set the <code>container_host</code> variable to be the location within Quay along with the <code>container_username</code> and <code>container_password</code>.</p>
@@ -787,7 +787,7 @@ migration_spoke:
 </div>
 </div>
 <div class="paragraph">
-<p>The VMware Virtual Disk Development Kit (VDDK) image is used to transfer virtual disks from VMware vSphere. The credentials to access the image were previously set within the <code><code>all</code></code> inventory group (<code><code>OpenShift Virtualization Migration EE</code></code> credentials in BitWarden vault) and are referred in <code><code>container_username</code></code> and <code><code>container_password</code></code> values.</p>
+<p>The VMware Virtual Disk Development Kit (VDDK) image is used to transfer virtual disks from VMware vSphere. The credentials to access the image were previously set within the <code><code>all</code></code> inventory group and are referred in <code><code>container_username</code></code> and <code><code>container_password</code></code> values. Pull credentials are required and are not published in this documentation.</p>
 </div>
 <div class="admonitionblock important">
 <table>

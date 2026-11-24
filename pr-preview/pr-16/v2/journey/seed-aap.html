@@ -575,7 +575,7 @@ ansible-navigator run \
 </td>
 <td class="content">
 <div class="paragraph">
-<p><code>quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code> may still contain an older collection that does <strong>not</strong> expose <code>infra.openshift_virtualization_migration.vmf_seed_aap</code>. Mounting the <strong>v2</strong> git checkout over the collection path (as above) matches this documentation. Pull credentials for that EE image come from the Bitwarden <strong>Migration Factory</strong> collection — see <a href="migration-factory-prerequisites.html" class="xref page">Migration Factory prerequisites</a>.</p>
+<p><code>quay.io/redhat-cop/openshift-virtualization-migration-ee:latest</code> may still contain an older collection that does <strong>not</strong> expose <code>infra.openshift_virtualization_migration.vmf_seed_aap</code>. Mounting the <strong>v2</strong> git checkout over the collection path (as above) matches this documentation. Pull credentials for that EE image are required and are not published in this documentation — see <a href="migration-factory-prerequisites.html" class="xref page">Migration Factory prerequisites</a>.</p>
 </div>
 </td>
 </tr>
@@ -630,7 +630,7 @@ ansible-navigator run \
 <p>AAP not reachable — <a href="setup-aap-yourself.html" class="xref page">Ansible Automation Platform</a>; seed does not deploy the operator.</p>
 </li>
 <li>
-<p>EE pull unauthorized — Quay credentials from Bitwarden; set <code>aap_execution_environment_*</code> on <code>migration_aap</code>.</p>
+<p>EE pull unauthorized — pull credentials are required and are not published in this documentation; set <code>aap_execution_environment_*</code> on <code>migration_aap</code>.</p>
 </li>
 </ul>
 </div>
