@@ -1,0 +1,43 @@
+---
+# Minimal BYO shape for Quick Start Gate 0 / seed.
+# Copy to inventory.yml, replace every changeme, do not commit secrets.
+# Canonical sample: collection inventory/inventory-sample.yml
+
+migration_aap:
+  hosts:
+    aap-instance:
+      aap_hostname: https://aap.example.com
+      aap_username: admin
+      aap_password: changeme
+      aap_validate_certs: false
+      aap_project_scm_branch: v2
+      aap_execution_environment: Migration Factory Execution Environment
+      aap_execution_environment_image: quay.io/redhat-cop/openshift-virtualization-migration-ee:latest
+      aap_execution_environment_pull: missing
+
+vm_sources:
+  hosts:
+    vcenter-lab:
+      type: vmware
+      host: vcenter.example.com
+      sdk_endpoint: /sdk
+      username: administrator@vsphere.local
+      password: changeme
+      # Required for cold migration on standalone ESXi (build your own entitled image)
+      # vddk:
+      #   image: registry.example.com/vddk:8.0
+      #   username: robot$example
+      #   password: changeme
+
+migration_clusters:
+  hosts:
+    ocp-lab:
+      openshift_host: https://api.example.com:6443
+      openshift_api_key: changeme
+      vm_sources:
+        - vcenter-lab
+      aap_hosts:
+        - aap-instance
+      mtv_namespace: openshift-mtv
+      default_target_namespace: vm-workloads
+      configure_mtv: true

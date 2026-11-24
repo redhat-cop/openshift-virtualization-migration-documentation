@@ -39,7 +39,7 @@ migration_aap:
       aap_project_scm_branch: v2
 ----
 
-Token instead of a password:
+Token instead of a password (preferred on **AAP 2.5+** / platform gateway — mint via `POST /api/gateway/v1/tokens/`; `/api/v2/tokens/` returns 404):
 
 .migration_aap — token
 [source,yaml]

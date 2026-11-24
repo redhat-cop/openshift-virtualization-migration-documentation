@@ -5,7 +5,6 @@
 To access content stored on GitHub, your GitHub account must have credentials associated to your account. Two options are available:
 
 . xref:github-credentials[GitHub Credentials]
-. xref:bitwarden[Bitwarden]
 . xref:ssh-key-generation[SSH Key Generation]
 
 The following sections will describe how to configure your GitHub account with these credential types.
@@ -64,20 +63,6 @@ Click *Generate token* to create the token.
 A confirmation page will be displayed and includes the value of the generated token. Be sure to copy the value as it cannot be accessed after the page is closed.
 
 GitHub repositories can now be accessed using the _HTTPS_ protocol.
-
-== Bitwarden
-
-link:https://bitwarden.com[Bitwarden] is used to store sensitive resources for the Ansible for OpenShift Virtualization Migration Project and are located in a Bitwarden link:https://bitwarden.com/help/about-collections[Collection]. To gain access to the collection, you must have a Bitwarden account associated with your @redhat.com Email Address.
-
-Use the following steps to complete the setup process.
-
-. link:https://bitwarden.com/go/start-free[Create a Bitwarden account] using your Red Hat email address
-. Join the `migration-factory` Google Group. The easiest way to join the Google Group is to onboard to the Ansible for OpenShift Virtualization Migration using link:https://docs.google.com/document/d/1zyx4vl6evt15jgHBcpaGOfcjcU6CSqUMLqQVBSGmdoE[this] form.
-. Download one of the supported applications or use the Bitwarden website to access the resources that are available to you.
-
-Once the membership to the _migration-factory_ Google Group has been confirmed, it may take some time until the Bitwarden Collection called _Migration Factory_ is available.
-
-When the synchronization has completed, the _Migration Factory_ Collection should be present under the _Collection_ section of the Bitwarden Vault.
 
 == SSH Key Generation
 

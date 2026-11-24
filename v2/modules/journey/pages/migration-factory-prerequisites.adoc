@@ -19,13 +19,14 @@ If you cannot use the RPM: `pip install ansible-navigator`. Podman comes with th
 
 == Quay login
 
-The EE is on a protected Quay repository.
+The EE (`quay.io/redhat-cop/openshift-virtualization-migration-ee`) is on a protected Quay repository. Pull credentials are required and are not published in this documentation.
 
 [,shell]
 ----
 podman login quay.io/redhat-cop
 ----
 
+Use the same values for the AAP execution-environment registry credential when you seed (`aap_execution_environment_username` / `aap_execution_environment_password` on the `migration_aap` host).
 == OpenShift CLI
 
 Install `oc` from the link:https://access.redhat.com/downloads/content/290[OpenShift Container Platform downloads] page if you need it for xref:confirm-openshift-ready.adoc[OpenShift] checks or for `utility_aap_deploy`. You do not use `oc` to launch provider, maps, or plan jobs after seed.

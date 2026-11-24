@@ -62,7 +62,7 @@ Since a Red Hat Subscriptions Manifest file will be used instead of user credent
 ----
 
 == Ansible Execution Environment
-To configure the Ansible for OpenShift Virtualization Migration Ansible Execution Environment within Ansible Automation Platform,  get the credentials of ```OpenShift Virtualization Migration EE``` from the Bitwarden Collection.
+To configure the Ansible for OpenShift Virtualization Migration Ansible Execution Environment within Ansible Automation Platform, pull credentials are required and are not published in this documentation.
 
 Set the `container_host` variable to be the location within Quay along with the `container_username` and `container_password`.
 
@@ -233,7 +233,7 @@ migration_targets:
       create: true
 ----
 
-The VMware Virtual Disk Development Kit (VDDK) image is used to transfer virtual disks from VMware vSphere. The credentials to access the image were previously set within the ```all``` inventory group (```OpenShift Virtualization Migration EE``` credentials in BitWarden vault) and are referred in ```container_username``` and ```container_password``` values.
+The VMware Virtual Disk Development Kit (VDDK) image is used to transfer virtual disks from VMware vSphere. The credentials to access the image were previously set within the ```all``` inventory group and are referred in ```container_username``` and ```container_password``` values. Pull credentials are required and are not published in this documentation.
 
 [IMPORTANT]
 ====

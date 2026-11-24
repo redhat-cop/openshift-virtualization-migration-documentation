@@ -18,4 +18,4 @@ The OpenShift Virtualization Migration project now consists of two validated Ans
 Stay up-to-date with the solution. You can find the download link for collection, along with key resources such as documentation and relevant information, on the Source page (link:https://red.ht/migration-factory[red.ht/migration-factory]).
 
 == Use Cases Request
-Use the https://docs.google.com/forms/d/e/1FAIpQLSfKQzd1eQomLCkj3yrfTUFNaon4gfP-TwqWtEp0U6mhk0_nVA/viewform[form] to submit real-world examples where the collection is (or could be) applied.
+Open a https://github.com/redhat-cop/openshift_virtualization_migration/issues[GitHub issue] to submit real-world examples where the collection is (or could be) applied.

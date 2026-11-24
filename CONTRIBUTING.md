@@ -60,7 +60,7 @@ To configure your developer sandbox perform the following steps:
    4. Clone your new fork locally.
 2. Create a branch inside your forked repository with a proper name.
 3. Make your code changes and push to your branch.
-4. Make sure you have the necessary access to the repository. If you are not part of the required GitHub teams, please message asking to be added in the [#forum-virt-migration-factory](https://redhat.enterprise.slack.com/archives/C06U4TQHJSF) Slack channel.
+4. Make sure you have the necessary access to the repository. If you are not part of the required GitHub teams, open an issue on the repository asking to be added.
 5. Create a **Pull Request (PR)** to the main repository (it can be a draft).
 6. Pull Request titles should follow the commit message standards (outlined below).
 7. GitHub Actions will run the pipeline using the main repository's infrastructure.
@@ -126,7 +126,7 @@ To configure your developer sandbox perform the following steps:
   * Clicking the ‘Merge’ button can be done by the submitter if the merge request has been reviewed and approved as outlined above.
 
 ### Pipeline failures
-  * The pipelines can and do fail for reasons other than the code submitted. If the pipeline fails and it is not clear why it did, or how to resolve the issue, notify the forum-virt-migration-factory channel with a link to the failed pipeline.
+  * The pipelines can and do fail for reasons other than the code submitted. If the pipeline fails and it is not clear why it did, or how to resolve the issue, open an issue on the repository and include a link to the failed pipeline.
   * Pipeline not running in my forked project
     * Forks of the project will include the GitLab CI configuration from the main repository. So it will attempt and fail to run in forks outside the collection group. These can be safely ignored as the pipeline will still run once a merge request has been submitted back to the main repository.
     * When you create a merge request (it can be a draft) to the main repository a pipeline will be created. This pipeline will be available for inspection and details in the Main Repository not in your fork.
@@ -149,7 +149,7 @@ To configure your developer sandbox perform the following steps:
     └─⫸ Commit Type: feat | fix | perf | build | chore | ci | docs | style | refactor | test
 
 Example: 
-Fix: MFG-205 Add argument_specs to migration_targets role
+Fix: 205 Add argument_specs to migration_targets role
 ```
 
 * Often there are times when multiple commits are needed to test different ways of doing something, and in this case the prefix ‘test:’ can be used. This is done to exclude these commits from changelog consideration. The assumption here is that the intent of the change has or will be captured in another commit using the standard prefixes.
