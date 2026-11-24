@@ -7,7 +7,7 @@ const path = require('node:path')
 
 const repoRoot = path.resolve(__dirname, '..')
 
-const forbidden = /bitwarden|service-now|servicenow|enterprise\.slack|issues\.redhat|forms\.gle|docs\.google|onboarding form|forum-virt-migration|shebi\.eu|shebi lab|v2-lab-shebi|KB0010984|vault\.bitwarden|23\.88\.73\.30|jira|slack|google group|red hat hub/i
+const forbidden = /bitwarden|service-now|servicenow|enterprise\.slack|issues\.redhat|forms\.gle|docs\.google|onboarding form|forum-virt-migration|shebi\.eu|shebi lab|v2-lab-shebi|KB0010984|vault\.bitwarden|23\.88\.73\.30|192\.168\.50\.145|192\.168\.50\.206|id_rsa_open|jira|slack|google group|red hat hub/i
 
 function walk (dir, acc) {
   for (const entry of fs.readdirSync(dir, { withFileTypes: true })) {
@@ -74,11 +74,15 @@ describe('public docs omit internal tool and lab-host references', () => {
     assert.match(example, /BASTION_HOST=bastion\.example\.com/)
     assert.match(example, /VMWARE_HOST=esxi\.example\.com/)
     assert.doesNotMatch(example, /EE_LAB_IMAGE=./)
+    assert.match(example, /^AAP_EXECUTION_ENVIRONMENT_ID=$/m)
+    assert.match(example, /^AAP_REGISTRY_CREDENTIAL_ID=$/m)
 
     const script = read('utilities/quick-start-lab/build-v2-lab-ee.sh')
-    assert.match(script, /AAP_EXECUTION_ENVIRONMENT_ID/)
-    assert.doesNotMatch(script, /execution_environments\/4/)
-    assert.doesNotMatch(script, /"credential":5/)
+    assert.match(script, /\$\{AAP_EXECUTION_ENVIRONMENT_ID\}/)
+    assert.match(script, /\$\{AAP_REGISTRY_CREDENTIAL_ID\}/)
+    assert.doesNotMatch(script, /execution_environments\/\d/)
+    assert.doesNotMatch(script, /"credential":\d/)
+    assert.doesNotMatch(script, /:-\d/)
 
     assert.ok(fs.existsSync(path.join(repoRoot, 'v2/modules/journey/pages/setup-rhdp.adoc')))
     assert.match(

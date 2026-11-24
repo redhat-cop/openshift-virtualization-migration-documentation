@@ -30,7 +30,8 @@ Secrets live in `lab.env` (gitignored). Commit only `lab.env.example`.
 
 ```bash
 cp utilities/quick-start-lab/lab.env.example utilities/quick-start-lab/lab.env
-# edit lab.env — set QUAY_* ; pull credentials are required and are not published in this documentation
+# edit lab.env — set QUAY_*, EE_LAB_IMAGE, AAP_EXECUTION_ENVIRONMENT_ID, and AAP_REGISTRY_CREDENTIAL_ID
+# pull credentials are required and are not published in this documentation
 
 chmod +x utilities/quick-start-lab/*.sh
 
@@ -53,6 +54,7 @@ cd /root/migration-factory-lab
 1. **AAP 2.5+:** username/password seed often fails with `Failed to get token` / 404. Mint `aap_token` from `/api/gateway/v1/tokens/`.
 2. **EE:latest** may ship collection **1.21.x** without `vmf_seed_aap`. Mount the v2 repo over the collection path (see `seed-aap.sh`).
 3. **Quay** pull credentials are required for EE pull and are not published in this documentation.
+4. **Lab EE build:** `build-v2-lab-ee.sh` requires `EE_LAB_IMAGE`, `AAP_EXECUTION_ENVIRONMENT_ID`, and `AAP_REGISTRY_CREDENTIAL_ID`. It has no default image tag or AAP ids.
 
 ## Next after seed
 
