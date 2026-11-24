@@ -23,6 +23,25 @@ function read (rel) {
   return fs.readFileSync(path.join(repoRoot, rel), 'utf8')
 }
 
+function httpUrls (body) {
+  return (body.match(/https?:\/\/[^\s\][)<>"]+/g) || []).flatMap((raw) => {
+    try {
+      return [new URL(raw)]
+    } catch {
+      return []
+    }
+  })
+}
+
+function linksTo (body, expected) {
+  const target = new URL(expected)
+  return httpUrls(body).some((url) =>
+    url.protocol === target.protocol &&
+    url.hostname === target.hostname &&
+    url.pathname === target.pathname
+  )
+}
+
 describe('public docs omit internal tool and lab-host references', () => {
   it('does not name internal tools, forms, or the lab hosts in published sources', () => {
     const hits = []
@@ -53,8 +72,8 @@ describe('public docs omit internal tool and lab-host references', () => {
 
     for (const page of ['guides/modules/ROOT/pages/home.adoc', 'v2/modules/ROOT/pages/index.adoc']) {
       const body = read(page)
-      assert.match(body, /github\.com\/redhat-cop\/openshift_virtualization_migration\/issues/)
-      assert.doesNotMatch(body, /docs\.google\.com/)
+      assert.ok(linksTo(body, 'https://github.com/redhat-cop/openshift_virtualization_migration/issues'), page)
+      assert.ok(!httpUrls(body).some((url) => url.hostname === 'docs.google.com'), page)
     }
   })
 
@@ -66,7 +85,7 @@ describe('public docs omit internal tool and lab-host references', () => {
 
     const prereqs = read('v2/modules/journey/pages/migration-factory-prerequisites.adoc')
     assert.match(prereqs, /Pull credentials are required and are not published in this documentation/)
-    assert.match(prereqs, /podman login quay\.io\/redhat-cop/)
+    assert.ok(prereqs.split('\n').some((line) => line.trim() === 'podman login quay.io/redhat-cop'))
   })
 
   it('publishes placeholder lab hosts and keeps the RHDP workshop', () => {
