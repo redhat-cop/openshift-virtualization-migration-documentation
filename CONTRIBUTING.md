@@ -1,19 +1,8 @@
 # How to contribute
 
-Thank you for your interest in the Ansible for OpenShift Virtualization Migration! \
-Please make sure you have submitted the [Onboarding form](https://forms.gle/jVgu1jS4vNxjn6me7) to have access to all related resources.
+Thank you for your interest in the Ansible for OpenShift Virtualization Migration!
 
 ## Important links
-[Ansible for OpenShift Virtualization Migration Overview](https://docs.google.com/document/d/1pX3uc3x1TYLkOSGMRkT6e_LQC921VVNwcmM8S8YF1io)
-\
-Slack channel [#forum-virt-migration-factory](https://redhat.enterprise.slack.com/archives/C06U4TQHJSF)
-\
-Jira project [MFG](https://issues.redhat.com/projects/MFG/)
-\
-[BitWarden collection](https://vault.bitwarden.com/#/vault?organizationId=cd864c42-0667-4521-afb0-aae600ef844c&collectionId=f6c0e1c5-2e7c-41ab-90fc-b21a00758b21)
-\
-[Feature/Use case](https://docs.google.com/forms/d/e/1FAIpQLSfKQzd1eQomLCkj3yrfTUFNaon4gfP-TwqWtEp0U6mhk0_nVA/viewform) request form
-\
 [Documentation](https://github.com/redhat-cop/openshift-virtualization-migration/documentation) repository
 \
 [Collections](https://github.com/redhat-cop/openshift_virtualization_migration) repository
@@ -109,7 +98,7 @@ To configure your developer sandbox perform the following steps:
   optimal_pressure_threshold: 4500
   ```
 
-  * Collection fragment added to changelogs/fragments/< Jira Task >.yml [documentation here](https://ansible.readthedocs.io/projects/antsibull-changelog/changelogs/)
+  * Collection fragment added to changelogs/fragments/< GitHub Issue Number >.yml [documentation here](https://ansible.readthedocs.io/projects/antsibull-changelog/changelogs/)
     * Example changelog fragment: [changelogs/fragments/MFG-282.yml](https://github.com/redhat-cop/openshift_virtualization_migration/blob/main/changelogs/fragments/MFG-282.yml)
   ```yaml
   ---
@@ -148,14 +137,14 @@ To configure your developer sandbox perform the following steps:
     * Findings already in the code base should not be displayed as part of the code quality findings, so anything identified in the report is the responsibility of the contributor to address.
 
 ### Commit message standards
-* Commit messages should start with one of the options below, followed by the [Migration Factory project](https://issues.redhat.com/projects/MFG) Jira ticket ID when available and a short description of the change. See the structure and example below:
+* Commit messages should start with one of the options below, followed by the GitHub Issue number when available and a short description of the change. See the structure and example below:
 
 ```
-<type>: [JIRA ID] <short summary>
+<type>: [GITHUB_ISSUE_NUMBER] <short summary>
     │        |         │
     │        |         └─⫸ Summary in present tense. Not capitalized. No period at the end.
     |        |
-    |        └─⫸ Jira ticket ID from Red Hat Jira Migration Factory project
+    |        └─⫸ GitHub Issue number
     │
     └─⫸ Commit Type: feat | fix | perf | build | chore | ci | docs | style | refactor | test
 
@@ -184,6 +173,6 @@ Fix: MFG-205 Add argument_specs to migration_targets role
 
 ## FAQ
 How to get help
-* Slack channel [#forum-virt-migration-factory](https://redhat.enterprise.slack.com/archives/C06U4TQHJSF)
+* Submit an issue on the associated repository.
 
 
